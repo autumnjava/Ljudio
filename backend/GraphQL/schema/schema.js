@@ -2,20 +2,23 @@ const { buildSchema } = require('graphql');
 
 const schema = buildSchema(`
   type User {
+    _id: ID!
     email: String!
     password: String!
     username: String!
     djRoom: DjRoom
-    myPlaylists: Playlist
+    myPlaylists: [Playlist]
   }
 
   type Playlist {
+    _id: ID!
     name: String
-    songs: Song
-    creator: User
+    songs: [Song]
+    creator: String!
   }
 
   type Song {
+    _id: ID!
     artist: [String]
     title: String
     album: String
@@ -23,6 +26,7 @@ const schema = buildSchema(`
   }
 
   type DjRoom {
+    _id: ID!
     name: String
     description: String
     isOnline: Boolean
@@ -40,43 +44,31 @@ const schema = buildSchema(`
     username: String!
   }
 
-  input PlaylistInput {
-    name: String!
-    creator: User!
-  }
-
-  input SongToPlaylistInput {
-    song: Song!
-    playlist: Playlist!
-  }
-
   type Query {
     getUser(_id: String!): User
-    getPlaylists(creator: User!): [Playlist]
-    login(userInput: UserInput!): User!
+    getPlaylists(creator: String!): [Playlist]
+    login(input: UserInput!): [User!]
     getSongsFromPlaylist(_id: String!): [Song]
   }
 
   type Mutation {
-    createUser(createUserInput: CreateUserInput): User!
-    createPlaylist(playlistInput: PlaylistInput): [Playlist!]
+    createUser(input: CreateUserInput): User!
+    createPlaylist(name: String!, creator: String!): [Playlist!]
     removePlaylist(_id: String!): Boolean!
-   
   }
 
-   type Subscription {
-    addSongToPlaylist(songToPlaylistInput: SongToPlaylistInput): Playlist!
-    removeSongFromPlaylist(songToPlaylistInput: SongToPlaylistInput): Playlist!
-  }
-
+  
   schema {
     query: Query
     mutation: Mutation
-    subscription: Subscription
   }
 `)
 
-//  logout(): Boolean!
+// type Subscription {
+//     addSongToPlaylist(song: Song, playlist: Playlist): Playlist!
+//     removeSongFromPlaylist(song: Song, playlist: Playlist): Playlist!
+//   }
+
   
  
 module.exports = schema;
