@@ -8,8 +8,6 @@ const { buildSchema } = require('graphql');
 
 const graphQlResolvers = require('./graphql/resolvers/index');
 
-
-
 // Construct a schema, using GraphQL schema language
 // Maybe in a schema file under models??? 
 

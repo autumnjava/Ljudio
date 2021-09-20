@@ -1,14 +1,19 @@
+const User = require('../../models/user')
+
 const user = {
-
-  // get a user
-
   // createUser
+  createUser: async (args) => {
+    const user = new User({
+      email: args.userInput.email,
+      password: args.userInput.password,
+      username: args.userInput.username
+    })
 
-  //
+    const result = await user.save();
+    console.log(result);
+  }
   
-  hello: () => {
-    return 'Hello world!';
-  },
+  // get a user
 };
 
-module.exports = user 
+module.exports = user;

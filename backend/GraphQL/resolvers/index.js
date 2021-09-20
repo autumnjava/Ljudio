@@ -1,5 +1,5 @@
-const playlistResolver = require('./playlist');
-const userResolver = require('./user');
+const playlistResolver = require('./Playlist/playlist');
+const userResolver = require('./User/userResolver');
 
 const rootResolver = {
     ...playlistResolver,

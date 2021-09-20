@@ -1,14 +1,9 @@
 const playlist = {
 
-  // get a user
+  // createPlaylist
 
-  // createUser
-
-  //
+  // getPlaylist
   
-  hello: () => {
-    return 'Hello world!';
-  },
 };
 
 module.exports = playlist 
