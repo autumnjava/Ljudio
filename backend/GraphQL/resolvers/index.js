@@ -1,4 +1,4 @@
-const playlistResolver = require('./Playlist/playlist');
+const playlistResolver = require('./Playlist/playlistResolver');
 const userResolver = require('./User/userResolver');
 
 const rootResolver = {
