@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-catch */
+
 // import mongoose module
 const mongoose = require('mongoose');
 const express = require('express');
@@ -7,27 +9,49 @@ const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 const gql = require('graphql-tag');
 
+const resolvers = require('./graphql/resolvers')
 
-// Construct a schema, using GraphQL schema language
-// Maybe in a schema file under models??? 
+const userSchema = buildSchema(`
+input UserInput {
+  email: String!
+  username: String!
+  password: String!
+}
 
-// var schema = buildSchema(`
-//   type Query {
-//     hello: String
-//   }
-// `);
+type User {
+  _id: ID!
+  email: String!
+  username: String!
+  password: String
+  djRoom: String
+  myPlaylists: [String]
+}
 
-// The root provides a resolver function for each API endpoint
+type AuthData {
+  userId: ID!
+  token: String!
+  tokenExpiration: Int!
+}
 
-// var root = {
-//   hello: () => {
-//     return 'Hello world!';
-//   },
-// };
+
+type RootQuery {
+  login(email: String!, password: String!): AuthData!
+}
+
+type RootMutation {
+  createUser(userInput: UserInput): User
+}
+
+schema {
+  query: RootQuery
+  mutation: RootMutation
+}
+
+`);
 
 app.use('/graphql', graphqlHTTP({
-  // schema: schema,
-  // rootValue: root,
+  schema: userSchema,
+  rootValue: resolvers,
   graphiql: true,
 }));
 
