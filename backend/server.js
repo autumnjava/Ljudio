@@ -6,6 +6,9 @@ require('dotenv').config();
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 
+const graphQlResolvers = require('./graphql/resolvers/index');
+
+
 
 // Construct a schema, using GraphQL schema language
 // Maybe in a schema file under models??? 
@@ -16,17 +19,9 @@ const { buildSchema } = require('graphql');
 //   }
 // `);
 
-// The root provides a resolver function for each API endpoint
-
-// var root = {
-//   hello: () => {
-//     return 'Hello world!';
-//   },
-// };
-
 app.use('/graphql', graphqlHTTP({
   // schema: schema,
-  // rootValue: root,
+  rootValue: graphQlResolvers,
   graphiql: true,
 }));
 
