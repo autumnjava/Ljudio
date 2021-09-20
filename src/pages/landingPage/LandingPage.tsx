@@ -1,6 +1,11 @@
-const LandingPage = () => {
+import { StyledTitle } from "./StyledLandingPage";
+
+
+
+const LandingPage: React.FC = () => {
   return (
     <>
+      <StyledTitle>LANDING PAGE</StyledTitle>
     </>
   )
 }

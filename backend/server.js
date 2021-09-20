@@ -4,11 +4,13 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const { graphqlHTTP } = require('express-graphql');
+const gql = require('graphql-tag');
 
 const graphQlResolvers = require('./graphql/resolvers/index');
+const schema = require('./GraphQL/schema');
 
 app.use('/graphql', graphqlHTTP({
-  // schema: schema,
+  schema: schema,
   rootValue: graphQlResolvers,
   graphiql: true,
 }));
