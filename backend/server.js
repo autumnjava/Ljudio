@@ -5,6 +5,7 @@ const app = express();
 require('dotenv').config();
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
+const gql = require('graphql-tag');
 
 
 // Construct a schema, using GraphQL schema language
