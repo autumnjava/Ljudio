@@ -4,18 +4,8 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
 
 const graphQlResolvers = require('./graphql/resolvers/index');
-
-// Construct a schema, using GraphQL schema language
-// Maybe in a schema file under models??? 
-
-// var schema = buildSchema(`
-//   type Query {
-//     hello: String
-//   }
-// `);
 
 app.use('/graphql', graphqlHTTP({
   // schema: schema,
