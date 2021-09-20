@@ -6,7 +6,7 @@ export const StyledWrapper = styled.div`
 
 export const StyledSongWrapper = styled.div`
   display: grid;
-  grid-template-columns: 20% 1fr;
+  grid-template-columns: 20% 1fr 10%;
   border-bottom: 1px solid #9C27B0;
 `
 

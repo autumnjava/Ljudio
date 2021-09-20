@@ -2,6 +2,7 @@ import { useState } from "react";
 import SearchField from "../../components/searchField/SearchField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import youtube from './YoutubeApi';
 import {
   StyledWrapper,
@@ -33,6 +34,9 @@ const SearchPage = () => {
     setShowMore(!showMore);
   }
 
+  const handleAddToPlaylist = (song: any) => {
+    // function to add song to playlist..
+  }
   
   const printOutYoutubeContent = () => (
     <StyledWrapper>
@@ -41,6 +45,7 @@ const SearchPage = () => {
           {index <= amountOfSearchResult && <StyledSongWrapper>
             <StyledSongImg src={song.snippet.thumbnails.default.url} alt="" />
             <StyledSongs>{song.snippet.title}</StyledSongs>
+            <PlaylistAddIcon onClick={() => handleAddToPlaylist(song)} style={{alignSelf: 'center'}}/>
           </StyledSongWrapper>}
         </>  
       ))}
