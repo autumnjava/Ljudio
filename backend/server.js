@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
+require('dotenv').config();
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 
@@ -29,20 +30,9 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true,
 }));
 
-  mongoose.set('useCreateIndex', true);
-  mongoose.connect(process.env.DB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-  })
-   
-const connection = mongoose.connection;
-  
-console.log('hello');
-
-  connection.once('open', () => {
-    console.log('Database connected!')
-  });
-
+mongoose.connect(process.env.DB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => console.log('Database connected!'));
 
 app.listen(4000);
