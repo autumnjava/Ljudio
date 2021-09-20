@@ -19,7 +19,7 @@ const schema = buildSchema(`
     artist: [String]
     title: String
     album: String
-    duration: Number
+    duration: Int
   }
 
   type DjRoom {
@@ -45,7 +45,7 @@ const schema = buildSchema(`
     creator: User!
   }
 
-  input songToPlaylistInput {
+  input SongToPlaylistInput {
     song: Song!
     playlist: Playlist!
   }
@@ -53,20 +53,20 @@ const schema = buildSchema(`
   type Query {
     getUser(_id: String!): User
     getPlaylists(creator: User!): [Playlist]
-    login(args: UserInput!): User!
+    login(userInput: UserInput!): User!
     getSongsFromPlaylist(_id: String!): [Song]
   }
 
   type Mutation {
-    createUser(args: CreateUserInput): User!
-    createPlaylist(args: PlaylistInput): [Playlist!]
+    createUser(createUserInput: CreateUserInput): User!
+    createPlaylist(playlistInput: PlaylistInput): [Playlist!]
     removePlaylist(_id: String!): Boolean!
-    logout(): Boolean!
+   
   }
 
    type Subscription {
-    addSongToPlaylist(args: songToPlaylistInput): Playlist!
-    removeSongFromPlaylist(args: songToPlaylistInput): Playlist!
+    addSongToPlaylist(songToPlaylistInput: SongToPlaylistInput): Playlist!
+    removeSongFromPlaylist(songToPlaylistInput: SongToPlaylistInput): Playlist!
   }
 
   schema {
@@ -74,8 +74,9 @@ const schema = buildSchema(`
     mutation: Mutation
     subscription: Subscription
   }
-`);
+`)
 
+//  logout(): Boolean!
   
  
 module.exports = schema;
