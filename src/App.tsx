@@ -1,7 +1,9 @@
+import AllRoutes from "./router/AllRoutes";
+
 function App() {
   return (
     <div className="App">
-     YO
+     <AllRoutes/>
     </div>
   );
 }
