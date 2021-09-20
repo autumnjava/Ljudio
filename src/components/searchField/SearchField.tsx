@@ -5,12 +5,17 @@ import {
   StyledForm
 } from './StyledSearchField'
 
-const SearchField = () => {
+interface props {
+  setSearchInputYoutube: React.Dispatch<React.SetStateAction<string>>
+}
+
+const SearchField = ({setSearchInputYoutube}: props) => {
 
   const[searchInput, setSearchInput] = useState<string>('');
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSearchInputYoutube(searchInput);
   }
 
   return (

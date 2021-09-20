@@ -1,11 +1,11 @@
 import AllRoutes from "./router/AllRoutes";
-import SearchField from "./components/searchField/SearchField";
+import SearchPage from "./pages/searchPage/SearchPage";
 
 function App() {
   return (
     <div className="App">
       <AllRoutes />
-      <SearchField/>
+      <SearchPage/>
     </div>
   );
 }
