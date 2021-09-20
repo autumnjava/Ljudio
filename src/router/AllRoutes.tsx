@@ -6,7 +6,7 @@ import PlaylistPage from "../pages/playlistPage/PlaylistPage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
 
 
-const AllRoutes = () => {
+const AllRoutes: React.FC = () => {
   return(
     <Router>
       <Switch>

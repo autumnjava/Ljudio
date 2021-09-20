@@ -1,6 +1,6 @@
 import { StyledTitle } from "./StyledHomePage"
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <>
       <StyledTitle>HOME</StyledTitle>

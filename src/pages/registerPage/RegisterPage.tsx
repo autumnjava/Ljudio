@@ -1,7 +1,7 @@
 import { StyledTitle } from "./StyledRegisterPage";
 
 
-const RegisterPage = () => {
+const RegisterPage: React.FC = () => {
   return (
     <>
         <StyledTitle>REGISTER</StyledTitle>
