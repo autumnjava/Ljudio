@@ -1,5 +1,7 @@
 import { useState } from "react";
 import SearchField from "../../components/searchField/SearchField";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import youtube from './YoutubeApi';
 import {
   StyledWrapper,
@@ -11,6 +13,8 @@ import {
 const SearchPage = () => {
 
   const [content, setContent] = useState<any>('');
+  const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
+  const [showMore, setShowMore] = useState(false);
 
   const handleSearch = (searchWord: String) => {
     youtube.get('/search', {
@@ -23,16 +27,25 @@ const SearchPage = () => {
         setContent(data);
       })
   }
+
+  const handleSearchResult = () => {
+    !showMore ? setAmountOfSearchResult(content.length) : setAmountOfSearchResult(2);
+    setShowMore(!showMore);
+  }
+
   
   const printOutYoutubeContent = () => (
     <StyledWrapper>
-      {console.log(content)}
       {content.map((song: any, index: number) => (
-        <StyledSongWrapper>
-          <StyledSongImg src={song.snippet.thumbnails.default.url} alt="" />
-          <StyledSongs>{song.snippet.title}</StyledSongs>
-        </StyledSongWrapper>
+        <>
+          {index <= amountOfSearchResult && <StyledSongWrapper>
+            <StyledSongImg src={song.snippet.thumbnails.default.url} alt="" />
+            <StyledSongs>{song.snippet.title}</StyledSongs>
+          </StyledSongWrapper>}
+        </>  
       ))}
+      {!showMore ? <ExpandMoreIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />
+      : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }}/>}
     </StyledWrapper>
   )
 
