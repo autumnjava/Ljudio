@@ -7,7 +7,7 @@ const { graphqlHTTP } = require('express-graphql');
 const gql = require('graphql-tag');
 
 const graphQlResolvers = require('./graphql/resolvers/index');
-const schema = require('./GraphQL/schema');
+const schema = require('./GraphQL/schema/schema');
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,

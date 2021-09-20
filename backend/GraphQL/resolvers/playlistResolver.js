@@ -9,7 +9,7 @@ const playlistResolver = {
   Mutation: {
     createPlaylist: async (args, req) => {
       const playlist = new Playlist({
-        name: args.playlistInput.name,
+        name: args.name,
         // creator: req.userId
       })
 
