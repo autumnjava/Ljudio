@@ -1,10 +1,13 @@
 import Button from '@mui/material/Button';
+import { useState } from 'react';
 import {
   StyledSearchField,
   StyledForm
 } from './StyledSearchField'
 
 const SearchField = () => {
+
+  const[searchInput, setSearchInput] = useState<string>('');
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -13,7 +16,7 @@ const SearchField = () => {
   return (
     <>
       <StyledForm onSubmit={e => handleSearch(e)}>
-        <StyledSearchField type="text" placeholder="Search for songs/playlists" />
+        <StyledSearchField onChange={e => setSearchInput(e.target.value)} type="text" placeholder="Search for songs/playlists" />
         <Button type="submit" color="secondary" variant="outlined">SEARCH</Button>
       </StyledForm>  
     </>
