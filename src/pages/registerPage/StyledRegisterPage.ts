@@ -20,9 +20,9 @@ export const StyledInput = styled.input`
   font-size: 20px;
   border: none;
   border-bottom: 1px solid pink;
+  opacity: 80%;
    &:focus {
-        color: green;
-        border-bottom: 1px solid #EF02EB;
+        color: #9001C7;
     }
 
 `;
@@ -45,9 +45,10 @@ export const StyledButton = styled.button`
   border: none;
   background-color: pink;
   border-radius: 0.2rem;
-  font-size: 20px;
+  font-size: 19px;
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 0.15rem;
+  padding: 0.5rem;
   &:hover{
     opacity: 100%;
   }
