@@ -1,16 +1,23 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 type Props = {
   children?: JSX.Element
 }
 
-export const PlaylistContext = createContext<any>(null);
+interface Values {
+  currentSong: any;
+  setCurrentSong: React.Dispatch<React.SetStateAction<any>>
+}
+
+export const PlaylistContext = createContext<Values | null>(null);
 
 export const PlaylistProvider = ({ children }: Props) => {
   
+  const [currentSong, setCurrentSong] = useState<any>();
 
   const values = {
-
+    currentSong,
+    setCurrentSong
   }
 
   return (

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
 import SearchField from "../../components/searchField/SearchField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -16,6 +17,7 @@ const SearchPage = () => {
   const [content, setContent] = useState<any>('');
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
+  const songs = useContext(PlaylistContext);
 
   const handleSearch = (searchWord: string) => {
     youtube.get('/search', {
@@ -34,6 +36,10 @@ const SearchPage = () => {
     setShowMore(!showMore);
   }
 
+  const handleSong = (song: any) => {
+    songs?.setCurrentSong(song)
+  }
+
   const handleAddToPlaylist = (song: any) => {
     // function to add song to playlist..
   }
@@ -41,7 +47,7 @@ const SearchPage = () => {
   const printOutYoutubeContent = () => (
     <StyledWrapper>
       {content.map((song: any, index: number) => (
-        <div key={index}>
+        <div onClick={() => handleSong(song)} key={index}>
           {index <= amountOfSearchResult && song.id.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg src={song.snippet.thumbnails.default.url} alt="" />
             <StyledSongs>{song.snippet.title}</StyledSongs>
