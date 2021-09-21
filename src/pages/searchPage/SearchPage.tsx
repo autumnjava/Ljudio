@@ -41,13 +41,13 @@ const SearchPage = () => {
   const printOutYoutubeContent = () => (
     <StyledWrapper>
       {content.map((song: any, index: number) => (
-        <>
-          {index <= amountOfSearchResult && <StyledSongWrapper>
+        <div key={index}>
+          {index <= amountOfSearchResult && song.id.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg src={song.snippet.thumbnails.default.url} alt="" />
             <StyledSongs>{song.snippet.title}</StyledSongs>
             <PlaylistAddIcon onClick={() => handleAddToPlaylist(song)} style={{alignSelf: 'center'}}/>
           </StyledSongWrapper>}
-        </>  
+        </div>  
       ))}
       {!showMore ? <ExpandMoreIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />
       : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }}/>}
