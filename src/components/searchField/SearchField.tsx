@@ -6,12 +6,12 @@ import {
 } from './StyledSearchField'
 
 interface props {
-  handleYoutubeSearch: (searchWord: String) => void
+  handleYoutubeSearch: (searchWord: string) => void
 }
 
 const SearchField = ({handleYoutubeSearch}: props) => {
 
-  const[searchInput, setSearchInput] = useState<String>('');
+  const[searchInput, setSearchInput] = useState<string>('');
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

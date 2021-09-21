@@ -17,7 +17,7 @@ const SearchPage = () => {
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
 
-  const handleSearch = (searchWord: String) => {
+  const handleSearch = (searchWord: string) => {
     youtube.get('/search', {
       params: {
         q: searchWord
