@@ -22,25 +22,25 @@ const Navbar: React.FC = () => {
           onClick={() => history.push('/home')}
           label="Home"
           value={value}
-          icon={<HomeRoundedIcon />}
+          icon={<HomeRoundedIcon color="secondary" />}
       />
-      <BottomNavigationAction
+        <BottomNavigationAction
         label="My Playlist"
           value={value}
           onClick={() => history.push("/myPlaylist")}
-        icon={<QueueMusicRoundedIcon />}
+        icon={<QueueMusicRoundedIcon color="secondary" />}
       />
       <BottomNavigationAction
         label="Search"
           value={value}
           onClick={() => history.push("/search")}
-        icon={ <SearchRoundedIcon/>}
+        icon={ <SearchRoundedIcon color="secondary" />}
       />
       <BottomNavigationAction
         label="Profile"
           value={value}
           onClick={() => history.push("/profile")}
-        icon={<AccountCircleRoundedIcon />}
+        icon={<AccountCircleRoundedIcon color="secondary" />}
       />
 
         </BottomNavigation>

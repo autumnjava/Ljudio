@@ -4,6 +4,7 @@ import LandingPage from "../pages/landingPage/LandingPage";
 import MyPlaylistsPage from "../pages/myPlaylistsPage/MyPlaylistsPage";
 import PlaylistPage from "../pages/playlistPage/PlaylistPage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
+import SearchPage from "../pages/searchPage/SearchPage";
 
 
 interface Props {
@@ -20,6 +21,7 @@ const AllRoutes: React.FC<Props> = ({children}: Props) => {
         <Route path="/home" exact={true} component={HomePage} />
         <Route path="/myPlaylist" exact={true} component={MyPlaylistsPage} />
         <Route path="/playlist/:id" exact={true} component={PlaylistPage} />
+        <Route path="/search" exact={true} component={SearchPage} />
       </Switch>
     </Router>
   )
