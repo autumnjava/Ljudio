@@ -1,24 +1,19 @@
 const Playlist = require('../../models/playlist');
 
 const playlistResolver = {
+  createPlaylist: async (args) => {
+    
+    let userPlaylists = [];
 
-  Query: {
-    // getPlaylist
-  },
-
-  Mutation: {
-    createPlaylist: async (args, req) => {
-      const playlist = new Playlist({
-        name: args.name,
-        // creator: req.userId
-      })
-
-      const result = await playlist.save();
-      console.log(result)
-    }
-  }
-
-  
+    const playlist = await new Playlist({
+      name: args.name,
+      creator: args.creator
+    })
+      
+    const newPlaylist = playlist.save();
+    userPlaylists.push(newPlaylist);
+    return userPlaylists
+  }  
 };
 
 module.exports = playlistResolver;
