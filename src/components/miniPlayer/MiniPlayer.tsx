@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
+import YouTube from 'react-youtube';
 import {
   StyledWrapper,
   StyledPlayerWrapper,
@@ -16,15 +17,28 @@ const MiniPlayer = () => {
 
   const [play, setPlay] = useState(true);
   const songs = useContext(PlaylistContext);
+  const [eventYoutube, setEventYoutube] = useState<any>();
+
+  const handleStart = (event: any) => {
+    setEventYoutube(event.target)
+    event.target.playVideo();
+    setPlay(!play)
+  }
 
   const handlePlay = () => {
+    eventYoutube.playVideo();
     setPlay(!play)
   }
 
   const handlePaus = () => {
+    eventYoutube.pauseVideo();
     setPlay(!play)
   }
 
+  const opts = {
+    height: '0',
+    width: '0',
+  }
 
   const renderIcons = () => (
     <StyledPlayerWrapper>
@@ -42,13 +56,13 @@ const MiniPlayer = () => {
       }}
       onClick={handlePlay}/>
       :
-      <PauseIcon style={{
-        alignSelf: 'center',
+        <PauseIcon style={{
+          alignSelf: 'center',
           justifySelf: 'center',
-        fontSize: '3.5rem',
-        color: 'white'
+          fontSize: '3.5rem',
+          color: 'white'
         }}
-        onClick={handlePaus}/>}
+          onClick={handlePaus}/>}
       <SkipNextIcon style={{
         alignSelf: 'center',
         justifySelf: 'center',
@@ -69,6 +83,12 @@ const MiniPlayer = () => {
         }} sx={{ width: '100vw', height: '5rem' }}>
           {songs?.currentSong && <StyledSongTitle>{songs.currentSong.snippet.title}</StyledSongTitle>}
           {renderIcons()}
+          {songs?.currentSong &&
+            <YouTube
+            videoId={songs.currentSong.id.videoId}
+            onReady={(e) => handleStart(e)}
+            opts={opts}
+            />}
         </BottomNavigation>
       </StyledWrapper>
     </>
