@@ -8,7 +8,7 @@ import SearchPage from "../pages/searchPage/SearchPage";
 
 
 interface Props {
-  children: JSX.Element
+  children: JSX.Element[]
 }
 
 const AllRoutes: React.FC<Props> = ({children}: Props) => {
