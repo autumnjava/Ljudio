@@ -6,9 +6,14 @@ import PlaylistPage from "../pages/playlistPage/PlaylistPage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
 
 
-const AllRoutes: React.FC = () => {
+interface Props {
+  children: JSX.Element
+}
+
+const AllRoutes: React.FC<Props> = ({children}: Props) => {
   return(
     <Router>
+      {children}
       <Switch>
         <Route path="/" exact={true} component={LandingPage} />
         <Route path="/register" exact={true} component={RegisterPage} />
