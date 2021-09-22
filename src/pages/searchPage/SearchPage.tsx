@@ -4,6 +4,7 @@ import SearchField from "../../components/searchField/SearchField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import youtube from './YoutubeApi';
 import {
   StyledWrapper,
@@ -37,6 +38,10 @@ const SearchPage = () => {
   }
 
   const handleSong = (song: any) => {
+    songs?.setCurrentSong([song]);
+  }
+
+  const handleQue = (song: any) => {
     songs?.setCurrentSong([...songs.currentSong, song])
   }
 
@@ -47,11 +52,12 @@ const SearchPage = () => {
   const printOutYoutubeContent = () => (
     <StyledWrapper>
       {content.map((song: any, index: number) => (
-        <div onClick={() => handleSong(song)} key={index}>
+        <div key={index}>
           {index <= amountOfSearchResult && song.id.videoId !== undefined && <StyledSongWrapper>
-            <StyledSongImg src={song.snippet.thumbnails.default.url} alt="" />
-            <StyledSongs>{song.snippet.title}</StyledSongs>
-            <PlaylistAddIcon onClick={() => handleAddToPlaylist(song)} style={{alignSelf: 'center'}}/>
+            <StyledSongImg onClick={() => handleSong(song)} src={song.snippet.thumbnails.default.url} alt="" />
+            <StyledSongs onClick={() => handleSong(song)}>{song.snippet.title}</StyledSongs>
+            <PlaylistAddIcon onClick={() => handleAddToPlaylist(song)} style={{ alignSelf: 'center' }} />
+            <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }}/>
           </StyledSongWrapper>}
         </div>  
       ))}

@@ -10,7 +10,7 @@ export const StyledWrapper = styled.div`
 
 export const StyledSongWrapper = styled.div`
   display: grid;
-  grid-template-columns: 4.5rem 1fr 2rem;
+  grid-template-columns: 4.5rem 1fr 2rem 2rem;
   border-bottom: 1px solid #9C27B0;
   @media (min-width: 769px) {
    &:hover{
