@@ -12,7 +12,6 @@ import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 
-
 const MiniPlayer = () => {
 
   const [play, setPlay] = useState(true);
@@ -36,6 +35,20 @@ const MiniPlayer = () => {
     setPlay(!play)
   }
 
+  const handleNextSong = () => {
+    if (currentIndex !== songs?.currentSong.length - 1) {
+      setCurrentIndex(currentIndex + 1) 
+    }
+    return;
+  }
+
+  const handlePreviousSong = () => {
+     if (currentIndex !== 0) {
+      setCurrentIndex(currentIndex - 1) 
+    }
+    return;
+  }
+
   const opts = {
     height: '0',
     width: '0',
@@ -55,7 +68,7 @@ const MiniPlayer = () => {
         justifySelf: 'center',
         fontSize: '2.5rem',
         color: 'white'
-      }} />
+      }} onClick={handlePreviousSong}/>
      {play ? <PlayArrowIcon style={{
         alignSelf: 'center',
           justifySelf: 'center',
@@ -76,7 +89,7 @@ const MiniPlayer = () => {
         justifySelf: 'center',
         fontSize: '2.5rem',
         color: 'white'
-      }} onClick={() => setCurrentIndex(currentIndex + 1)} />
+      }} onClick={handleNextSong} />
     </StyledPlayerWrapper>
   )
 
