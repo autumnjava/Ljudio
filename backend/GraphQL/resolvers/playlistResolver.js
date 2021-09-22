@@ -1,5 +1,6 @@
 const Playlist = require('../../models/playlist');
 const User = require('../../models/user');
+const Song = require('../../models/song');
 
 const playlistResolver = {
   createPlaylist: async (args) => {
@@ -49,6 +50,29 @@ const playlistResolver = {
     //     }
     //   })
 
+    return playlist
+  },
+
+  addSongToPlaylist: async (args) => {
+    const song = new Song({
+      artist: args.input.artist,
+      title: args.input.title,
+      album: args.input.album,
+      duration: args.input.duration
+    })
+
+    await song.save();
+
+    const playlist = Playlist.findByIdAndUpdate({
+      _id: args._id
+    }, {
+      $push: {
+        songs: {
+          _id: song._id
+        }
+      }
+    })
+    
     return playlist
   }
 };

@@ -43,6 +43,13 @@ const schema = buildSchema(`
     username: String!
   }
 
+  input SongInput {
+    artist: [String]
+    title: String
+    album: String
+    duration: Int
+  }
+
   type Query {
     getUser(_id: String!): User
     getPlaylists(creator: String!): [Playlist]
@@ -54,6 +61,7 @@ const schema = buildSchema(`
     createUser(input: CreateUserInput): User!
     createPlaylist(name: String!, userId: String): Playlist!
     removePlaylist(_id: String!, userId: String): Playlist
+    addSongToPlaylist(_id: String!, input: SongInput): Playlist
   }
 
   
