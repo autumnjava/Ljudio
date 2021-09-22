@@ -11,7 +11,8 @@ export const StyledWrapper = styled.div`
 
 export const StyledForm = styled.form`
   text-align: center;
-  margin: 5rem auto;
+  margin: 2rem auto;
+  min-height: 100%;
 `;
 
 export const StyledInput = styled.input`

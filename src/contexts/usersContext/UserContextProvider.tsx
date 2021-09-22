@@ -4,11 +4,17 @@ type Props = {
   children?: JSX.Element
 }
 
+type User = {
+  email: string,
+  password: string,
+  username: string
+}
+
 export const UserContext = createContext<any>(null);
 
 export const UserProvider = ({ children }: Props) => {
 
-  const registerUser = async (user: any) => {
+  const registerUser = async (user: User) => {
   const requestBody = {
     query: `mutation {
       createUser(input: {email: "${user.email}", password: "${user.password}", username: "${user.username}"})
@@ -22,7 +28,7 @@ export const UserProvider = ({ children }: Props) => {
 
   // this can be replaced with AXIOS, which one is better?
   fetch('http://localhost:4000/graphql', {
-    method: 'Post',
+    method: 'POST',
     body: JSON.stringify(requestBody),
     headers: {
       'Content-Type': 'application/json'

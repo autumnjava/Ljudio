@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import {UserContext} from '../../contexts/usersContext/UserContextProvider'
 
 import {
@@ -64,11 +64,11 @@ const RegisterPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)} />
           
           <StyledLabel>Password</StyledLabel>
-          <StyledInput required value={password}
+          <StyledInput type="password" required value={password}
                 onChange={(e) => setPassword(e.target.value)} />
           
           <StyledLabel>Please confirm password</StyledLabel>
-          <StyledInput required value={confirmPassword}
+          <StyledInput type="password"  required value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}/>
         </StyledInputWrapper>
 
