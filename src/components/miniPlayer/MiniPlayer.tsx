@@ -18,6 +18,7 @@ const MiniPlayer = () => {
   const [play, setPlay] = useState(true);
   const songs = useContext(PlaylistContext);
   const [eventYoutube, setEventYoutube] = useState<any>();
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const handleStart = (event: any) => {
     setEventYoutube(event)
@@ -45,7 +46,7 @@ const MiniPlayer = () => {
       handleStart(eventYoutube)
     }
     return;
-  }, [songs])
+  }, [songs, currentIndex])
 
   const renderIcons = () => (
     <StyledPlayerWrapper>
@@ -75,7 +76,7 @@ const MiniPlayer = () => {
         justifySelf: 'center',
         fontSize: '2.5rem',
         color: 'white'
-      }} />
+      }} onClick={() => setCurrentIndex(currentIndex + 1)} />
     </StyledPlayerWrapper>
   )
 
@@ -88,11 +89,11 @@ const MiniPlayer = () => {
           opacity: '80%',
           display: 'grid'
         }} sx={{ width: '100vw', height: '5rem' }}>
-          {songs?.currentSong && <StyledSongTitle>{songs.currentSong.snippet.title}</StyledSongTitle>}
+          {songs?.currentSong.length && <StyledSongTitle>{songs.currentSong[currentIndex].snippet.title}</StyledSongTitle>}
           {renderIcons()}
-          {songs?.currentSong &&
+          {songs?.currentSong.length &&
             <YouTube
-            videoId={songs.currentSong.id.videoId}
+            videoId={songs.currentSong[currentIndex].id.videoId}
             onReady={(e) => handleStart(e)}
             opts={opts}
             />}

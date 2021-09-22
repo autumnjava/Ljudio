@@ -37,7 +37,7 @@ const SearchPage = () => {
   }
 
   const handleSong = (song: any) => {
-    songs?.setCurrentSong(song)
+    songs?.setCurrentSong([...songs.currentSong, song])
   }
 
   const handleAddToPlaylist = (song: any) => {

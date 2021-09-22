@@ -13,7 +13,7 @@ export const PlaylistContext = createContext<Values | null>(null);
 
 export const PlaylistProvider = ({ children }: Props) => {
   
-  const [currentSong, setCurrentSong] = useState<any>();
+  const [currentSong, setCurrentSong] = useState<any>([]);
 
   const values = {
     currentSong,
