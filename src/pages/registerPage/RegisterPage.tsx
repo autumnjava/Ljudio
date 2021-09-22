@@ -1,4 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useContext, useState } from "react";
+import {UserContext} from '../../contexts/usersContext/UserContextProvider'
+
 import {
   StyledTitle,
   StyledWrapper,
@@ -12,53 +14,66 @@ import {
 
 const RegisterPage: React.FC = () => {
 
-  const username = useRef<HTMLInputElement>(null);
-  const email = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
-  const confirmPassword = useRef<HTMLInputElement>(null);
+
+  const { registerUser } = useContext(UserContext)
+
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  // const [errorMsg, setErrorMsg] = useState(false)
 
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  async function createNewUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-     if(password?.current?.value !== confirmPassword?.current?.value) { 
+     if(password!== confirmPassword) { 
       console.log('passwords shall match');
-      return;}
+      return;
+    }
 
-
-      const user = {
-        username: username?.current?.value,
-        email: email?.current?.value,
-        password: password?.current?.value
+      const newUser = {
+        username: username,
+        email: email,
+        password: password
       }
 
-      // setUser(user);
-
-      
+    const response = await registerUser(newUser);
+    // this does not work at the moment but shall be implemented
+    if (response === 'error!') {
+      console.log('error response')
+      // setErrorMsg(true)
+    }
   }
 
 
   return (
     <StyledWrapper>
-      <StyledForm onSubmit={ (e) => submitHandler(e)}>
+      <StyledForm onSubmit={ (e) => createNewUser(e)}>
     
         <StyledTitle>REGISTER</StyledTitle>
         
         <StyledInputWrapper>
             <StyledLabel>Username</StyledLabel>
-          <StyledInput required ref={username}/>
+          <StyledInput required value={username}
+                onChange={(e) => setUsername(e.target.value)}/>
           
           <StyledLabel>Email</StyledLabel>
-          <StyledInput required ref={email} />
+          <StyledInput required value={email}
+                onChange={(e) => setEmail(e.target.value)} />
           
           <StyledLabel>Password</StyledLabel>
-          <StyledInput required ref={password} />
+          <StyledInput required value={password}
+                onChange={(e) => setPassword(e.target.value)} />
           
-          <StyledLabel>Password</StyledLabel>
-          <StyledInput required ref={confirmPassword}/>
+          <StyledLabel>Please confirm password</StyledLabel>
+          <StyledInput required value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}/>
         </StyledInputWrapper>
 
-        <StyledButton>CREATE ACCOUNT</StyledButton>
+        <StyledButton type="submit">CREATE ACCOUNT</StyledButton>
+
         
       </StyledForm>
       </StyledWrapper>

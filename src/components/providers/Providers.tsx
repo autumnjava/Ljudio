@@ -1,4 +1,5 @@
 import { PlaylistProvider } from "../../contexts/playlistsContext/PlaylistContextProvider";
+import { UserProvider } from "../../contexts/usersContext/UserContextProvider";
 
 type Props = {
   children: JSX.Element;
@@ -6,9 +7,11 @@ type Props = {
 
 const Providers = ({children}: Props) => {
   return (
+    <UserProvider>
     <PlaylistProvider>
       {children}
     </PlaylistProvider>
+    </UserProvider>
   )
 }
 
