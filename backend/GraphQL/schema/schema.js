@@ -14,7 +14,6 @@ const schema = buildSchema(`
     _id: ID!
     name: String
     songs: [Song]
-    creator: String!
   }
 
   type Song {
@@ -53,8 +52,8 @@ const schema = buildSchema(`
 
   type Mutation {
     createUser(input: CreateUserInput): User!
-    createPlaylist(name: String!, creator: String!): [Playlist!]
-    removePlaylist(_id: String!): Boolean!
+    createPlaylist(name: String!, userId: String): Playlist!
+    removePlaylist(_id: String!, userId: String): Playlist
   }
 
   
