@@ -12,69 +12,29 @@ import {
 
 const RegisterPage: React.FC = () => {
 
-  const usernameEl = React.useRef<HTMLInputElement>(null);
-  const emailEl = React.useRef<HTMLInputElement>(null);
-  const passwordEl = React.useRef<HTMLInputElement>(null);
-  const confirmPasswordEl = React.useRef<HTMLInputElement>(null);
+  const username = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  const confirmPassword = useRef<HTMLInputElement>(null);
 
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // for sure shall be better way to do that no?
-    const username = usernameEl?.current?.value;
-    const email = emailEl?.current?.value;
-    const password = passwordEl?.current?.value;
-    const confirmPassword = confirmPasswordEl?.current?.value;
-
-    if(!username) {
-      console.log('you need to enter username');
-      return;
-    }
-    if(!email) {
-      console.log('you need to enter email');
-      return;
-    }
-    if(!password || !confirmPassword) {
-      console.log('you need to enter password');
-      return;
-    }
-
-     if(password !== confirmPassword) { 
+     if(password?.current?.value !== confirmPassword?.current?.value) { 
       console.log('passwords shall match');
       return;}
 
-      const requestBody = {
-        query: `mutation {
-          createUser(input: {email: "${email}", password: "${password}", username: "${username}"})
-          {
-            _id
-            email
-            username
-          }
-        }`
+
+      const user = {
+        username: username?.current?.value,
+        email: email?.current?.value,
+        password: password?.current?.value
       }
 
-      // this can be replaced with AXIOS, which one is better?
-      fetch('http://localhost:4000/graphql', {
-        method: 'Post',
-        body: JSON.stringify(requestBody),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => {
-        if(res.status !== 200 && res.status !== 201){
-          throw new Error('Failed')
-        }
-        return res.json();
-      })
-      .then(resData => {
-        console.log(resData)
-      })
-      .catch(err => {
-        console.log(err)
-      });
+      // setUser(user);
+
+      
   }
 
 
@@ -86,16 +46,16 @@ const RegisterPage: React.FC = () => {
         
         <StyledInputWrapper>
             <StyledLabel>Username</StyledLabel>
-          <StyledInput ref={usernameEl}/>
+          <StyledInput required ref={username}/>
           
           <StyledLabel>Email</StyledLabel>
-          <StyledInput ref={emailEl} />
+          <StyledInput required ref={email} />
           
           <StyledLabel>Password</StyledLabel>
-          <StyledInput ref={passwordEl} />
+          <StyledInput required ref={password} />
           
           <StyledLabel>Password</StyledLabel>
-          <StyledInput ref={confirmPasswordEl}/>
+          <StyledInput required ref={confirmPassword}/>
         </StyledInputWrapper>
 
         <StyledButton>CREATE ACCOUNT</StyledButton>
