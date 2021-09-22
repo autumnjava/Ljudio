@@ -12,7 +12,9 @@ type User = {
 
 export const UserContext = createContext<any>(null);
 
-export const UserProvider = ({ children }: Props) => {
+export const UserProvider: React.FC<Props> = ({ children }: Props) => {
+
+  const [errorMsg, setErrorMsg] = useState(false)
 
   const registerUser = async (user: User) => {
   const requestBody = {
@@ -26,6 +28,7 @@ export const UserProvider = ({ children }: Props) => {
     }`
   }
 
+
   // this can be replaced with AXIOS, which one is better?
   fetch('http://localhost:4000/graphql', {
     method: 'POST',
@@ -36,20 +39,25 @@ export const UserProvider = ({ children }: Props) => {
   })
   .then(res => {
     if(res.status !== 200 && res.status !== 201){
+      setErrorMsg(true);
       throw new Error('Failed')
     }
+    setErrorMsg(false);
     return res.json();
   })
   .then(resData => {
-    console.log(resData)
+    setErrorMsg(false);
+    console.log(resData, 'is it is?')
   })
   .catch(err => {
-    console.log(err)
+    console.log(err, 'or this?')
+    setErrorMsg(true);
   });
   }
 
   const values = {
-    registerUser
+    registerUser,
+    errorMsg
   }
 
   return (

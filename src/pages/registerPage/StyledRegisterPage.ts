@@ -8,6 +8,13 @@ export const StyledTitle = styled.h2`
 export const StyledWrapper = styled.div`
 `;
 
+export const ErrorMessage = styled.span`
+  display: flex;
+  justify-content: center;
+  background: red;
+  color: white;
+  `
+
 
 export const StyledForm = styled.form`
   text-align: center;

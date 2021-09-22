@@ -8,22 +8,20 @@ import {
   StyledInput,
   StyledInputWrapper,
   StyledLabel,
-  StyledButton
+  StyledButton,
+  ErrorMessage
 } from "./StyledRegisterPage";
 
 
 const RegisterPage: React.FC = () => {
 
 
-  const { registerUser } = useContext(UserContext)
+  const { registerUser, errorMsg } = useContext(UserContext)
 
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  // const [errorMsg, setErrorMsg] = useState(false)
-
 
   async function createNewUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -41,9 +39,9 @@ const RegisterPage: React.FC = () => {
 
     const response = await registerUser(newUser);
     // this does not work at the moment but shall be implemented
-    if (response === 'error!') {
-      console.log('error response')
-      // setErrorMsg(true)
+    if (errorMsg) {
+      console.log('error response from register page')
+      
     }
   }
 
@@ -70,6 +68,9 @@ const RegisterPage: React.FC = () => {
           <StyledLabel>Please confirm password</StyledLabel>
           <StyledInput type="password"  required value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}/>
+
+          {errorMsg && <ErrorMessage>Choose another email/username.</ErrorMessage>}
+
         </StyledInputWrapper>
 
         <StyledButton type="submit">CREATE ACCOUNT</StyledButton>
