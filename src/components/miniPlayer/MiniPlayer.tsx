@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
 import YouTube from 'react-youtube';
 import {
@@ -20,18 +20,18 @@ const MiniPlayer = () => {
   const [eventYoutube, setEventYoutube] = useState<any>();
 
   const handleStart = (event: any) => {
-    setEventYoutube(event.target)
+    setEventYoutube(event)
     event.target.playVideo();
-    setPlay(!play)
+    setPlay(false)
   }
 
   const handlePlay = () => {
-    eventYoutube.playVideo();
+    eventYoutube.target.playVideo();
     setPlay(!play)
   }
 
   const handlePaus = () => {
-    eventYoutube.pauseVideo();
+    eventYoutube.target.pauseVideo();
     setPlay(!play)
   }
 
@@ -39,6 +39,13 @@ const MiniPlayer = () => {
     height: '0',
     width: '0',
   }
+
+  useEffect(() => {
+    if (eventYoutube) {
+      handleStart(eventYoutube)
+    }
+    return;
+  }, [songs])
 
   const renderIcons = () => (
     <StyledPlayerWrapper>
