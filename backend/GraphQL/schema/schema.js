@@ -44,11 +44,18 @@ const schema = buildSchema(`
     username: String!
   }
 
+  type AuthData {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
+  }
+  
   type Query {
     getUser(_id: String!): User
     getPlaylists(creator: String!): [Playlist]
-    login(input: UserInput!): [User!]
     getSongsFromPlaylist(_id: String!): [Song]
+    login(email: String!, password: String!): AuthData!
+
   }
 
   type Mutation {
