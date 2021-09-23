@@ -12,6 +12,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 
 const MiniPlayer = () => {
 
@@ -19,6 +20,7 @@ const MiniPlayer = () => {
   const songs = useContext(PlaylistContext);
   const [eventYoutube, setEventYoutube] = useState<any>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [expandPlayer, setExpandVideo] = useState<boolean>(false);
 
   const handleStart = (event: any) => {
     setEventYoutube(event)
@@ -50,10 +52,6 @@ const MiniPlayer = () => {
     return;
   }
 
-  const handlePlayer = () => {
-    //handle the big player...
-  }
-
   const opts = {
     height: '0',
     width: '0',
@@ -75,38 +73,44 @@ const MiniPlayer = () => {
   const renderIcons = () => (
     <StyledPlayerWrapper>
       <SkipPreviousIcon style={{
-        alignSelf: 'center',
+        alignSelf: !expandPlayer ? 'center' : 'end',
         justifySelf: 'center',
-        fontSize: '2.5rem',
+        fontSize: !expandPlayer ? '2.5rem' : '3.5rem',
         color: 'white'
       }} onClick={handlePreviousSong}/>
      {play ? <PlayArrowIcon style={{
-        alignSelf: 'center',
-          justifySelf: 'center',
-        fontSize: '3.5rem',
+        alignSelf: !expandPlayer ? 'center' : 'end',
+        justifySelf: 'center',
+        fontSize: !expandPlayer ? '3.5rem' : '4.5rem',
         color: 'white'
       }}
       onClick={handlePlay}/>
       :
         <PauseIcon style={{
-          alignSelf: 'center',
+          alignSelf: !expandPlayer ? 'center' : 'end',
           justifySelf: 'center',
-          fontSize: '3.5rem',
+          fontSize: !expandPlayer ? '3.5rem' : '4.5rem',
           color: 'white'
         }}
           onClick={handlePaus}/>}
       <SkipNextIcon style={{
-        alignSelf: 'center',
+        alignSelf: !expandPlayer ? 'center' : 'end',
         justifySelf: 'center',
-        fontSize: '2.5rem',
+        fontSize: !expandPlayer ? '2.5rem' : '3.5rem',
         color: 'white'
       }} onClick={handleNextSong} />
-      <KeyboardArrowUp style={{
-        alignSelf: 'center',
+      {!expandPlayer ? <KeyboardArrowUp style={{
+        alignSelf: !expandPlayer ? 'center' : 'end',
         justifySelf: 'end',
         fontSize: '2rem',
         color: 'white',
-      }} onClick={handlePlayer}/>
+      }} onClick={() => setExpandVideo(true)} />:
+        <KeyboardArrowDown style={{
+        alignSelf: !expandPlayer ? 'center' : 'end',
+        justifySelf: 'end',
+        fontSize: '2rem',
+        color: 'white',
+      }} onClick={() => setExpandVideo(false)} />}
     </StyledPlayerWrapper>
   )
 
@@ -126,7 +130,7 @@ const MiniPlayer = () => {
           background: 'black',
           opacity: '80%',
           display: 'grid'
-        }} sx={{ width: '100vw', height: '5rem' }}>
+        }} sx={{ width: '100vw', height: !expandPlayer ? '5rem' : '92vh' }}>
           {songs?.currentSong.length && renderTitle()}
           {renderIcons()}
           {songs?.currentSong.length && renderYouTubePlayer()}
