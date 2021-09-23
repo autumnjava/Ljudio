@@ -16,7 +16,7 @@ type Props = {
 export const PlaylistContext = createContext<any | null>(null);
 
 export const PlaylistProvider = ({ children }: Props) => {
-  const [playlists, setPlaylists] = useState<Array<any>>();
+  const [playlists, setPlaylists] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
 
   const getUserPlaylists = async (userId: string) => {
@@ -31,7 +31,6 @@ export const PlaylistProvider = ({ children }: Props) => {
       }
     `
     }
-
     const response = await fetcher(requestBody);
     if (!response.data) {
       setErrorMsg(true);
@@ -40,8 +39,27 @@ export const PlaylistProvider = ({ children }: Props) => {
       setErrorMsg(false);
     }
   }
+
+  const deletePlaylist = async (playlistId: string, userId: string) => {
+    const requestBody = {
+      query: `mutation
+        removePlaylist(_id: ${playlistId}, userId: ${userId}){
+          _id
+          name
+        }
+      `
+    }
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      getUserPlaylists(userId);
+      setErrorMsg(false);
+    }
+  }
   
-    const values = {
+  const values = {
+      deletePlaylist,
       getUserPlaylists,
       playlists,
       errorMsg
