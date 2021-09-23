@@ -11,6 +11,7 @@ export const StyledNavWrapper = styled.div`
     width: 100%;
     top: 0;
     border: none;
+    height: fit-content;
   }
 `;
 
