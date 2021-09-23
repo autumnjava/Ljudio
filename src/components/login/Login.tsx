@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import {UserContext} from '../../contexts/usersContext/UserContextProvider'
-
+import { useHistory } from "react-router";
 import {
   StyledTitle,
   StyledWrapper,
@@ -14,9 +14,8 @@ import {
 
 
 const Login: React.FC = () => {
-
+    const history = useHistory();
     const { login, errorMsg, logout, token } = useContext(UserContext)
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -28,6 +27,8 @@ const Login: React.FC = () => {
           }
     
         await login(newUser);
+        history.push("/home")
+
     }
 
     return (
@@ -35,9 +36,6 @@ const Login: React.FC = () => {
 
  <StyledWrapper>
       <StyledForm onSubmit={ (e) => loginUser(e)}>
-    
-        <StyledTitle>LOGIN</StyledTitle>
-        
         <StyledInputWrapper>
           
           <StyledLabel>Email</StyledLabel>
@@ -48,13 +46,12 @@ const Login: React.FC = () => {
           <StyledInput type="password" required value={password}
                 onChange={(e) => setPassword(e.target.value)} />
 
-          {/* {errorMsg && <ErrorMessage>Wrong credentials.</ErrorMessage>} */}
-
         </StyledInputWrapper>
 
         <StyledButton type="submit">Login</StyledButton>
         {errorMsg && <ErrorMessage>Bad credentials.</ErrorMessage>}
-        
+
+        <StyledButton onClick={() => history.push("/register")}>Create Account</StyledButton>
       </StyledForm>
       
       <h2>TEST:</h2>

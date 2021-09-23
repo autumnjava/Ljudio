@@ -25,10 +25,12 @@ export const StyledForm = styled.form`
 export const StyledInput = styled.input`
   text-decoration: none;
   outline: none;
-  font-size: 20px;
+  font-size: 25px;
   border: none;
   border-bottom: 1px solid pink;
-  opacity: 80%;
+  opacity: 50%;
+  border-radius: 0.5rem;
+  padding: 0.2rem;
    &:focus {
         color: #9001C7;
     }
@@ -49,15 +51,17 @@ export const StyledButton = styled.button`
   text-decoration: none;
   outline: none;
   opacity: 80%;
-  margin: 1rem;
+  margin: 10px 1px 0 0;
   border: none;
+  min-width: 6rem;
   background-color: pink;
   border-radius: 0.2rem;
   font-size: 19px;
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 0.15rem;
   padding: 0.5rem;
+  cursor: pointer;
   &:hover{
-    opacity: 100%;
+    color: #9001C7;
   }
 `;
