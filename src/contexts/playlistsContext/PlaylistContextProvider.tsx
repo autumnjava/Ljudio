@@ -1,24 +1,55 @@
 import { createContext, useState } from 'react';
+import fetcher from '../fetcher';
 
 type Props = {
   children?: JSX.Element
 }
 
-interface Values {
-  currentSong: any;
-  setCurrentSong: React.Dispatch<React.SetStateAction<any>>
-}
+// interface PlaylistContextInterface {
+//   playlist: {
+//     _id: string,
+//     name: string,
+//     songs: []
+//   }
+// }
 
-export const PlaylistContext = createContext<Values | null>(null);
+export const PlaylistContext = createContext<any | null>(null);
 
 export const PlaylistProvider = ({ children }: Props) => {
-  
-  const [currentSong, setCurrentSong] = useState<any>();
+  const [playlists, setPlaylists] = useState<Array<any>>();
+  const [errorMsg, setErrorMsg] = useState(false);
 
-  const values = {
-    currentSong,
-    setCurrentSong
+  const getUserPlaylists = async (userId: string) => {
+    const requestBody = {
+      query: `query {
+        getUserPlaylists(_id: "${userId}"){
+          myPlaylists {
+            _id
+            name
+          }
+        }
+      }
+    `
+    }
+
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      setPlaylists(response.data.getUserPlaylists.myPlaylists);
+      setErrorMsg(false);
+    }
   }
+  
+    const values = {
+      getUserPlaylists,
+      playlists,
+      errorMsg
+    }
+  
+
+
+
 
   return (
     <PlaylistContext.Provider value={values}>

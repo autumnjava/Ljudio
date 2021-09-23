@@ -57,8 +57,8 @@ const schema = buildSchema(`
   }
   
   type Query {
-    getUser(_id: String!): User
-    getPlaylists(creator: String!): [Playlist]
+    getUser(_id: String!): User!
+    getUserPlaylists(_id: String!): User!
     getSongsFromPlaylist(_id: String!): [Song]
     login(email: String!, password: String!): AuthData!
 

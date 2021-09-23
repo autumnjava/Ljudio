@@ -3,6 +3,7 @@ const User = require('../../models/user');
 const Song = require('../../models/song');
 
 const playlistResolver = {
+
   createPlaylist: async (args) => {
     
     const playlist = new Playlist({
@@ -24,6 +25,15 @@ const playlistResolver = {
 
     return playlist;
   },
+  getUserPlaylists: async args => {
+    try {
+      const myPlaylists = await User.findOne({ _id: args._id }).populate('myPlaylists').exec();
+      return myPlaylists;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  
 
   removePlaylist: async (args) => {
 
