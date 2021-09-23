@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+interface playerProps {
+  expanded: boolean
+}
+
 export const StyledWrapper = styled.div`
   z-index: 100;
   top: auto;
@@ -8,10 +12,10 @@ export const StyledWrapper = styled.div`
   border-top: 1px solid grey;
 `;
 
-export const StyledPlayerWrapper = styled.div`
+export const StyledPlayerWrapper = styled.div<playerProps>`
   width: 100vw;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 2rem;
+  grid-template-columns: ${props => props.expanded ? '1fr 1fr 1fr' : '1fr 1fr 1fr 2rem'};
 `
 
 export const StyledSongTitle = styled.p`
@@ -19,4 +23,9 @@ export const StyledSongTitle = styled.p`
   color: white;
   max-width: 85vw;
   margin: 0;
+`
+
+export const StyledTitleWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2rem;
 `
