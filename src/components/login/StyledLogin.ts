@@ -25,10 +25,11 @@ export const StyledForm = styled.form`
 export const StyledInput = styled.input`
   text-decoration: none;
   outline: none;
-  font-size: 20px;
+  font-size: 25px;
   border: none;
   border-bottom: 1px solid pink;
-  opacity: 80%;
+  opacity: 50%;
+  border-radius: 0.5rem;
    &:focus {
         color: #9001C7;
     }

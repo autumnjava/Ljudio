@@ -31,8 +31,6 @@ const Login: React.FC = () => {
 
  <StyledWrapper>
       <StyledForm onSubmit={ (e) => login(e)}>
-    
-        <StyledTitle>REGISTER</StyledTitle>
         
         <StyledInputWrapper>
           
