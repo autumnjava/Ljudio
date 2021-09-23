@@ -14,9 +14,8 @@ export const UserContext = createContext<any>(null);
 
 export const UserProvider: React.FC<Props> = ({ children }: Props) => {
 
-  const[token, setToken] = useState(null);
+  // const[token, setToken] = useState(null);
   const[userId, setUserId] = useState(null);
-
 
   const [errorMsg, setErrorMsg] = useState(false)
 
@@ -51,8 +50,7 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
     }
 
     const logout = () => {
-      console.log('logging out.')
-      setToken(null);
+      localStorage.removeItem('JWT_KEY');
       setUserId(null);
     }
 
@@ -77,7 +75,8 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
       if(resData.data.createUser) { console.log('successfully registered'); }
       else if(resData.data.login.token){
         console.log('succesfully logged in');
-        setToken(resData.data.login.token);
+        localStorage.setItem('JWT_KEY', resData.data.login.token);
+        // setToken(resData.data.login.token);
         setUserId(resData.data.login.userId);
       }
     })
@@ -91,7 +90,6 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
     login,
     logout,
     errorMsg,
-    token,
     userId
   }
 

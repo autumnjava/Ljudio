@@ -15,7 +15,7 @@ import {
 
 const Login: React.FC = () => {
     const history = useHistory();
-    const { login, errorMsg, logout, token, userId } = useContext(UserContext)
+    const { login, errorMsg, logout, userId } = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -27,7 +27,13 @@ const Login: React.FC = () => {
           }
     
         await login(newUser);
-        // if(token && userId) { history.push("/home") }
+        // if(localStorage.getItem('JWT_KEY')  && userId) { history.push("/home") }
+    }
+
+
+    const logoutHandler = () => {
+        history.push("/")
+        logout();
     }
 
     return (
@@ -51,12 +57,12 @@ const Login: React.FC = () => {
         <StyledButton type="submit">Login</StyledButton>
         <StyledButton onClick={() => history.push("/register")}>Create Account</StyledButton>
       
-      {token && 
+      {localStorage.getItem('JWT_KEY') && 
       <>
         <SuccessMessage> YOU HAVE SUCCESSFULLY LOGGED IN BRO 
             <br /> Gonna redirect you shortly.
         </SuccessMessage>
-        <StyledButton onClick={() => logout()}>Logout</StyledButton>
+        <StyledButton onClick={logoutHandler}>Logout</StyledButton>
         </>
       }
       
