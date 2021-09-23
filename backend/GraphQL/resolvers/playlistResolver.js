@@ -9,7 +9,7 @@ const playlistResolver = {
       name: args.name,
     })
 
-    const savedPlaylist = await playlist.save();
+    await playlist.save();
 
     await User.findOneAndUpdate({
       _id: args.userId
@@ -17,12 +17,12 @@ const playlistResolver = {
       {
         $push: {
           myPlaylists: {
-            _id: savedPlaylist._id
+            _id: playlist._id
           }
         }
       })
 
-    return await playlist;
+    return playlist;
   },
 
   removePlaylist: async (args) => {
@@ -61,7 +61,6 @@ const playlistResolver = {
       song = new Song({
         artist: args.input.artist,
         title: args.input.title,
-        album: args.input.album,
         duration: args.input.duration,
         videoId: args.input.videoId
       })
@@ -79,6 +78,18 @@ const playlistResolver = {
       }
     })
     
+    return playlist
+  },
+
+  removeSongFromPlaylist: async (args) => {
+    const playlist = await Playlist.findByIdAndUpdate({
+      _id: args.playlistId
+    }, {
+      $pull: {
+        songs: args.songId
+        }
+      })
+
     return playlist
   }
 };
