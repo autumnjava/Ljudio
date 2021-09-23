@@ -6,12 +6,15 @@ export const StyledTitle = styled.h2`
 `
 
 export const StyledAddItem = styled.div`
-  border: 1px solid black;
+  border: 1px solid purple;
   width: 7rem;
-  height: 4.8rem;
+  height: 6rem;
   margin: 0.5rem;
-
-  align-items: center;
+  cursor: pointer;
+  border-radius: 0.3rem;
+   &:hover{
+    color: #D96CFB;
+  }
 `;
 
 export const StyledAddPlaylistDiv = styled.div`
@@ -35,9 +38,9 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledAddIcon = styled.span`
-  font-weight: bolder;
-  font-size: 3rem;
-  margin: 2.5rem;
+  font-size: 3.8rem;
+  margin: 3rem 1rem 2rem 2.5rem;
+  padding: 0;
 `;
 
 export const StyledListTitle = styled.p`

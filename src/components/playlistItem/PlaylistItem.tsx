@@ -12,9 +12,9 @@ const PlaylistItem = ({data}: any) => {
 
       <StyledItemDiv>
         <div>
-          <StyledImg src={data.img} alt="" />
+          <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
         </div>
-        <StyledListTitle>{data.title}</StyledListTitle>
+        <StyledListTitle>{data.name}</StyledListTitle>
         </StyledItemDiv>
 
         </StyledPlaylistWrapper>

@@ -7,32 +7,15 @@ import { StyledTitle, StyledAddPlaylistDiv, StyledGridDiv, StyledAddItem, Styled
 import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
 import { useContext, useEffect } from 'react';
 
-// for test data
-interface Props {
-  title: string;
-  img: string
+interface List {
+  name: string;
+  id: string;
 }
 
 const MyPlaylistsPage = () => {
   const { playlists, getUserPlaylists } = useContext(PlaylistContext)
 
-    // Dummy data for testing.
-  const MyPlayListDummyData: any = [{
-    title: "Playlist 1",
-    img: "https://lh3.googleusercontent.com/proxy/LvYaJ0iW--ryeMqEeXWdcTcakspcpdR6c6edde3PgeYDjJhbPBU64jrgDwZj-ERQfoNDVUNaUNspyzRHaKHBfaOrVbk-6FzJ0fyVxxVU4wOnVBPU239daB3XjaIBFUUFEM83YQEZ-E2Q_FbWU7UsNXg"
-  },
-  {
-    title: "Playlist 2",
-    img: "https://lh3.googleusercontent.com/proxy/LvYaJ0iW--ryeMqEeXWdcTcakspcpdR6c6edde3PgeYDjJhbPBU64jrgDwZj-ERQfoNDVUNaUNspyzRHaKHBfaOrVbk-6FzJ0fyVxxVU4wOnVBPU239daB3XjaIBFUUFEM83YQEZ-E2Q_FbWU7UsNXg"
-    },
-  {
-    title: "Playlist 3",
-    img: "https://lh3.googleusercontent.com/proxy/LvYaJ0iW--ryeMqEeXWdcTcakspcpdR6c6edde3PgeYDjJhbPBU64jrgDwZj-ERQfoNDVUNaUNspyzRHaKHBfaOrVbk-6FzJ0fyVxxVU4wOnVBPU239daB3XjaIBFUUFEM83YQEZ-E2Q_FbWU7UsNXg"
-    },
-  {
-    title: "Playlist 4",
-    img: "https://lh3.googleusercontent.com/proxy/LvYaJ0iW--ryeMqEeXWdcTcakspcpdR6c6edde3PgeYDjJhbPBU64jrgDwZj-ERQfoNDVUNaUNspyzRHaKHBfaOrVbk-6FzJ0fyVxxVU4wOnVBPU239daB3XjaIBFUUFEM83YQEZ-E2Q_FbWU7UsNXg"
-    }]
+
   
   
   const [open, setOpen] = useState(false);
@@ -79,8 +62,8 @@ const MyPlaylistsPage = () => {
           </Box>
         </Popper>
         
-        {MyPlayListDummyData.map((data: Props) => {
-          return <PlaylistItem key={data.title} data={data} />
+        {playlists && playlists.map((list: List) => {
+          return <PlaylistItem key={list.name} data={list} />
         })}
       </StyledGridDiv>
     </StyledWrapper>
