@@ -9,11 +9,18 @@ interface Values {
   setCurrentSong: React.Dispatch<React.SetStateAction<any>>
 }
 
+interface SongProps {
+  name: string,
+  videoId: string,
+  duration: number,
+  imgUrl: string
+}
+
 export const PlaylistContext = createContext<Values | null>(null);
 
 export const PlaylistProvider = ({ children }: Props) => {
   
-  const [currentSong, setCurrentSong] = useState<any>([]);
+  const [currentSong, setCurrentSong] = useState<SongProps[]>([]);
 
   const values = {
     currentSong,

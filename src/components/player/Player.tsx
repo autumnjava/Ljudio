@@ -165,7 +165,7 @@ const MiniPlayer = () => {
   const handleToggleVideoToPicture = () => {
     if (toggleVideo) {
       eventYoutube.target.setSize(0, 0);
-      return <StyledImg src={songs?.currentSong[currentIndex].thumbnails.url} alt="" />;
+      return <StyledImg src={songs?.currentSong[currentIndex].imgUrl} alt="" />;
     }
     if (!toggleVideo && eventYoutube && expandPlayer) {
       eventYoutube.target.setSize(375, 300);
