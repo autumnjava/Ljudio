@@ -16,6 +16,11 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 
 const MiniPlayer = () => {
 
+  const opts = {
+    height: '0',
+    width: '0',
+  }
+
   const [play, setPlay] = useState(true);
   const songs = useContext(PlaylistContext);
   const [eventYoutube, setEventYoutube] = useState<any>();
@@ -52,9 +57,14 @@ const MiniPlayer = () => {
     return;
   }
 
-  const opts = {
-    height: '0',
-    width: '0',
+  const handleExpandPlayer = () => {
+    setExpandVideo(true);
+    eventYoutube.target.setSize(375, 300);
+  }
+
+  const handleMinimizePlayer = () => {
+    setExpandVideo(false);
+    eventYoutube.target.setSize(0, 0);
   }
 
   useEffect(() => {
@@ -104,13 +114,13 @@ const MiniPlayer = () => {
         justifySelf: 'end',
         fontSize: '2rem',
         color: 'white',
-      }} onClick={() => setExpandVideo(true)} />:
+      }} onClick={handleExpandPlayer}/>:
         <KeyboardArrowDown style={{
         alignSelf: !expandPlayer ? 'center' : 'end',
         justifySelf: 'end',
         fontSize: '2rem',
         color: 'white',
-      }} onClick={() => setExpandVideo(false)} />}
+      }} onClick={handleMinimizePlayer} />}
     </StyledPlayerWrapper>
   )
 
@@ -128,12 +138,12 @@ const MiniPlayer = () => {
       <StyledWrapper>
         <BottomNavigation style={{
           background: 'black',
-          opacity: '80%',
           display: 'grid'
-        }} sx={{ width: '100vw', height: !expandPlayer ? '5rem' : '92vh' }}>
+        }} sx={{ width: '100vw', height: !expandPlayer ? '5.5rem' : '92vh' }}>
           {songs?.currentSong.length && renderTitle()}
-          {renderIcons()}
           {songs?.currentSong.length && renderYouTubePlayer()}
+          {renderIcons()}
+          {/* {songs?.currentSong.length && renderYouTubePlayer()} */}
         </BottomNavigation>
       </StyledWrapper>
     </>

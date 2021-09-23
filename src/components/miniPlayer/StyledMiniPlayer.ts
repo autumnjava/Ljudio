@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
-export const StyledWrapper = styled.div`  
+export const StyledWrapper = styled.div`
+  z-index: 100;
   top: auto;
   bottom: 3.5rem;
   position: fixed;
