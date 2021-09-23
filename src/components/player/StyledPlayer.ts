@@ -46,13 +46,17 @@ export const StyledYouTubeWrapper = styled.div<videoProps>`
 
 export const StyledVideoWrapper = styled.div<videoProps>`
   display: ${props => props.show ? 'block' : 'none'};
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 `
 
 export const StyledImg = styled.img`
   display: block;
   width: 80vw;
-  height: 45vh;
+  height: 42.5vh;
   object-fit: contain;
   margin: 0 auto;
+    @media (min-width: 769px) {
+      height: 36vh;
+  }
 `

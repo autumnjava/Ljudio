@@ -10,7 +10,7 @@ import {
   StyledImg,
   StyledYouTubeWrapper
 } from './StyledPlayer'
-import BottomNavigation from '@mui/material/BottomNavigation';
+import Player from '@mui/material/BottomNavigation';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
@@ -191,14 +191,14 @@ const MiniPlayer = () => {
   return (
     <>
       <StyledWrapper>
-        <BottomNavigation style={{
+        <Player style={{
           background: 'black',
           display: 'grid'
         }} sx={{ width: '100vw', height: !expandPlayer ? '5rem' : '92vh' }}>
             {songs?.currentSong.length && renderTitle()}
             {songs?.currentSong.length && renderYouTubePlayer()}
           {renderIcons()}
-        </BottomNavigation>
+        </Player>
       </StyledWrapper>
     </>
   )
