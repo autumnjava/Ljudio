@@ -22,6 +22,7 @@ const schema = buildSchema(`
     title: String
     album: String
     duration: Int
+    videoId: Int
   }
 
   type DjRoom {
@@ -48,6 +49,7 @@ const schema = buildSchema(`
     title: String
     album: String
     duration: Int
+    videoId: Int
   }
 
   type Query {

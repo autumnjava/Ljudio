@@ -7,6 +7,7 @@ const songSchema = new Schema({
     title: String,
     album: String,
     duration: Number,
+    videoId: Number
 });
 
 module.exports = mongoose.model('Song', songSchema);
