@@ -37,13 +37,14 @@ const playlistResolver = {
           }
         })
 
-    // await User.aggregate([{ $unwind: "$myPlaylists" }]);
+    // filter out playlists with djRoomId's
+    // const djPlaylists = await Playlist.find({ djRoomId: { $exists: true } });
 
-    // const users = await User.findOne({
-    //   _id: args.userId
-    // },
-    //   {
-    //     myPlaylists: {
+    // find users who has djRooms & remove djRoomId
+      
+    // function that finds users with playlist added to users djRooms
+    // const users = await User.find({
+    //     djRooms: {
     //       $elemMatch: {
     //         _id: args._id
     //       }
@@ -54,16 +55,21 @@ const playlistResolver = {
   },
 
   addSongToPlaylist: async (args) => {
-    const song = new Song({
-      artist: args.input.artist,
-      title: args.input.title,
-      album: args.input.album,
-      duration: args.input.duration
-    })
+    let song = await Song.findOne({ videoId: args.input.videoId });
 
-    await song.save();
+    if (!song) {
+      song = new Song({
+        artist: args.input.artist,
+        title: args.input.title,
+        album: args.input.album,
+        duration: args.input.duration,
+        videoId: args.input.videoId
+      })
+  
+      await song.save();
+    }
 
-    const playlist = Playlist.findByIdAndUpdate({
+    const playlist = await Playlist.findByIdAndUpdate({
       _id: args._id
     }, {
       $push: {
