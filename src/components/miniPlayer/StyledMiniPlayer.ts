@@ -16,6 +16,7 @@ export const StyledPlayerWrapper = styled.div<playerProps>`
   width: 100vw;
   display: grid;
   grid-template-columns: ${props => props.expanded ? '1fr 1fr 1fr' : '1fr 1fr 1fr 2rem'};
+  grid-template-rows: ${props => props.expanded ? '1fr 1fr' : '1fr'};
 `
 
 export const StyledSongTitle = styled.p`

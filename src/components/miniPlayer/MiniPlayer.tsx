@@ -14,6 +14,10 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import ReplayIcon from '@material-ui/icons/Replay';
 
 const MiniPlayer = () => {
 
@@ -71,6 +75,7 @@ const MiniPlayer = () => {
   useEffect(() => {
     if (eventYoutube) {
       handleStart(eventYoutube)
+      console.log(songs?.currentSong)
     }
     return;
   }, [songs, currentIndex])
@@ -78,7 +83,7 @@ const MiniPlayer = () => {
   const renderTitle = () => (
     <StyledTitleWrapper>
       <StyledSongTitle>
-        {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].snippet.title}
+        {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].name}
       </StyledSongTitle>
       {expandPlayer && <KeyboardArrowDown style={{
         display: 'inline',
@@ -90,8 +95,30 @@ const MiniPlayer = () => {
     </StyledTitleWrapper>  
   )
 
+  const renderExpanedPlayerIcons = () => (
+    <>
+      <FormControlLabel
+        style={{color: 'white'}}
+        label='Video'
+        labelPlacement="start"
+        control={<Switch style={{ alignSelf: 'start', gridColumn: '1/3' }} />}
+      />
+      <VolumeUpIcon style={{
+          alignSelf: 'center',
+          justifySelf: 'center',
+          color: 'white'
+        }}/>
+      <ReplayIcon style={{
+          alignSelf: 'center',
+          justifySelf: 'center',
+          color: 'white'
+        }}/>
+    </>
+  )
+
   const renderIcons = () => (
     <StyledPlayerWrapper expanded={expandPlayer ? true : false}>
+      {expandPlayer && renderExpanedPlayerIcons()}
       <SkipPreviousIcon style={{
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'center',
@@ -120,7 +147,7 @@ const MiniPlayer = () => {
         color: 'white'
       }} onClick={handleNextSong} />
       {!expandPlayer && <KeyboardArrowUp style={{
-        alignSelf: !expandPlayer ? 'center' : 'end',
+        alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
         color: 'white',
@@ -130,7 +157,7 @@ const MiniPlayer = () => {
 
   const renderYouTubePlayer = () => (
     <YouTube
-      videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].id.videoId}
+      videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
       onReady={(e) => handleStart(e)}
       opts={opts}
     />

@@ -21,15 +21,9 @@ const SearchPage = () => {
   const songs = useContext(PlaylistContext);
 
   const handleSearch = (searchWord: string) => {
-    youtube.get('/search', {
-      params: {
-        q: searchWord
-      }
-    })
-      .then(res => {
-        const data = res.data.items;
-        setContent(data);
-      })
+    fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
+      .then(response => response.json())
+      .then(data => setContent(data.content));
   }
 
   const handleSearchResult = () => {
@@ -53,9 +47,9 @@ const SearchPage = () => {
     <StyledWrapper>
       {content.map((song: any, index: number) => (
         <div key={index}>
-          {index <= amountOfSearchResult && song.id.videoId !== undefined && <StyledSongWrapper>
-            <StyledSongImg onClick={() => handleSong(song)} src={song.snippet.thumbnails.default.url} alt="" />
-            <StyledSongs onClick={() => handleSong(song)}>{song.snippet.title}</StyledSongs>
+          {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
+            <StyledSongImg onClick={() => handleSong(song)} src={song.thumbnails.url} alt="" />
+            <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
             <PlaylistAddIcon onClick={() => handleAddToPlaylist(song)} style={{ alignSelf: 'center' }} />
             <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }}/>
           </StyledSongWrapper>}
