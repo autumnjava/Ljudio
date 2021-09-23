@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+import fetcher from '../fetcher';
 
 type Props = {
   children?: JSX.Element
@@ -14,45 +15,28 @@ export const UserContext = createContext<any>(null);
 
 export const UserProvider: React.FC<Props> = ({ children }: Props) => {
 
-  const [errorMsg, setErrorMsg] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(false);
 
   const registerUser = async (user: User) => {
   const requestBody = {
     query: `mutation {
-      createUser(input: {email: "${user.email}", password: "${user.password}", username: "${user.username}"})
-      {
-        _id
-        email
-        username
+        createUser(input: {email: "${user.email}", password: "${user.password}", username: "${user.username}"})
+        {
+          _id
+          email
+          username
+        }
       }
-    }`
-  }
-
-
-  // this can be replaced with AXIOS, which one is better?
-  fetch('http://localhost:4000/graphql', {
-    method: 'POST',
-    body: JSON.stringify(requestBody),
-    headers: {
-      'Content-Type': 'application/json'
+      `
     }
-  })
-  .then(res => {
-    if(res.status !== 200 && res.status !== 201){
+    
+    const response = await fetcher(requestBody);
+
+    if (!response.data) {
       setErrorMsg(true);
-      throw new Error('Failed')
+    } else {
+      setErrorMsg(false);
     }
-    setErrorMsg(false);
-    return res.json();
-  })
-  .then(resData => {
-    setErrorMsg(false);
-    console.log(resData, 'is it is?')
-  })
-  .catch(err => {
-    console.log(err, 'or this?')
-    setErrorMsg(true);
-  });
   }
 
   const values = {
