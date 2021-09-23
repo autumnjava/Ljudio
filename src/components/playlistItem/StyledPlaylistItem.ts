@@ -7,7 +7,6 @@ export const StyledItemDiv = styled.div`
 export const StyledImg = styled.img`
   width: 7rem;
   border: 1px solid black;
-
 `;
 
 export const StyledPlaylistWrapper = styled.div`
