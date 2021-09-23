@@ -57,17 +57,22 @@ const schema = buildSchema(`
     removePlaylist(_id: String!): Boolean!
   }
 
+  type Subscription {
+    newUser: User!
+  }
+
   
   schema {
     query: Query
     mutation: Mutation
+    subscription: Subscription
   }
 `)
 
-// type Subscription {
-//     addSongToPlaylist(song: Song, playlist: Playlist): Playlist!
-//     removeSongFromPlaylist(song: Song, playlist: Playlist): Playlist!
-//   }
+// addSongToPlaylist(song: String, playlist: String): Playlist!
+//     removeSongFromPlaylist(song: String, playlist: String): Playlist!
+
+
 
   
  
