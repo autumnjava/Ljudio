@@ -1,6 +1,8 @@
 const User = require('../../models/user')
+const Playlist = require('../../models/playlist');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { isJSDocReturnTag, updateYield } = require('typescript');
 
 const userResolver = {
     // createUser: async (args) => {
@@ -11,6 +13,15 @@ const userResolver = {
     //     })
     //   return user.save();
     // }
+  
+  getUser: async args => {
+    try {
+      const user = await User.findOne({ _id: args._id });
+      return user;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
     createUser: async args => {
       try {
         const existingUserEmail = await User.findOne({ email: args.input.email});

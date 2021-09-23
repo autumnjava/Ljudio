@@ -4,15 +4,19 @@ import Box from '@mui/material/Box';
 import { useState } from "react";
 import PlaylistItem from "../../components/playlistItem/PlaylistItem";
 import { StyledTitle, StyledAddPlaylistDiv, StyledGridDiv, StyledAddItem, StyledWrapper, StyledAddIcon, StyledListTitle} from "./StyledMyPlaylistPage";
+import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
+import { useContext, useEffect } from 'react';
 
+// for test data
 interface Props {
   title: string;
   img: string
 }
 
-const MyPlaylistsPage: React.FC = () => {
+const MyPlaylistsPage = () => {
+  const { playlists, getUserPlaylists } = useContext(PlaylistContext)
 
-  // Dummy data for testing.
+    // Dummy data for testing.
   const MyPlayListDummyData: any = [{
     title: "Playlist 1",
     img: "https://lh3.googleusercontent.com/proxy/LvYaJ0iW--ryeMqEeXWdcTcakspcpdR6c6edde3PgeYDjJhbPBU64jrgDwZj-ERQfoNDVUNaUNspyzRHaKHBfaOrVbk-6FzJ0fyVxxVU4wOnVBPU239daB3XjaIBFUUFEM83YQEZ-E2Q_FbWU7UsNXg"
@@ -38,36 +42,53 @@ const MyPlaylistsPage: React.FC = () => {
     setAnchorEl(event.currentTarget);
     setOpen((previousOpen) => !previousOpen);
   };
+
+
+  useEffect(() => {
+    myPlaylists();
+  }, [!playlists]);
+
+
+  const myPlaylists = async () => {
+    const userId = "614c45add183eb4b3d148816";
+    await getUserPlaylists(userId);
+
+    console.log('my playlists', playlists);
+  }
+
   
   return (
     <StyledWrapper>
       <StyledTitle>MyPlaylist</StyledTitle>
 
-    <StyledGridDiv>
+      <StyledGridDiv>
         
         
-          <StyledAddPlaylistDiv typeof="button" onClick={handleCreate}>
+        <StyledAddPlaylistDiv typeof="button" onClick={handleCreate}>
           <StyledAddItem>
-          <StyledAddIcon>+</StyledAddIcon>
+            <StyledAddIcon>+</StyledAddIcon>
           </StyledAddItem>
-            <StyledListTitle>Skapa playlist</StyledListTitle>
+          <StyledListTitle>Skapa playlist</StyledListTitle>
         </StyledAddPlaylistDiv>
         
-        <Popper  open={open} anchorEl={anchorEl} >
-            <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper'}}>
+        <Popper open={open} anchorEl={anchorEl} >
+          <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
             <input type="text" placeholder="Name of playlist..." />
             <button>Create</button>
             <span onClick={handleCreate}>[X]</span>
-            </Box>
-      </Popper>
+          </Box>
+        </Popper>
         
         {MyPlayListDummyData.map((data: Props) => {
-          return <PlaylistItem key={data.title} data={data}/>
+          return <PlaylistItem key={data.title} data={data} />
         })}
-     </StyledGridDiv>
+      </StyledGridDiv>
     </StyledWrapper>
       
-  )
+      
+    
+      )
+
 }
 
 export default MyPlaylistsPage;
