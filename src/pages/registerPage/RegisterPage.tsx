@@ -37,12 +37,7 @@ const RegisterPage: React.FC = () => {
         password: password
       }
 
-    const response = await registerUser(newUser);
-    // this does not work at the moment but shall be implemented
-    if (errorMsg) {
-      console.log('error response from register page')
-      
-    }
+    await registerUser(newUser);
   }
 
 
