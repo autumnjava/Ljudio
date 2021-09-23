@@ -5,8 +5,11 @@ import {
   StyledWrapper,
   StyledPlayerWrapper,
   StyledSongTitle,
-  StyledTitleWrapper
-} from './StyledMiniPlayer'
+  StyledTitleWrapper,
+  StyledVideoWrapper,
+  StyledImg,
+  StyledYouTubeWrapper
+} from './StyledPlayer'
 import BottomNavigation from '@mui/material/BottomNavigation';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
@@ -32,6 +35,7 @@ const MiniPlayer = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [expandPlayer, setExpandVideo] = useState<boolean>(false);
   const [toggleVideo, setToggleVideo] = useState<boolean>(false);
+  
 
   const handleStart = (event: any) => {
     setEventYoutube(event)
@@ -69,6 +73,7 @@ const MiniPlayer = () => {
   }
 
   const handleMinimizePlayer = () => {
+    setToggleVideo(false);
     setExpandVideo(false);
     eventYoutube.target.setSize(0, 0);
   }
@@ -85,13 +90,20 @@ const MiniPlayer = () => {
       <StyledSongTitle>
         {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].name}
       </StyledSongTitle>
-      {expandPlayer && <KeyboardArrowDown style={{
-        display: 'inline',
+      {expandPlayer ? <KeyboardArrowDown style={{
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
         color: 'white',
-      }} onClick={handleMinimizePlayer} />}
+      }} onClick={handleMinimizePlayer} />
+      :
+      <KeyboardArrowUp style={{
+        alignSelf: !expandPlayer ? 'center' : 'start',
+        justifySelf: 'end',
+        fontSize: '2rem',
+        color: 'white',
+      }} onClick={handleExpandPlayer} />
+      }
     </StyledTitleWrapper>  
   )
 
@@ -100,7 +112,7 @@ const MiniPlayer = () => {
       <FormControlLabel
         onClick={() => setToggleVideo(!toggleVideo)}
         style={{color: 'white'}}
-        label='Video'
+        label='Audio'
         labelPlacement="start"
         control={<Switch style={{ alignSelf: 'start', gridColumn: '1/3' }} />}
       />
@@ -122,7 +134,7 @@ const MiniPlayer = () => {
       {expandPlayer && renderExpanedPlayerIcons()}
       <SkipPreviousIcon style={{
         alignSelf: !expandPlayer ? 'center' : 'start',
-        justifySelf: 'center',
+        justifySelf: 'end',
         fontSize: !expandPlayer ? '2.5rem' : '4.5rem',
         color: 'white'
       }} onClick={handlePreviousSong}/>
@@ -143,23 +155,17 @@ const MiniPlayer = () => {
           onClick={handlePaus}/>}
       <SkipNextIcon style={{
         alignSelf: !expandPlayer ? 'center' : 'start',
-        justifySelf: 'center',
+        justifySelf: 'start',
         fontSize: !expandPlayer ? '2.5rem' : '4.5rem',
         color: 'white'
       }} onClick={handleNextSong} />
-      {!expandPlayer && <KeyboardArrowUp style={{
-        alignSelf: !expandPlayer ? 'center' : 'start',
-        justifySelf: 'end',
-        fontSize: '2rem',
-        color: 'white',
-      }} onClick={handleExpandPlayer} />}
     </StyledPlayerWrapper>
   )
 
   const handleToggleVideoToPicture = () => {
     if (toggleVideo) {
       eventYoutube.target.setSize(0, 0);
-      return <img src={songs?.currentSong[currentIndex].thumbnails.url} alt="" />;
+      return <StyledImg src={songs?.currentSong[currentIndex].thumbnails.url} alt="" />;
     }
     if (!toggleVideo && eventYoutube && expandPlayer) {
       eventYoutube.target.setSize(375, 300);
@@ -168,14 +174,18 @@ const MiniPlayer = () => {
   }
 
   const renderYouTubePlayer = () => (
-    <>
-      <YouTube
+    <div>
+      <StyledYouTubeWrapper show={expandPlayer}>
+      <StyledVideoWrapper show={!toggleVideo}>
+        <YouTube
         videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
         onReady={(e) => handleStart(e)}
         opts={opts}
-      />
+        />
+      </StyledVideoWrapper>
+      </StyledYouTubeWrapper>  
       {handleToggleVideoToPicture()}
-    </>
+    </div>
   )
 
   return (
@@ -184,9 +194,9 @@ const MiniPlayer = () => {
         <BottomNavigation style={{
           background: 'black',
           display: 'grid'
-        }} sx={{ width: '100vw', height: !expandPlayer ? '5.5rem' : '92vh' }}>
-          {songs?.currentSong.length && renderTitle()}
-          {songs?.currentSong.length && renderYouTubePlayer()}
+        }} sx={{ width: '100vw', height: !expandPlayer ? '5rem' : '92vh' }}>
+            {songs?.currentSong.length && renderTitle()}
+            {songs?.currentSong.length && renderYouTubePlayer()}
           {renderIcons()}
         </BottomNavigation>
       </StyledWrapper>
