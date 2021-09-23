@@ -18,8 +18,8 @@ const schema = buildSchema(`
 
   type Song {
     _id: ID!
-    artist: [String]
     title: String
+    image: String
     duration: Int
     videoId: Int
   }
@@ -44,8 +44,8 @@ const schema = buildSchema(`
   }
 
   input SongInput {
-    artist: [String]
     title: String
+    image: String
     duration: Int
     videoId: Int
   }

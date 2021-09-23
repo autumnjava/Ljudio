@@ -29,13 +29,13 @@ const playlistResolver = {
 
     const playlist = await Playlist.findOneAndDelete({ _id: args._id });
     
-        await User.updateOne({
-          _id: args.userId
-        }, {
-          $pull: {
-            myPlaylists: playlist._id
-          }
-        })
+    await User.updateOne({
+      _id: args.userId
+    }, {
+      $pull: {
+        myPlaylists: playlist._id
+      }
+    })
 
     // filter out playlists with djRoomId's
     // const djPlaylists = await Playlist.find({ djRoomId: { $exists: true } });
@@ -59,8 +59,8 @@ const playlistResolver = {
 
     if (!song) {
       song = new Song({
-        artist: args.input.artist,
         title: args.input.title,
+        image: args.input.image,
         duration: args.input.duration,
         videoId: args.input.videoId
       })
@@ -68,6 +68,7 @@ const playlistResolver = {
       await song.save();
     }
 
+    // song will be added even if it already exists in the playlist
     const playlist = await Playlist.findByIdAndUpdate({
       _id: args._id
     }, {
@@ -82,15 +83,16 @@ const playlistResolver = {
   },
 
   removeSongFromPlaylist: async (args) => {
-    const playlist = await Playlist.findByIdAndUpdate({
-      _id: args.playlistId
-    }, {
-      $pull: {
-        songs: args.songId
+      // will remove all songs with the matching songId 
+      const playlist = await Playlist.findByIdAndUpdate({
+        _id: args.playlistId
+      }, {
+        $pull: {
+          songs: args.songId
         }
       })
-
-    return playlist
+  
+      return playlist
   }
 };
 
