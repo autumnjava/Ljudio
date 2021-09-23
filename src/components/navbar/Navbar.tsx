@@ -6,7 +6,7 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { useHistory } from "react-router-dom";
-import { StyledNavWrapper } from "./StyledNavBar";
+import { StyledNavWrapper, StyledLabel } from "./StyledNavBar";
 
 
 const Navbar: React.FC = () => {
@@ -17,30 +17,30 @@ const Navbar: React.FC = () => {
 
   return (
     <StyledNavWrapper>
-      <BottomNavigation sx={{ width: '100vw' }} value={value} >
+      <BottomNavigation sx={{ width: '100vw' }} value={value}>
         <BottomNavigationAction
-          onClick={() => history.push('/home')}
-          label="Home"
+          label={<StyledLabel>Home</StyledLabel>}
           value={value}
+          onClick={() => history.push('/home')}
           icon={<HomeRoundedIcon color="secondary" />}
       />
         <BottomNavigationAction
-        label="My Playlist"
+          label={<StyledLabel>My Playlists</StyledLabel>}
           value={value}
           onClick={() => history.push("/myPlaylist")}
-        icon={<QueueMusicRoundedIcon color="secondary" />}
+          icon={<QueueMusicRoundedIcon color="secondary" />}
       />
       <BottomNavigationAction
-        label="Search"
+          label={<StyledLabel>Search</StyledLabel>}
           value={value}
           onClick={() => history.push("/search")}
-        icon={ <SearchRoundedIcon color="secondary" />}
+          icon={ <SearchRoundedIcon color="secondary" />}
       />
       <BottomNavigationAction
-        label="Profile"
+          label={<StyledLabel>Profile</StyledLabel>}
           value={value}
           onClick={() => history.push("/profile")}
-        icon={<AccountCircleRoundedIcon color="secondary" />}
+          icon={<AccountCircleRoundedIcon color="secondary" />}
       />
 
         </BottomNavigation>

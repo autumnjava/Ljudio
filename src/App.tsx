@@ -1,13 +1,17 @@
 import Navbar from "./components/navbar/Navbar";
 import AllRoutes from "./router/AllRoutes";
-import { BrowserRouter as Router } from "react-router-dom";
+import MiniPlayer from "./components/miniPlayer/MiniPlayer";
+import Providers from "./components/providers/Providers";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <AllRoutes >       
-        <Navbar />
-      </AllRoutes>
+      <Providers>
+        <AllRoutes >
+          <MiniPlayer/>
+          <Navbar />
+        </AllRoutes>
+      </Providers>
     </div>
   );
 }
