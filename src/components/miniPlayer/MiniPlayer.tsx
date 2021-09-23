@@ -31,6 +31,7 @@ const MiniPlayer = () => {
   const [eventYoutube, setEventYoutube] = useState<any>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [expandPlayer, setExpandVideo] = useState<boolean>(false);
+  const [toggleVideo, setToggleVideo] = useState<boolean>(false);
 
   const handleStart = (event: any) => {
     setEventYoutube(event)
@@ -75,7 +76,6 @@ const MiniPlayer = () => {
   useEffect(() => {
     if (eventYoutube) {
       handleStart(eventYoutube)
-      console.log(songs?.currentSong)
     }
     return;
   }, [songs, currentIndex])
@@ -98,6 +98,7 @@ const MiniPlayer = () => {
   const renderExpanedPlayerIcons = () => (
     <>
       <FormControlLabel
+        onClick={() => setToggleVideo(!toggleVideo)}
         style={{color: 'white'}}
         label='Video'
         labelPlacement="start"
@@ -155,12 +156,26 @@ const MiniPlayer = () => {
     </StyledPlayerWrapper>
   )
 
+  const handleToggleVideoToPicture = () => {
+    if (toggleVideo) {
+      eventYoutube.target.setSize(0, 0);
+      return <img src={songs?.currentSong[currentIndex].thumbnails.url} alt="" />;
+    }
+    if (!toggleVideo && eventYoutube && expandPlayer) {
+      eventYoutube.target.setSize(375, 300);
+    }
+    return
+  }
+
   const renderYouTubePlayer = () => (
-    <YouTube
-      videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
-      onReady={(e) => handleStart(e)}
-      opts={opts}
-    />
+    <>
+      <YouTube
+        videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
+        onReady={(e) => handleStart(e)}
+        opts={opts}
+      />
+      {handleToggleVideoToPicture()}
+    </>
   )
 
   return (
