@@ -2,20 +2,20 @@ import React, { useContext, useState } from "react";
 import {UserContext} from '../../contexts/usersContext/UserContextProvider'
 import { useHistory } from "react-router";
 import {
-  StyledTitle,
   StyledWrapper,
   StyledForm,
   StyledInput,
   StyledInputWrapper,
   StyledLabel,
   StyledButton,
-  ErrorMessage
+  ErrorMessage,
+  SuccessMessage
 } from "./StyledLogin";
 
 
 const Login: React.FC = () => {
     const history = useHistory();
-    const { login, errorMsg, logout, token } = useContext(UserContext)
+    const { login, errorMsg, logout, token, userId } = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -27,8 +27,7 @@ const Login: React.FC = () => {
           }
     
         await login(newUser);
-        history.push("/home")
-
+        // if(token && userId) { history.push("/home") }
     }
 
     return (
@@ -47,21 +46,21 @@ const Login: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)} />
 
         </StyledInputWrapper>
+        {errorMsg && <div><ErrorMessage>Bad credentials.</ErrorMessage></div>}
 
         <StyledButton type="submit">Login</StyledButton>
-        {errorMsg && <ErrorMessage>Bad credentials.</ErrorMessage>}
-
         <StyledButton onClick={() => history.push("/register")}>Create Account</StyledButton>
-      </StyledForm>
       
-      <h2>TEST:</h2>
       {token && 
-      <> <StyledTitle>You are logged in bro.</StyledTitle>
+      <>
+        <SuccessMessage> YOU HAVE SUCCESSFULLY LOGGED IN BRO 
+            <br /> Gonna redirect you shortly.
+        </SuccessMessage>
         <StyledButton onClick={() => logout()}>Logout</StyledButton>
         </>
       }
       
-
+      </StyledForm>
       </StyledWrapper>
     )
 }

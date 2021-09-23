@@ -82,7 +82,6 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
       }
     })
     .catch(err => {
-      console.log(err, 'or this?')
       setErrorMsg(true);
     });
   }
