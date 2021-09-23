@@ -10,11 +10,12 @@ export const StyledWrapper = styled.div`
 export const StyledPlayerWrapper = styled.div`
   width: 100vw;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 2rem;
 `
 
 export const StyledSongTitle = styled.p`
+  display: inline;
   color: white;
-  max-width: 100vw;
+  max-width: 85vw;
   margin: 0;
 `

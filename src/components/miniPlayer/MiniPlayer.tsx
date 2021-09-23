@@ -11,6 +11,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 
 const MiniPlayer = () => {
 
@@ -49,6 +50,10 @@ const MiniPlayer = () => {
     return;
   }
 
+  const handlePlayer = () => {
+    //handle the big player...
+  }
+
   const opts = {
     height: '0',
     width: '0',
@@ -60,6 +65,12 @@ const MiniPlayer = () => {
     }
     return;
   }, [songs, currentIndex])
+
+  const renderTitle = () => (
+    <StyledSongTitle>
+      {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].snippet.title}
+    </StyledSongTitle>
+  )
 
   const renderIcons = () => (
     <StyledPlayerWrapper>
@@ -90,7 +101,21 @@ const MiniPlayer = () => {
         fontSize: '2.5rem',
         color: 'white'
       }} onClick={handleNextSong} />
+      <KeyboardArrowUp style={{
+        alignSelf: 'center',
+        justifySelf: 'end',
+        fontSize: '2rem',
+        color: 'white',
+      }} onClick={handlePlayer}/>
     </StyledPlayerWrapper>
+  )
+
+  const renderYouTubePlayer = () => (
+    <YouTube
+      videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].id.videoId}
+      onReady={(e) => handleStart(e)}
+      opts={opts}
+    />
   )
 
 
@@ -102,14 +127,9 @@ const MiniPlayer = () => {
           opacity: '80%',
           display: 'grid'
         }} sx={{ width: '100vw', height: '5rem' }}>
-          {songs?.currentSong.length && <StyledSongTitle>{songs.currentSong[currentIndex].snippet.title}</StyledSongTitle>}
+          {songs?.currentSong.length && renderTitle()}
           {renderIcons()}
-          {songs?.currentSong.length &&
-            <YouTube
-            videoId={songs.currentSong[currentIndex].id.videoId}
-            onReady={(e) => handleStart(e)}
-            opts={opts}
-            />}
+          {songs?.currentSong.length && renderYouTubePlayer()}
         </BottomNavigation>
       </StyledWrapper>
     </>
