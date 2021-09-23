@@ -20,7 +20,6 @@ const schema = buildSchema(`
     _id: ID!
     artist: [String]
     title: String
-    album: String
     duration: Int
     videoId: Int
   }
@@ -47,7 +46,6 @@ const schema = buildSchema(`
   input SongInput {
     artist: [String]
     title: String
-    album: String
     duration: Int
     videoId: Int
   }
@@ -64,6 +62,7 @@ const schema = buildSchema(`
     createPlaylist(name: String!, userId: String): Playlist!
     removePlaylist(_id: String!, userId: String): Playlist
     addSongToPlaylist(_id: String!, input: SongInput): Playlist
+    removeSongFromPlaylist(songId: String!, playlistId: String!): Playlist
   }
 
   
