@@ -5,19 +5,16 @@ import { useState } from "react";
 import PlaylistItem from "../../components/playlistItem/PlaylistItem";
 import { StyledTitle, StyledAddPlaylistDiv, StyledGridDiv, StyledAddItem, StyledWrapper, StyledAddIcon, StyledListTitle} from "./StyledMyPlaylistPage";
 import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 interface List {
   name: string;
-  id: string;
+  _id: string;
 }
 
 const MyPlaylistsPage = () => {
   const { playlists, getUserPlaylists } = useContext(PlaylistContext)
 
-
-  
-  
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -25,6 +22,12 @@ const MyPlaylistsPage = () => {
     setAnchorEl(event.currentTarget);
     setOpen((previousOpen) => !previousOpen);
   };
+
+  const handleAddPlaylist = () => {
+    
+    console.log("Add playlist function.")
+     setOpen(false);
+  }
 
 
   useEffect(() => {
@@ -37,6 +40,7 @@ const MyPlaylistsPage = () => {
     await getUserPlaylists(userId);
 
     console.log('my playlists', playlists);
+   
   }
 
   
@@ -57,13 +61,13 @@ const MyPlaylistsPage = () => {
         <Popper open={open} anchorEl={anchorEl} >
           <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
             <input type="text" placeholder="Name of playlist..." />
-            <button>Create</button>
+            <button onClick={handleAddPlaylist}>Create</button>
             <span onClick={handleCreate}>[X]</span>
           </Box>
         </Popper>
         
         {playlists && playlists.map((list: List) => {
-          return <PlaylistItem key={list.name} data={list} />
+          return <PlaylistItem key={list._id} data={list} />
         })}
       </StyledGridDiv>
     </StyledWrapper>
