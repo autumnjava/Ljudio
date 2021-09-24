@@ -18,6 +18,7 @@ export const PlaylistContext = createContext<any | null>(null);
 export const PlaylistProvider = ({ children }: Props) => {
   const [playlists, setPlaylists] = useState<Array<any>>();
   const [errorMsg, setErrorMsg] = useState(false);
+  const [playlist, setPlaylist] = useState<Array<any>>();
 
   const getUserPlaylists = async (userId: string) => {
     const requestBody = {
@@ -40,10 +41,35 @@ export const PlaylistProvider = ({ children }: Props) => {
       setErrorMsg(false);
     }
   }
+
+  const getSongsFromPlaylist = async (playlistId: string) => {
+    const requestBody = {
+      query: ` query {
+        getSongsFromPlaylist(_id: "${playlistId}"){
+          songs {
+            title
+            image
+            duration
+            videoId
+          }
+        }
+      }
+      `
+    }
+
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setPlaylist(response.data.getSongsFromPlaylist.songs)
+    }
+  }
   
     const values = {
       getUserPlaylists,
+      getSongsFromPlaylist,
       playlists,
+      playlist,
       errorMsg
     }
   
