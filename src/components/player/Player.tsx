@@ -11,7 +11,6 @@ import {
   StyledYouTubeWrapper,
   StyledPlayer
 } from './StyledPlayer'
-import Player from '@mui/material/BottomNavigation';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
@@ -25,7 +24,7 @@ import ReplayIcon from '@material-ui/icons/Replay';
 
 const MiniPlayer = () => {
 
-  const opts = {
+  const playerDefaultOpts = {
     height: '0',
     width: '0',
   }
@@ -34,7 +33,7 @@ const MiniPlayer = () => {
   const songs = useContext(PlaylistContext);
   const [eventYoutube, setEventYoutube] = useState<any>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [expandPlayer, setExpandVideo] = useState<boolean>(false);
+  const [expandPlayer, setExpandPlayer] = useState<boolean>(false);
   const [toggleVideo, setToggleVideo] = useState<boolean>(false);
   
 
@@ -69,13 +68,13 @@ const MiniPlayer = () => {
   }
 
   const handleExpandPlayer = () => {
-    setExpandVideo(true);
+    setExpandPlayer(true);
     eventYoutube.target.setSize(375, 300);
   }
 
   const handleMinimizePlayer = () => {
     setToggleVideo(false);
-    setExpandVideo(false);
+    setExpandPlayer(false);
     eventYoutube.target.setSize(0, 0);
   }
 
@@ -182,7 +181,7 @@ const MiniPlayer = () => {
         <YouTube
         videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
         onReady={(e) => handleStart(e)}
-        opts={opts}
+        opts={playerDefaultOpts}
         />
       </StyledVideoWrapper>
       </StyledYouTubeWrapper>  
