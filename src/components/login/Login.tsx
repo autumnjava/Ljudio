@@ -1,37 +1,47 @@
 import React, { useContext, useState } from "react";
 import {UserContext} from '../../contexts/usersContext/UserContextProvider'
 import { useHistory } from "react-router";
+import ForgotPasswordModal from "../forgotPasswordModal/ForgotPasswordModal";
+
 import {
-  StyledTitle,
   StyledWrapper,
   StyledForm,
   StyledInput,
   StyledInputWrapper,
   StyledLabel,
   StyledButton,
-  ErrorMessage
+  ErrorMessage,
+  SuccessMessage,
+  RestorePassword
 } from "./StyledLogin";
 
 
 const Login: React.FC = () => {
-
-    // const { registerUser, errorMsg } = useContext(UserContext)
     const history = useHistory();
+    const { login, errorMsg } = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    async function login(e: React.FormEvent<HTMLFormElement>) {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
+
+    
+    async function loginUser(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        history.push("/home")
+        const newUser = {
+            email: email,
+            password: password
+          }
+    
+        await login(newUser);
+        window.location.reload();
     }
 
     return (
-        
-
  <StyledWrapper>
-      <StyledForm onSubmit={ (e) => login(e)}>
-        
+      <StyledForm onSubmit={ (e) => loginUser(e)}>
         <StyledInputWrapper>
           
           <StyledLabel>Email</StyledLabel>
@@ -42,14 +52,25 @@ const Login: React.FC = () => {
           <StyledInput type="password" required value={password}
                 onChange={(e) => setPassword(e.target.value)} />
 
-          
-          {/* {errorMsg && <ErrorMessage>Wrong credentials.</ErrorMessage>} */}
-
         </StyledInputWrapper>
+        
+        {errorMsg && <div><ErrorMessage>Bad credentials.</ErrorMessage></div>}
 
         <StyledButton type="submit">Login</StyledButton>
         <StyledButton onClick={() => history.push("/register")}>Create Account</StyledButton>
-        
+      
+      {/* {localStorage.getItem('JWT_KEY') && 
+      <>
+        <SuccessMessage> YOU HAVE SUCCESSFULLY LOGGED IN
+            <br /> Gonna redirect you shortly.
+        </SuccessMessage>
+        </>
+      } */}
+
+      <RestorePassword onClick={handleOpen}>Forgot password? click here to reset</RestorePassword>
+
+      <ForgotPasswordModal open={open} handleClose={handleClose} />
+      
       </StyledForm>
       </StyledWrapper>
     )

@@ -13,9 +13,12 @@ export const StyledWrapper = styled.div`
 
 export const StyledSongWrapper = styled.div`
   display: grid;
-  grid-template-columns: 4.5rem 1fr 2rem 2rem;
-  border-bottom: 1px solid #9C27B0;
+  grid-template-columns: 5rem 1fr 2rem 2rem;
+  @media (min-width: 400px) {
+      grid-template-columns: 6rem 1fr 2rem 2rem;
+  }
   @media (min-width: 769px) {
+  grid-template-columns: 7rem 1fr 2rem 2rem;
    &:hover{
      background:#F5F5F5;
      cursor: pointer;
@@ -25,11 +28,15 @@ export const StyledSongWrapper = styled.div`
 
 export const StyledSongs = styled.p`
   margin: 0;
-  padding: 1rem;
+  padding: 5%;
   margin-left: 1rem;
+  @media (min-width: 769px) {
+    padding: 3%;
+  }
 `
 
 export const StyledSongImg = styled.img`
+  padding: 3%;
   height: 7vh;
   align-self: center;
 `

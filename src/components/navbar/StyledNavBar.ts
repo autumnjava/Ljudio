@@ -6,6 +6,7 @@ export const StyledNavWrapper = styled.div`
   bottom: 0;
   position: fixed;
   border-bottom: 1px solid grey;
+  z-index: 100;
 
   @media (min-width: 769px) {
     width: 100%;
