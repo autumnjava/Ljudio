@@ -15,5 +15,4 @@ export const StyledSearchField = styled.input`
   padding: 0.5rem;
   outline: none;
   border: 1px solid #9C27B0;
-   z-index: 2;
 `
