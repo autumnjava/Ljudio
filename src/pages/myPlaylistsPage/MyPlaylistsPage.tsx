@@ -5,7 +5,7 @@ import { useState } from "react";
 import PlaylistItem from "../../components/playlistItem/PlaylistItem";
 import { StyledTitle, StyledAddPlaylistDiv, StyledGridDiv, StyledAddItem, StyledWrapper, StyledAddIcon, StyledListTitle} from "./StyledMyPlaylistPage";
 import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 interface List {
   name: string;
@@ -24,6 +24,12 @@ const MyPlaylistsPage = () => {
     setOpen((previousOpen) => !previousOpen);
     setName('');
   };
+
+  const handleAddPlaylist = () => {
+    
+    console.log("Add playlist function.")
+     setOpen(false);
+  }
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');

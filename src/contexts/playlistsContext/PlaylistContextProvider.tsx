@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import fetcher from '../fetcher';
 
 type Props = {
@@ -96,6 +96,8 @@ export const PlaylistProvider = ({ children }: Props) => {
     const requestBody = {
       query: ` query {
         getSongsFromPlaylist(_id: "${playlistId}"){
+          _id
+          name
           songs {
             title
             image
