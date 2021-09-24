@@ -15,7 +15,7 @@ import {
 
 const Login: React.FC = () => {
     const history = useHistory();
-    const { login, errorMsg, logout, userId } = useContext(UserContext)
+    const { login, errorMsg } = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -27,15 +27,12 @@ const Login: React.FC = () => {
           }
     
         await login(newUser);
-        // if(localStorage.getItem('JWT_KEY')  && userId) { history.push("/home") }
+        if(!errorMsg){
+          setTimeout(() => {
+            history.push('/home')
+          }, 2000)
+        }
     }
-
-
-    const logoutHandler = () => {
-        history.push("/")
-        logout();
-    }
-
     return (
         
 
@@ -52,6 +49,7 @@ const Login: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)} />
 
         </StyledInputWrapper>
+        
         {errorMsg && <div><ErrorMessage>Bad credentials.</ErrorMessage></div>}
 
         <StyledButton type="submit">Login</StyledButton>
@@ -59,10 +57,9 @@ const Login: React.FC = () => {
       
       {localStorage.getItem('JWT_KEY') && 
       <>
-        <SuccessMessage> YOU HAVE SUCCESSFULLY LOGGED IN BRO 
+        <SuccessMessage> YOU HAVE SUCCESSFULLY LOGGED IN
             <br /> Gonna redirect you shortly.
         </SuccessMessage>
-        <StyledButton onClick={logoutHandler}>Logout</StyledButton>
         </>
       }
       
