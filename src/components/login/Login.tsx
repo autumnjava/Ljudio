@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import {UserContext} from '../../contexts/usersContext/UserContextProvider'
 import { useHistory } from "react-router";
+import ForgotPasswordModal from "../forgotPasswordModal/ForgotPasswordModal";
+
 import {
   StyledWrapper,
   StyledForm,
@@ -9,7 +11,8 @@ import {
   StyledLabel,
   StyledButton,
   ErrorMessage,
-  SuccessMessage
+  SuccessMessage,
+  RestorePassword
 } from "./StyledLogin";
 
 
@@ -18,6 +21,12 @@ const Login: React.FC = () => {
     const { login, errorMsg } = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+
     
     async function loginUser(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -29,9 +38,8 @@ const Login: React.FC = () => {
         await login(newUser);
         window.location.reload();
     }
-    return (
-        
 
+    return (
  <StyledWrapper>
       <StyledForm onSubmit={ (e) => loginUser(e)}>
         <StyledInputWrapper>
@@ -51,13 +59,17 @@ const Login: React.FC = () => {
         <StyledButton type="submit">Login</StyledButton>
         <StyledButton onClick={() => history.push("/register")}>Create Account</StyledButton>
       
-      {localStorage.getItem('JWT_KEY') && 
+      {/* {localStorage.getItem('JWT_KEY') && 
       <>
         <SuccessMessage> YOU HAVE SUCCESSFULLY LOGGED IN
             <br /> Gonna redirect you shortly.
         </SuccessMessage>
         </>
-      }
+      } */}
+
+      <RestorePassword onClick={handleOpen}>Forgot password? click here to reset</RestorePassword>
+
+      <ForgotPasswordModal open={open} handleClose={handleClose} />
       
       </StyledForm>
       </StyledWrapper>
