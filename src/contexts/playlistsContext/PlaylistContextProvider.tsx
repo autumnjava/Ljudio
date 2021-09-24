@@ -55,7 +55,7 @@ export const PlaylistProvider = ({ children }: Props) => {
       getUserPlaylists,
       playlists,
       errorMsg
-    }
+  }
   
   return (
     <PlaylistContext.Provider value={values}>

@@ -24,13 +24,16 @@ export const StyledWrapper = styled.div`
   bottom: 3.5rem;
   position: fixed;
   border-top: 1px solid grey;
+  @media (min-width: 769px) {
+    bottom: 0;
+  }
 `;
 
 export const StyledPlayerWrapper = styled.div<PlayerProps>`
   width: 100vw;
   display: grid;
   grid-template-columns: ${props => props.expanded ? '1fr 1fr 1fr' : '1fr 7rem 1fr'};
-  grid-template-rows: ${props => props.expanded ? '1fr 1fr' : '1fr 1fr'};
+  grid-template-rows: ${props => props.expanded ? '1fr 1fr' : '1fr '};
 `
 
 export const StyledSongTitle = styled.p`

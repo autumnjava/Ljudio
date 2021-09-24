@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledWrapper = styled.div`
    padding: 0.5rem;
     &:last-child {
-        margin-bottom: 6rem;
+        margin-bottom: 7rem;
     }
    @media (min-width: 769px) {
     width: 80%;
@@ -25,7 +25,8 @@ export const StyledSongWrapper = styled.div`
 
 export const StyledSongs = styled.p`
   margin: 0;
-  padding: 1rem;   
+  padding: 1rem;
+  margin-left: 1rem;
 `
 
 export const StyledSongImg = styled.img`

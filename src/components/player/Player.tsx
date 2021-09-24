@@ -44,8 +44,11 @@ const MiniPlayer = () => {
   }
 
   const handlePlay = () => {
-    eventYoutube.target.playVideo();
-    setPlay(!play)
+    if (eventYoutube) {
+      eventYoutube.target.playVideo();
+      setPlay(!play)
+    }
+    return;
   }
 
   const handlePaus = () => {
