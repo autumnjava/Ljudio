@@ -5,12 +5,18 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
+import DialogTitle from '@mui/material/DialogTitle';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
 import {
   StyledWrapper,
   StyledSongs,
   StyledSongWrapper,
   StyledSongImg
 } from './StyledSearchPage'
+import { Dialog } from "@mui/material";
 
 interface SongProps {
   name: string,
@@ -24,7 +30,10 @@ const SearchPage = () => {
   const [content, setContent] = useState<any>('');
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const {currentSong, setCurrentSong, addSongToPlaylist } = useContext(PlaylistContext);
+  const { currentSong, setCurrentSong, addSongToPlaylist } = useContext(PlaylistContext);
+  const [open, setOpen] = useState(false);
+
+    const id = open ? 'simple-popper' : undefined;
 
   const handleSearch = (searchWord: string) => { 
     fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
@@ -57,6 +66,18 @@ const SearchPage = () => {
     const playlistId = "614b47f372dc1bfaa3260bfe"
     addSongToPlaylist(playlistId, song);
   }
+
+  const renderDialog = () => (
+   <Dialog open={open}>
+      <DialogTitle>Playlists</DialogTitle>
+        <List sx={{ pt: 0 }}>
+        <ListItem>
+          Show playlists here...
+        </ListItem>
+      </List>
+      <button onClick={() => setOpen(false)}>Close</button>
+    </Dialog>
+  )
   
   const printOutYoutubeContent = () => (
     <StyledWrapper>
@@ -65,8 +86,9 @@ const SearchPage = () => {
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
             <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
-            <PlaylistAddIcon onClick={() => handleAddToPlaylist(song)} style={{ alignSelf: 'center' }} />
-            <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }}/>
+            <PlaylistAddIcon onClick={() => setOpen(!open)} style={{ alignSelf: 'center' }} />
+            <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
+            {renderDialog()}
           </StyledSongWrapper>}
         </div>  
       ))}
