@@ -10,10 +10,10 @@ const playlistSchema = new Schema({
     }],
 
     // maybe need this later, maybe not, but keep it so far
-    creator: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    // creator: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User'
+    // }
 });
 
 module.exports = mongoose.model('Playlist', playlistSchema);

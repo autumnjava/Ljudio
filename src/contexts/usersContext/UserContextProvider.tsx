@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+import fetcher from '../fetcher';
 
 type Props = {
   children?: JSX.Element
@@ -31,7 +32,13 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
     }`
   }
 
-  sendRequest(requestBody);
+  const response = await fetcher(requestBody);
+  if (!response.data) {
+    setErrorMsg(true);
+  } else {
+    if(response.data.createUser) { console.log('successfully registered'); }
+
+  }
   }
 
   const login = async (user: User) => {
@@ -46,44 +53,23 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
       }`
     }
   
-    sendRequest(requestBody);
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      if(response.data.login.token){
+        console.log('succesfully logged in');
+        localStorage.setItem('JWT_KEY', response.data.login.token);
+        // setToken(response.data.login.token);
+        setUserId(response.data.login.userId);
+      }
+    }
     }
 
     const logout = () => {
       localStorage.removeItem('JWT_KEY');
       setUserId(null);
     }
-
-  const sendRequest = async (requestBody: Record<string, string>) => {
-    setErrorMsg(false);
-    fetch('http://localhost:4000/graphql', {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => {
-      if(res.status !== 200 && res.status !== 201){
-        setErrorMsg(true);
-        throw new Error('Failed')
-      }
-      return res.json();
-    })
-    .then(resData => {
-      setErrorMsg(false);
-      if(resData.data.createUser) { console.log('successfully registered'); }
-      else if(resData.data.login.token){
-        console.log('succesfully logged in');
-        localStorage.setItem('JWT_KEY', resData.data.login.token);
-        // setToken(resData.data.login.token);
-        setUserId(resData.data.login.userId);
-      }
-    })
-    .catch(err => {
-      setErrorMsg(true);
-    });
-  }
 
   const values = {
     registerUser,
