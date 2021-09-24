@@ -25,7 +25,7 @@ const SearchPage = () => {
   const [content, setContent] = useState<any>('');
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const songs = useContext(PlaylistContext);
+  const {songs, addSongToPlaylist } = useContext(PlaylistContext);
 
   const handleSearch = (searchWord: string) => { 
     fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
@@ -54,7 +54,9 @@ const SearchPage = () => {
   }
 
   const handleAddToPlaylist = (song: SongProps) => {
-    // function to add song to playlist..
+    // make dynamic so that the user can get choose which playlist to add a song to
+    const playlistId = "614b47f372dc1bfaa3260bfe"
+    addSongToPlaylist(playlistId, song);
   }
   
   const printOutYoutubeContent = () => (
