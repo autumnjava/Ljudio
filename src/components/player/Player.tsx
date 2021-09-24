@@ -20,6 +20,7 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import ReplayIcon from '@material-ui/icons/Replay';
 
 const MiniPlayer = () => {
@@ -35,6 +36,7 @@ const MiniPlayer = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [expandPlayer, setExpandPlayer] = useState<boolean>(false);
   const [toggleVideo, setToggleVideo] = useState<boolean>(false);
+  const [mute, setMute] = useState<boolean>(false)
   
 
   const handleStart = (event: any) => {
@@ -81,6 +83,16 @@ const MiniPlayer = () => {
     eventYoutube.target.setSize(0, 0);
   }
 
+  const handleMute = () => {
+    setMute(true)
+    eventYoutube.target.mute()
+  }
+
+  const handleVolume = () => {
+    setMute(false)
+    eventYoutube.target.unMute()
+  }
+
   useEffect(() => {
     if (eventYoutube) {
       handleStart(eventYoutube)
@@ -90,10 +102,11 @@ const MiniPlayer = () => {
 
   const renderTitle = () => (
     <StyledTitleWrapper>
-      <StyledSongTitle>
+      <StyledSongTitle expand={expandPlayer}>
         {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].name}
       </StyledSongTitle>
       {expandPlayer ? <KeyboardArrowDown style={{
+        paddingTop: '0.5rem',
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
@@ -119,11 +132,18 @@ const MiniPlayer = () => {
         labelPlacement="start"
         control={<Switch style={{ alignSelf: 'start', gridColumn: '1/3' }} />}
       />
-      <VolumeUpIcon style={{
+      {!mute ? <VolumeOffIcon style={{
+        alignSelf: 'center',
+        justifySelf: 'center',
+        color: 'white'
+      }} onClick={handleMute}/>
+          :
+          <VolumeUpIcon style={{
           alignSelf: 'center',
           justifySelf: 'center',
           color: 'white'
-        }}/>
+        }} onClick={handleVolume}/> 
+      }
       <ReplayIcon style={{
           alignSelf: 'center',
           justifySelf: 'start',
@@ -194,7 +214,7 @@ const MiniPlayer = () => {
 
   return (
     <>
-      <StyledWrapper>
+      <StyledWrapper expand={expandPlayer}>
         <StyledPlayer expand={expandPlayer}>
             {songs?.currentSong.length && renderTitle()}
             {songs?.currentSong.length && renderYouTubePlayer()}
