@@ -14,35 +14,36 @@ interface SongProps {
 const PlaylistPage = () => {
 
   const { id }: any = useParams();
-  const { playlist, getSongsFromPlaylist, playlists, getUserPlaylists } = useContext(PlaylistContext)
+  const { playlist, playlists, getSongsFromPlaylist, getUserPlaylists } = useContext(PlaylistContext)
 
-
+  const currentPL = playlists?.find((p: any) => p._id === id);
 
 
   useEffect(() => {
     playlistSongs();
-    getUserPlaylists(id);
   }, [!playlist]);
+  
+  useEffect(() => {
+    myPlaylists();
+  }, [!playlists]);
+
+  const myPlaylists = async () => {
+    const userId = "614c45add183eb4b3d148816";
+    await getUserPlaylists(userId);
    
-
-      const currentList =  playlists?.find((p: any) => p._id === id)
-
-
+  }
   
     const playlistSongs = async () => {
       const playlistId = "614b47f372dc1bfaa3260bfe";
       await getSongsFromPlaylist(playlistId);
-      
-      console.log('playlist songs', playlist);
-      console.log("playlistssss", playlists) 
     }
     
   return (
     <>
       <div>
-        {playlists ? <div>
-          <StyledPLTitle>{currentList.name}</StyledPLTitle>
-        </div> : <p style={{marginTop: "55px"}}>NO NAME FOUND...</p>}
+        {currentPL ? <div>
+          <StyledPLTitle>{currentPL.name}</StyledPLTitle>
+        </div> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
         {playlist && playlist.map((song: SongProps) => {
           return <PlaylistRowItem key={song.videoId} song={song} />
         })}
