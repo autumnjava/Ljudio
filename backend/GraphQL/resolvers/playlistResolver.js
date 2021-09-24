@@ -25,6 +25,7 @@ const playlistResolver = {
 
     return playlist;
   },
+
   getUserPlaylists: async args => {
     try {
       const myPlaylists = await User.findOne({ _id: args._id }).populate('myPlaylists').exec();
@@ -33,7 +34,6 @@ const playlistResolver = {
       throw new Error(error);
     }
   },
-  
 
   removePlaylist: async (args) => {
 
@@ -62,6 +62,12 @@ const playlistResolver = {
     //   })
 
     return playlist
+  },
+
+  getSongsFromPlaylist: async (args) => {
+    const songs = await Playlist.findById({ _id: args._id }).populate('songs').exec();
+
+    return songs
   },
 
   addSongToPlaylist: async (args) => {

@@ -59,9 +59,8 @@ const schema = buildSchema(`
   type Query {
     getUser(_id: String!): User!
     getUserPlaylists(_id: String!): User!
-    getSongsFromPlaylist(_id: String!): [Song]
+    getSongsFromPlaylist(_id: String!): Playlist
     login(email: String!, password: String!): AuthData!
-
   }
 
   type Mutation {
