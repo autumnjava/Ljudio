@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import fetcher from '../fetcher';
 
 type Props = {
@@ -49,6 +49,7 @@ export const PlaylistProvider = ({ children }: Props) => {
       setErrorMsg(false);
     }
   }
+
 
   const getSongsFromPlaylist = async (playlistId: string) => {
     const requestBody = {

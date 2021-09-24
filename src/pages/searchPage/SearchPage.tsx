@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
+import { useState, useContext, useEffect } from "react";
 import SearchField from "../../components/searchField/SearchField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -8,8 +7,8 @@ import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import DialogTitle from '@mui/material/DialogTitle';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Box from '@mui/material/Box';
-import Popper from '@mui/material/Popper';
+import { UserContext } from "../../contexts/usersContext/UserContextProvider";
+import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
 import {
   StyledWrapper,
   StyledSongs,
@@ -32,8 +31,26 @@ const SearchPage = () => {
   const [showMore, setShowMore] = useState(false);
   const { currentSong, setCurrentSong, addSongToPlaylist } = useContext(PlaylistContext);
   const [open, setOpen] = useState(false);
+  const { getUserPlaylists } = useContext(PlaylistContext);
+  const { playlists } = useContext(PlaylistContext)
+  const [userId, setUserId] = useState<string | null>('');
 
-    const id = open ? 'simple-popper' : undefined;
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    setUserId(userId);
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      myPlaylists();
+    }
+  }, [!playlists, userId]);
+
+  const myPlaylists = async () => {
+    await getUserPlaylists(userId);
+  }
+
+  const id = open ? 'simple-popper' : undefined;
 
   const handleSearch = (searchWord: string) => { 
     fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
@@ -68,14 +85,15 @@ const SearchPage = () => {
   }
 
   const renderDialog = () => (
-   <Dialog open={open}>
+    <Dialog onClose={() => setOpen(false)} open={open}>
       <DialogTitle>Playlists</DialogTitle>
-        <List sx={{ pt: 0 }}>
-        <ListItem>
-          Show playlists here...
+      <List sx={{ pt: 0 }}>
+        {playlists.map((playlist: any) => (
+          <ListItem key={playlist.id}>
+            {playlist.name}
         </ListItem>
+        ))}
       </List>
-      <button onClick={() => setOpen(false)}>Close</button>
     </Dialog>
   )
   
