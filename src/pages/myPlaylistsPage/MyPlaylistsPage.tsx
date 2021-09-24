@@ -9,21 +9,19 @@ import { useContext, useEffect } from 'react';
 
 interface List {
   name: string;
-  id: string;
+  _id: string;
 }
 
 const MyPlaylistsPage = () => {
-  const { playlists, getUserPlaylists, deletePlaylist } = useContext(PlaylistContext)
-
-
-  
-  
+  const { playlists, getUserPlaylists, deletePlaylist, createPlaylist } = useContext(PlaylistContext)
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [name, setName] = useState('');
 
   const handleCreate = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen((previousOpen) => !previousOpen);
+    setName('');
   };
 
 
@@ -46,6 +44,18 @@ const MyPlaylistsPage = () => {
     // await deletePlaylist(playlistId, userId);
   }
 
+  const addPlaylist = async () => {
+    console.log('want to create new playlist');
+    console.log('what is name', name);
+    const userId = "614c45add183eb4b3d148816";
+    if (!name) {
+      return;
+    }
+    setName('');
+    setOpen(false);
+    await createPlaylist(name, userId)
+  }
+
   
   return (
     <StyledWrapper>
@@ -63,14 +73,14 @@ const MyPlaylistsPage = () => {
         
         <Popper open={open} anchorEl={anchorEl} >
           <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-            <input type="text" placeholder="Name of playlist..." />
-            <button>Create</button>
+            <input onChange={(e) => setName(e.target.value)} type="text" placeholder="Name of playlist..." />
+            <button onClick={addPlaylist}>Create</button>
             <span onClick={handleCreate}>[X]</span>
           </Box>
         </Popper>
         
         {playlists && playlists.map((list: List) => {
-          return <PlaylistItem key={list.name} data={list} />
+          return <PlaylistItem key={list._id} data={list} />
         })}
       </StyledGridDiv>
     </StyledWrapper>

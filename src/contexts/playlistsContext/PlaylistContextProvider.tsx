@@ -42,11 +42,12 @@ export const PlaylistProvider = ({ children }: Props) => {
 
   const deletePlaylist = async (playlistId: string, userId: string) => {
     const requestBody = {
-      query: `mutation
+      query: `mutation {
         removePlaylist(_id: ${playlistId}, userId: ${userId}){
           _id
           name
         }
+      }
       `
     }
     const response = await fetcher(requestBody);
@@ -57,8 +58,32 @@ export const PlaylistProvider = ({ children }: Props) => {
       setErrorMsg(false);
     }
   }
+
+
+  const createPlaylist = async (name: string, userId: string) => {
+    const requestBody = {
+      query: ` mutation {
+        createPlaylist(name: "${name}", userId: "${userId}"){
+          _id
+          name
+        }
+      }
+      `
+    }
+
+    const response = await fetcher(requestBody);
+    console.log('what is response from add', response);
+    
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      getUserPlaylists(userId);
+      setErrorMsg(false);
+    }
+  }
   
   const values = {
+      createPlaylist,
       deletePlaylist,
       getUserPlaylists,
       playlists,
