@@ -13,13 +13,11 @@ import {
   StyledNameInput,
   StyledEditDiv
 } from "./StyledProfilePage";
-import { useThemeWithoutDefault } from '@mui/system';
 
 
 const ProfilePage: React.FC = () => {
   const { user, getUser, changeUsername } = useContext(UserContext);
   const [userId, setUserId] = useState<string | null>();
-  // const [name, setName] = useState('');
   const [editName, setEditName] = useState(false);
   const newName: any = useRef();
   const editHandler = () => {
@@ -47,8 +45,6 @@ const ProfilePage: React.FC = () => {
   const saveEditName = async (ref: any, setEditName: any) => {
     setEditName(!editName);
     await changeUsername(userId, ref.current.value);
-    // setName(ref.current.value)
-    // console.log(ref.current.value, "hmm")
   }
 
 
