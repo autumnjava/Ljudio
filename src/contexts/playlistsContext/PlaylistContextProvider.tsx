@@ -13,9 +13,17 @@ type Props = {
 //   }
 // }
 
+interface SongProps {
+  name: string,
+  videoId: string,
+  duration: number,
+  imgUrl: string
+}
+  
 export const PlaylistContext = createContext<any | null>(null);
 
 export const PlaylistProvider = ({ children }: Props) => {
+  const [currentSong, setCurrentSong] = useState<SongProps[]>([]);
   const [playlists, setPlaylists] = useState<Array<any>>();
   const [errorMsg, setErrorMsg] = useState(false);
 
@@ -41,16 +49,14 @@ export const PlaylistProvider = ({ children }: Props) => {
     }
   }
   
-    const values = {
+  const values = {
+      currentSong,
+      setCurrentSong,
       getUserPlaylists,
       playlists,
       errorMsg
-    }
+  }
   
-
-
-
-
   return (
     <PlaylistContext.Provider value={values}>
        { children }
