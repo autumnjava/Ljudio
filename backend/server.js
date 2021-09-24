@@ -1,33 +1,30 @@
 // import mongoose module
 const mongoose = require('mongoose');
 const express = require('express');
-const app = express();
 require('dotenv').config();
 const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
 const gql = require('graphql-tag');
 
+const graphQlResolvers = require('./graphql/resolvers/index');
+const schema = require('./GraphQL/schema/schema');
 
-// Construct a schema, using GraphQL schema language
-// Maybe in a schema file under models??? 
+const app = express();
 
-// var schema = buildSchema(`
-//   type Query {
-//     hello: String
-//   }
-// `);
+// we need this to allow requests from another server (in this case localhost:3000)
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-// The root provides a resolver function for each API endpoint
-
-// var root = {
-//   hello: () => {
-//     return 'Hello world!';
-//   },
-// };
+  if(req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+})
 
 app.use('/graphql', graphqlHTTP({
-  // schema: schema,
-  // rootValue: root,
+  schema: schema,
+  rootValue: graphQlResolvers,
   graphiql: true,
 }));
 

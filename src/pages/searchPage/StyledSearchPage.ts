@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const StyledWrapper = styled.div`
    padding: 0.5rem;
+    &:last-child {
+        margin-bottom: 6rem;
+    }
    @media (min-width: 769px) {
     width: 80%;
     margin: 0 auto;
