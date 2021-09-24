@@ -14,16 +14,20 @@ interface SongProps {
 const PlaylistPage = () => {
 
   const { id }: any = useParams();
-  const { playlist, getSongsFromPlaylist, playlists } = useContext(PlaylistContext)
+  const { playlist, getSongsFromPlaylist, playlists, getUserPlaylists } = useContext(PlaylistContext)
 
- 
-  const currentList = playlists.find((p: any) => p._id === id)
+
 
 
   useEffect(() => {
     playlistSongs();
+    getUserPlaylists(id);
   }, [!playlist]);
    
+
+      const currentList =  playlists?.find((p: any) => p._id === id)
+
+
   
     const playlistSongs = async () => {
       const playlistId = "614b47f372dc1bfaa3260bfe";
@@ -35,13 +39,14 @@ const PlaylistPage = () => {
     
   return (
     <>
-
       <div>
-        {playlists && <StyledPLTitle>{currentList.name}</StyledPLTitle>}
+        {playlists ? <div>
+          <StyledPLTitle>{currentList.name}</StyledPLTitle>
+        </div> : <p style={{marginTop: "55px"}}>NO NAME FOUND...</p>}
+        {playlist && playlist.map((song: SongProps) => {
+          return <PlaylistRowItem key={song.videoId} song={song} />
+        })}
       </div>
-      {playlist && playlist.map((song: SongProps) => {
-        return <PlaylistRowItem key={song.videoId} song={song} />
-      })}
     </>
   )
 }
