@@ -31,7 +31,6 @@ export const StyledBlurDiv = styled.div`
 
 
 export const StyledWrapper = styled.div`
-
   @media (min-width: 769px) {
     min-height: 30vh;
    }
