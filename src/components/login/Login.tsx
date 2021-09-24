@@ -36,6 +36,7 @@ const Login: React.FC = () => {
           }
     
         await login(newUser);
+        window.location.reload();
     }
 
     return (
