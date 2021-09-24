@@ -17,7 +17,7 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
 
   const[token, setToken] = useState(null);
   const[userId, setUserId] = useState(null);
-
+  const [user, setUser] = useState({});
   const [errorMsg, setErrorMsg] = useState(false)
 
   const registerUser = async (user: User) => {
@@ -72,13 +72,60 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
       setUserId(null);
       setToken(null)
     }
+  
+  const getUser = async (userId: string) => {
+    const requestBody = {
+      query: `query {
+        getUser(_id: "${userId}")
+        {
+          _id
+          username
+          email
+        }
+      }`
+    }
+
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      setUser(response.data.getUser);
+      setErrorMsg(false);
+    }
+  }
+  
+  const changeUsername = async (userId: string, newName: string) => {
+    const requestBody = {
+      query: `mutation {
+        changeUsername(_id: "${userId}", newName: "${newName}")
+        {
+          _id
+          username
+          email
+        }
+      }`
+    }
+
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      getUser(userId);
+      setErrorMsg(false);
+    }
+  }
+
+  
 
   const values = {
+    getUser,
+    changeUsername,
     registerUser,
     login,
     logout,
     errorMsg,
-    userId
+    userId,
+    user
   }
 
   return (
