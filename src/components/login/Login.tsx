@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     const { login, errorMsg } = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    
     async function loginUser(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const newUser = {
@@ -27,11 +27,7 @@ const Login: React.FC = () => {
           }
     
         await login(newUser);
-        if(!errorMsg){
-          setTimeout(() => {
-            history.push('/home')
-          }, 2000)
-        }
+
     }
     return (
         
