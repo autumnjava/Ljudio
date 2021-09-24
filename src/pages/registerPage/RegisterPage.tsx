@@ -38,10 +38,6 @@ const RegisterPage: React.FC = () => {
       }
 
     await registerUser(newUser);
-    // this does not work at the moment but shall be implemented
-    // if (errorMsg) {
-    //   console.log('error response from register page')
-    // }
   }
 
 
