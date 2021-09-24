@@ -7,7 +7,7 @@ export const StyledRowWrapper = styled.div`
   @media (min-width: 769px) {
     &:hover{
       cursor: pointer;
-      background: lightgray;
+      background: #ECECEC;
     }
     &:last-child{
     margin-bottom: 80px;
