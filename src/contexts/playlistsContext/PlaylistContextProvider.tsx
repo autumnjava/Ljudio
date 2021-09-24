@@ -72,12 +72,41 @@ export const PlaylistProvider = ({ children }: Props) => {
       setPlaylist(response.data.getSongsFromPlaylist.songs)
     }
   }
+
+  const addSongToPlaylist = async (playlistId: string, song: SongProps) => {
+    const requestBody = {
+      query: `mutation{
+        addSongToPlaylist(
+          _id:"${playlistId}",
+          input:
+            {title: "${song.name}",
+            image:"${song.imgUrl}",
+            duration: ${song.duration},
+            videoId:"${song.videoId}"
+        })
+          {
+            name
+          }
+        }
+      `
+    }
+
+    console.log(requestBody, 'body')
+    const respone = await fetcher(requestBody);
+    if (!respone) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      // if you want data, it will return what playlist a song has been added to
+    }
+  }
   
   const values = {
       currentSong,
       setCurrentSong,
       getUserPlaylists,
       getSongsFromPlaylist,
+      addSongToPlaylist,
       playlists,
       playlist,
       errorMsg
