@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "../pages/homePage/HomePage";
 import LandingPage from "../pages/landingPage/LandingPage";
@@ -6,6 +7,8 @@ import PlaylistPage from "../pages/playlistPage/PlaylistPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
 import SearchPage from "../pages/searchPage/SearchPage";
+import {UserContext} from '../contexts/usersContext/UserContextProvider'
+
 
 
 interface Props {
@@ -13,13 +16,16 @@ interface Props {
 }
 
 const AllRoutes: React.FC<Props> = ({children}: Props) => {
+  const { userId } = useContext(UserContext)
+  console.log(localStorage.getItem('JWT_KEY'))
+
   return(
     <Router>
       {children}
       <Switch>
-        <Route path="/" exact={true} component={LandingPage} />
+        {!localStorage.getItem('JWT_KEY') && <Route path="/" exact={true} component={LandingPage} />}
+        {localStorage.getItem('JWT_KEY')  && <Route path="/" exact={true} component={HomePage} />}
         <Route path="/register" exact={true} component={RegisterPage} />
-        <Route path="/home" exact={true} component={HomePage} />
         <Route path="/myPlaylist" exact={true} component={MyPlaylistsPage} />
         <Route path="/playlist/:id" exact={true} component={PlaylistPage} />
         <Route path="/search" exact={true} component={SearchPage} />
