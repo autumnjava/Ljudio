@@ -1,6 +1,6 @@
 import Navbar from "./components/navbar/Navbar";
 import AllRoutes from "./router/AllRoutes";
-import MiniPlayer from "./components/player/Player";
+import Player from "./components/player/Player";
 import Providers from "./components/providers/Providers";
 
 const App: React.FC = () => {
@@ -8,7 +8,7 @@ const App: React.FC = () => {
     <div className="App">
       <Providers>
         <AllRoutes >
-          <MiniPlayer/>
+          <Player/>
           <Navbar />
         </AllRoutes>
       </Providers>

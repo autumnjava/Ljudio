@@ -5,7 +5,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
-import youtube from './YoutubeApi';
 import {
   StyledWrapper,
   StyledSongs,

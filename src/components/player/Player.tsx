@@ -90,10 +90,11 @@ const MiniPlayer = () => {
 
   const renderTitle = () => (
     <StyledTitleWrapper>
-      <StyledSongTitle>
+      <StyledSongTitle expand={expandPlayer}>
         {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].name}
       </StyledSongTitle>
       {expandPlayer ? <KeyboardArrowDown style={{
+        paddingTop: '0.5rem',
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
@@ -194,7 +195,7 @@ const MiniPlayer = () => {
 
   return (
     <>
-      <StyledWrapper>
+      <StyledWrapper expand={expandPlayer}>
         <StyledPlayer expand={expandPlayer}>
             {songs?.currentSong.length && renderTitle()}
             {songs?.currentSong.length && renderYouTubePlayer()}

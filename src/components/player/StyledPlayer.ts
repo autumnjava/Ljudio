@@ -15,10 +15,15 @@ interface ExpandPlayer {
 export const StyledPlayer = styled.div<ExpandPlayer>`
   background: black;
   width: 100vw;
-  height: ${props => props.expand ? '92vh' : '5rem'}
+  display: ${props => props.expand ? 'grid' : ''};
+  grid-template-rows: ${props => props.expand ? '8rem 22rem 7rem' : ''};
+  height: ${props => props.expand ? '93.5vh' : '5rem'};
+  @media (min-width: 769px) {
+    grid-template-rows: ${props => props.expand ? '10% 70% 7%' : ''};
+  }
 `
 
-export const StyledWrapper = styled.div`
+export const StyledWrapper = styled.div<ExpandPlayer>`
   z-index: 100;
   top: auto;
   bottom: 3.5rem;
@@ -36,8 +41,8 @@ export const StyledPlayerWrapper = styled.div<PlayerProps>`
   grid-template-rows: ${props => props.expanded ? '1fr 1fr' : '1fr '};
 `
 
-export const StyledSongTitle = styled.p`
-  padding-top: 4px;
+export const StyledSongTitle = styled.p<ExpandPlayer>`
+  padding-top: ${props => props.expand ? '1rem' : '4px'};
   display: inline;
   color: white;
   width: 85vw;
@@ -62,10 +67,9 @@ export const StyledVideoWrapper = styled.div<VideoProps>`
   display: ${props => props.show ? 'block' : 'none'};
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
   @media (min-width: 769px) {
-    margin-top: 7rem;
-  }
+    margin-top: 7%;
+  } 
 `
 
 export const StyledImg = styled.img`
