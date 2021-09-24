@@ -4,7 +4,7 @@ const schema = buildSchema(`
   type User {
     _id: ID!
     email: String!
-    password: String!
+    password: String
     username: String!
     djRoom: DjRoom
     myPlaylists: [Playlist]
@@ -60,7 +60,9 @@ const schema = buildSchema(`
     getUser(_id: String!): User!
     getUserPlaylists(_id: String!): User!
     getSongsFromPlaylist(_id: String!): Playlist
-    login(email: String!, password: String!): AuthData!
+    login(email: String!, password: String!): User!
+    logout: Boolean!
+    whoAmI: User!
   }
 
   type Mutation {

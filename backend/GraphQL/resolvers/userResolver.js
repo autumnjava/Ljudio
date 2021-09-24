@@ -1,8 +1,7 @@
+
 const User = require('../../models/user')
 const Playlist = require('../../models/playlist');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { isJSDocReturnTag, updateYield } = require('typescript');
 
 const userResolver = {
     // createUser: async (args) => {
@@ -24,6 +23,9 @@ const userResolver = {
   },
     createUser: async args => {
       try {
+        if(!args.input.password){
+          return;
+        }
         const existingUserEmail = await User.findOne({ email: args.input.email});
         const existingUserName = await User.findOne({ username: args.input.username});
         if (existingUserEmail || existingUserName) {
@@ -43,24 +45,47 @@ const userResolver = {
       }
     },
 
-    login: async ({email, password}) => {
-      const errorMsg='Bad credentials'
-        const user = await User.findOne({email})
-        if(!user){
-            throw new Error(errorMsg);
-        }
-        const isEqual = await bcrypt.compare(password, user.password);
+    login: async ({email, password}, req) => {
+      // note: req.session is unique per user/browser
+      if (req.session.user) {
+        throw new Error('Already logged in bro!');
+    }
+
+    const user = await User.findOne({email})
+      if(!user){
+          throw new Error('User does not exist');
+      }
+      
+      const isEqual = await bcrypt.compare(password, user.password);
         if(!isEqual){
-            throw new Error(errorMsg);
+            throw new Error('Bad credentials');
         }
 
-        const token = jwt.sign({userId: user.id, email: user.email}, process.env.TOKEN_KEY, {expiresIn: '1h'})
-        
-        return {
-            userId: user.id,
-            token,
-            tokenExpiration: 1
-        }
+        //if we made all the way here, add user to session
+        req.session.user = user;
+
+        return {...user._doc, password: null };
+    },
+
+    logout: async (args, req) => {
+      if (req.session.user) {
+        delete req.session.user;
+        return true; // success
+      }
+      else {
+        return false; // fail
+      }
+    },
+
+    whoAmI: async (args, req) => {
+      if (req.session.user) {
+        let user = { ...req.session.user };
+        delete user.password; // remove password in answer
+        return user;
+      }
+      else {
+        throw new Error('you are no one');
+      }
     }
   }
 
