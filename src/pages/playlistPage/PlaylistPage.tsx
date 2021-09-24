@@ -16,13 +16,14 @@ const PlaylistPage = () => {
   const { id }: any = useParams();
   const { playlist, getSongsFromPlaylist, playlists } = useContext(PlaylistContext)
 
+ 
+  const currentList = playlists.find((p: any) => p._id === id)
+
+
   useEffect(() => {
     playlistSongs();
   }, [!playlist]);
    
-
-  const currentList = playlists?.find((p: any) => p._id === id)
-
   
     const playlistSongs = async () => {
       const playlistId = "614b47f372dc1bfaa3260bfe";
@@ -35,9 +36,8 @@ const PlaylistPage = () => {
   return (
     <>
 
-      {/* Här kommer data för spellistans namn att visas */}
-       <div>
-        <StyledPLTitle>{currentList.name}</StyledPLTitle>
+      <div>
+        {playlists && <StyledPLTitle>{currentList.name}</StyledPLTitle>}
       </div>
       {playlist && playlist.map((song: SongProps) => {
         return <PlaylistRowItem key={song.videoId} song={song} />
