@@ -52,7 +52,7 @@ export const PlaylistProvider = ({ children }: Props) => {
   const deletePlaylist = async (playlistId: string, userId: string) => {
     const requestBody = {
       query: `mutation {
-        removePlaylist(_id: ${playlistId}, userId: ${userId}){
+        removePlaylist(_id: "${playlistId}", userId: "${userId}"){
           _id
           name
         }

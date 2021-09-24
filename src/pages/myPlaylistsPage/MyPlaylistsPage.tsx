@@ -17,37 +17,35 @@ const MyPlaylistsPage = () => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [name, setName] = useState('');
-
+  const [userId, setUserId] = useState<string | null>('');
+''
   const handleCreate = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen((previousOpen) => !previousOpen);
     setName('');
   };
 
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    setUserId(userId);
+  }, []);
 
   useEffect(() => {
-    myPlaylists();
-  }, [!playlists]);
+    if (userId) {
+      myPlaylists();
+    }
+  }, [!playlists, userId]);
 
 
   const myPlaylists = async () => {
-    const userId = "614c45add183eb4b3d148816";
     await getUserPlaylists(userId);
-
-    console.log('my playlists', playlists);
   }
 
-  const removePlaylist = async () => {
-    console.log('I have clicked on delete playlist button')
-    // const userId = "614c45add183eb4b3d148816";
-    // const playlistId = "614c49fc2495df67d6729842";
-    // await deletePlaylist(playlistId, userId);
+  const removePlaylist = async (playlistId: string) => {
+    await deletePlaylist(playlistId, userId);
   }
 
   const addPlaylist = async () => {
-    console.log('want to create new playlist');
-    console.log('what is name', name);
-    const userId = "614c45add183eb4b3d148816";
     if (!name) {
       return;
     }
@@ -80,7 +78,7 @@ const MyPlaylistsPage = () => {
         </Popper>
         
         {playlists && playlists.map((list: List) => {
-          return <PlaylistItem key={list._id} data={list} />
+          return <PlaylistItem key={list._id} data={[list, removePlaylist]} />
         })}
       </StyledGridDiv>
     </StyledWrapper>
