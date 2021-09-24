@@ -8,7 +8,8 @@ import {
   StyledTitleWrapper,
   StyledVideoWrapper,
   StyledImg,
-  StyledYouTubeWrapper
+  StyledYouTubeWrapper,
+  StyledPlayer
 } from './StyledPlayer'
 import Player from '@mui/material/BottomNavigation';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -123,8 +124,9 @@ const MiniPlayer = () => {
         }}/>
       <ReplayIcon style={{
           alignSelf: 'center',
-          justifySelf: 'center',
-          color: 'white'
+          justifySelf: 'start',
+          color: 'white',
+          paddingLeft: '1rem'
         }}/>
     </>
   )
@@ -168,7 +170,7 @@ const MiniPlayer = () => {
       return <StyledImg src={songs?.currentSong[currentIndex].imgUrl} alt="" />;
     }
     if (!toggleVideo && eventYoutube && expandPlayer) {
-      eventYoutube.target.setSize(375, 300);
+      eventYoutube.target.setSize(475, 350);
     }
     return
   }
@@ -191,14 +193,11 @@ const MiniPlayer = () => {
   return (
     <>
       <StyledWrapper>
-        <Player style={{
-          background: 'black',
-          display: 'grid'
-        }} sx={{ width: '100vw', height: !expandPlayer ? '5rem' : '92vh' }}>
+        <StyledPlayer expand={expandPlayer}>
             {songs?.currentSong.length && renderTitle()}
             {songs?.currentSong.length && renderYouTubePlayer()}
           {renderIcons()}
-        </Player>
+        </StyledPlayer>
       </StyledWrapper>
     </>
   )

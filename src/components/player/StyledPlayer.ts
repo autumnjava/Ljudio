@@ -1,12 +1,22 @@
 import styled from 'styled-components'
 
-interface playerProps {
+interface PlayerProps {
   expanded: boolean
 }
 
-interface videoProps {
+interface VideoProps {
   show: boolean
 }
+
+interface ExpandPlayer {
+  expand: boolean
+}
+
+export const StyledPlayer = styled.div<ExpandPlayer>`
+  background: black;
+  width: 100vw;
+  height: ${props => props.expand ? '92vh' : '5rem'}
+`
 
 export const StyledWrapper = styled.div`
   z-index: 100;
@@ -16,7 +26,7 @@ export const StyledWrapper = styled.div`
   border-top: 1px solid grey;
 `;
 
-export const StyledPlayerWrapper = styled.div<playerProps>`
+export const StyledPlayerWrapper = styled.div<PlayerProps>`
   width: 100vw;
   display: grid;
   grid-template-columns: ${props => props.expanded ? '1fr 1fr 1fr' : '1fr 7rem 1fr'};
@@ -39,24 +49,30 @@ export const StyledTitleWrapper = styled.div`
   grid-template-columns: 1fr 2rem;
 `
 
-export const StyledYouTubeWrapper = styled.div<videoProps>`
+export const StyledYouTubeWrapper = styled.div<VideoProps>`
   display: ${props => props.show ? 'block' : 'none'};
   width: 100vw;
 `
 
-export const StyledVideoWrapper = styled.div<videoProps>`
+export const StyledVideoWrapper = styled.div<VideoProps>`
+ width: 100vw;
   display: ${props => props.show ? 'block' : 'none'};
   display: flex;
   justify-content: center;
+  margin-top: 3rem;
+  @media (min-width: 769px) {
+    margin-top: 7rem;
+  }
 `
 
 export const StyledImg = styled.img`
   display: block;
   width: 80vw;
-  height: 42.5vh;
+  height: 50.2vh;
+  margin-bottom: 3rem;
   object-fit: contain;
   margin: 0 auto;
     @media (min-width: 769px) {
-      height: 36vh;
+      height: 42.5vh;
   }
 `
