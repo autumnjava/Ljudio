@@ -57,6 +57,11 @@ export const StyledInput = styled.input`
 
 `;
 
+export const RestorePassword = styled.p`
+  color: #FFFFFF;
+
+`;
+
 export const StyledLabel = styled.p`
   color: #EF02EB;
   opacity: 80%;
