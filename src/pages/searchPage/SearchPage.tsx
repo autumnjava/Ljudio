@@ -25,7 +25,7 @@ const SearchPage = () => {
   const [content, setContent] = useState<any>('');
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const {songs, addSongToPlaylist } = useContext(PlaylistContext);
+  const {currentSong, setCurrentSong, addSongToPlaylist } = useContext(PlaylistContext);
 
   const handleSearch = (searchWord: string) => { 
     fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
@@ -46,11 +46,11 @@ const SearchPage = () => {
   }
 
   const handleSong = (song: SongProps) => {
-    songs?.setCurrentSong([song]);
+    setCurrentSong([song]);
   }
 
   const handleQue = (song: SongProps) => {
-    songs?.setCurrentSong([...songs.currentSong, song])
+    setCurrentSong([...currentSong.currentSong, song])
   }
 
   const handleAddToPlaylist = (song: SongProps) => {
