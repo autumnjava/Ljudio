@@ -49,7 +49,7 @@ const SearchPage = () => {
   }
 
   const handleQue = (song: SongProps) => {
-    setCurrentSong([...currentSong.currentSong, song])
+    setCurrentSong([...currentSong, song])
   }
 
   const handleAddToPlaylist = (song: SongProps) => {
