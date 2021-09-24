@@ -6,7 +6,7 @@ const songSchema = new Schema({
     artist: [String], 
     title: String,
     duration: Number,
-    videoId: Number
+    videoId: String
 });
 
 module.exports = mongoose.model('Song', songSchema);
