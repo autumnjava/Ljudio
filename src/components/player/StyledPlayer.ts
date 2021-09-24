@@ -43,6 +43,7 @@ export const StyledPlayerWrapper = styled.div<PlayerProps>`
 
 export const StyledSongTitle = styled.p<ExpandPlayer>`
   padding-top: ${props => props.expand ? '1rem' : '4px'};
+  font-size: ${props => props.expand ? '1.5rem' : ''};
   display: inline;
   color: white;
   width: 85vw;
