@@ -6,14 +6,34 @@ export const StyledTitle = styled.h2`
 `
 
 export const StyledWrapper = styled.div`
+position: relative;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ErrorMessage = styled.span`
+  margin: 20px 0;
+  position: relative;
+  text-align: center;
   display: flex;
+  align-items: center;
   justify-content: center;
   background: red;
   color: white;
   `
+
+export const SuccessMessage = styled.span`
+margin: 20px 0;
+position: relative;
+text-align: center;
+display: flex;
+align-items: center;
+justify-content: center;
+background: lightGreen;
+color: white;
+`
 
 
 export const StyledForm = styled.form`

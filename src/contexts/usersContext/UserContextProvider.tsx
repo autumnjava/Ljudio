@@ -15,33 +15,68 @@ export const UserContext = createContext<any>(null);
 
 export const UserProvider: React.FC<Props> = ({ children }: Props) => {
 
-  const [errorMsg, setErrorMsg] = useState(false);
+  // const[token, setToken] = useState(null);
+  const[userId, setUserId] = useState(null);
+
+  const [errorMsg, setErrorMsg] = useState(false)
 
   const registerUser = async (user: User) => {
-  const requestBody = {
-    query: `mutation {
-        createUser(input: {email: "${user.email}", password: "${user.password}", username: "${user.username}"})
-        {
-          _id
-          email
-          username
-        }
+    const requestBody = {
+      query: `mutation {
+      createUser(input: {email: "${user.email}", password: "${user.password}", username: "${user.username}"})
+      {
+        _id
+        email
+        username
       }
-      `
-    }
-    
-    const response = await fetcher(requestBody);
+    }`
+  }
 
+  const response = await fetcher(requestBody);
+  if (!response.data) {
+    setErrorMsg(true);
+  } else {
+    if(response.data.createUser) { console.log('successfully registered'); }
+
+  }
+  }
+
+  const login = async (user: User) => {
+    const requestBody = {
+      query: `query {
+        login(email: "${user.email}", password: "${user.password}")
+        {
+          userId
+          token
+          tokenExpiration
+        }
+      }`
+    }
+  
+    const response = await fetcher(requestBody);
     if (!response.data) {
       setErrorMsg(true);
     } else {
-      setErrorMsg(false);
+      if(response.data.login.token){
+        console.log('succesfully logged in');
+        localStorage.setItem('JWT_KEY', response.data.login.token);
+        // setToken(response.data.login.token);
+        setUserId(response.data.login.userId);
+      }
     }
-  }
+    }
+
+    const logout = () => {
+      localStorage.removeItem('JWT_KEY');
+      setUserId(null);
+    }
 
   const values = {
     registerUser,
-    errorMsg
+    login,
+    logout,
+    errorMsg,
+    userId
   }
 
   return (
