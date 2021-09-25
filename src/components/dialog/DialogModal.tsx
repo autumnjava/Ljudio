@@ -1,7 +1,6 @@
 import DialogTitle from '@mui/material/DialogTitle';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import { Dialog } from "@mui/material";
+import {StyledList, StyledListItem} from './StyledDialog'
 
 interface Props {
   open: boolean;
@@ -14,15 +13,15 @@ interface Props {
 
 const DialogModal = ({ open, setOpen, playlists}: Props) => {
   return (
-    <Dialog onClose={() => setOpen(false)} open={open}>
-      <DialogTitle>Playlists</DialogTitle>
-      <List sx={{ pt: 0 }}>
+    <Dialog onClose={() => setOpen(false)} open={open} >
+      <DialogTitle style={{borderBottom: '1px solid black'}}>Choose a playlists</DialogTitle>
+      <StyledList>
         {playlists.map(playlist => (
-          <ListItem key={playlist.id}>
+          <StyledListItem key={playlist.id}>
             {playlist.name}
-        </ListItem>
+          </StyledListItem>
         ))}
-      </List>
+      </StyledList>
     </Dialog>
   )
 }
