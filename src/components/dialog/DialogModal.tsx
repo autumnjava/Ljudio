@@ -4,15 +4,15 @@ import ListItem from '@mui/material/ListItem';
 import { Dialog } from "@mui/material";
 
 interface Props {
-  open: boolean,
-  setOpen: (state: boolean) => void
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   playlists: {
-    id: string,
     name: string,
+    id: string
   }[]
 }
 
-const DialogModal = ({setOpen, open, playlists}: Props) => {
+const DialogModal = ({ open, setOpen, playlists}: Props) => {
   return (
     <Dialog onClose={() => setOpen(false)} open={open}>
       <DialogTitle>Playlists</DialogTitle>
@@ -27,4 +27,4 @@ const DialogModal = ({setOpen, open, playlists}: Props) => {
   )
 }
 
-export default Dialog; 
+export default DialogModal; 

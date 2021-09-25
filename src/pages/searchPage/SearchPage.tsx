@@ -4,18 +4,14 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
-import DialogTitle from '@mui/material/DialogTitle';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import { UserContext } from "../../contexts/usersContext/UserContextProvider";
 import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
+import DialogModal from '../../components/dialog/DialogModal';
 import {
   StyledWrapper,
   StyledSongs,
   StyledSongWrapper,
   StyledSongImg
 } from './StyledSearchPage'
-import { Dialog } from "@mui/material";
 
 interface SongProps {
   name: string,
@@ -50,8 +46,6 @@ const SearchPage = () => {
     await getUserPlaylists(userId);
   }
 
-  const id = open ? 'simple-popper' : undefined;
-
   const handleSearch = (searchWord: string) => { 
     fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
       .then(response => response.json())
@@ -84,19 +78,6 @@ const SearchPage = () => {
     addSongToPlaylist(playlistId, song);
   }
 
-  // const renderDialog = () => (
-  //   // <Dialog onClose={() => setOpen(false)} open={open}>
-  //   //   <DialogTitle>Playlists</DialogTitle>
-  //   //   <List sx={{ pt: 0 }}>
-  //   //     {playlists.map((playlist: any) => (
-  //   //       <ListItem key={playlist.id}>
-  //   //         {playlist.name}
-  //   //     </ListItem>
-  //   //     ))}
-  //   //   </List>
-  //   // </Dialog>
-  // )
-  
   const printOutYoutubeContent = () => (
     <StyledWrapper>
       {content.map((song: any, index: number) => (
@@ -106,7 +87,7 @@ const SearchPage = () => {
             <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
             <PlaylistAddIcon onClick={() => setOpen(!open)} style={{ alignSelf: 'center' }} />
             <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
-            {console.log(playlists)}
+            <DialogModal open={open} setOpen={setOpen} playlists={playlists} />
           </StyledSongWrapper>}
         </div>  
       ))}
