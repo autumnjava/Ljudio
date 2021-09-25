@@ -84,18 +84,18 @@ const SearchPage = () => {
     addSongToPlaylist(playlistId, song);
   }
 
-  const renderDialog = () => (
-    <Dialog onClose={() => setOpen(false)} open={open}>
-      <DialogTitle>Playlists</DialogTitle>
-      <List sx={{ pt: 0 }}>
-        {playlists.map((playlist: any) => (
-          <ListItem key={playlist.id}>
-            {playlist.name}
-        </ListItem>
-        ))}
-      </List>
-    </Dialog>
-  )
+  // const renderDialog = () => (
+  //   // <Dialog onClose={() => setOpen(false)} open={open}>
+  //   //   <DialogTitle>Playlists</DialogTitle>
+  //   //   <List sx={{ pt: 0 }}>
+  //   //     {playlists.map((playlist: any) => (
+  //   //       <ListItem key={playlist.id}>
+  //   //         {playlist.name}
+  //   //     </ListItem>
+  //   //     ))}
+  //   //   </List>
+  //   // </Dialog>
+  // )
   
   const printOutYoutubeContent = () => (
     <StyledWrapper>
@@ -106,7 +106,7 @@ const SearchPage = () => {
             <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
             <PlaylistAddIcon onClick={() => setOpen(!open)} style={{ alignSelf: 'center' }} />
             <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
-            {renderDialog()}
+            {console.log(playlists)}
           </StyledSongWrapper>}
         </div>  
       ))}
