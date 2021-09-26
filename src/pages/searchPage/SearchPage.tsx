@@ -6,6 +6,7 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
 import DialogModal from '../../components/dialog/DialogModal';
+import SnackBar from '../../components/snackBar/SnackBar'
 import {
   StyledWrapper,
   StyledSongs,
@@ -32,6 +33,7 @@ const SearchPage = () => {
   const [showMore, setShowMore] = useState(false);
   const { currentSong, setCurrentSong, addSongToPlaylist } = useContext(PlaylistContext);
   const [open, setOpen] = useState(false);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
   const { getUserPlaylists } = useContext(PlaylistContext);
   const { playlists } = useContext(PlaylistContext)
   const [userId, setUserId] = useState<string | null>('');
@@ -78,11 +80,17 @@ const SearchPage = () => {
   }
 
   const handleAddToPlaylist = (song: SongProps, playlist: Playlist) => {
+    setOpenSnackBar(true);
     addSongToPlaylist(playlist.name, song);
   }
 
   const printOutYoutubeContent = () => (
     <StyledWrapper>
+      <SnackBar
+        snackbarContent="The song has been added to your playlist!"
+        open={openSnackBar}
+        setOpen={setOpenSnackBar}
+      />
       {content.map((song: SongProps, index: number) => (
         <div key={index}>
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
