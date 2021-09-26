@@ -20,6 +20,11 @@ interface SongProps {
   imgUrl: string
 }
 
+interface Playlist{
+  name: string;
+  id: string;
+}
+
 const SearchPage = () => {
 
   const [content, setContent] = useState<any>('');
@@ -72,22 +77,26 @@ const SearchPage = () => {
     setCurrentSong([...currentSong.currentSong, song])
   }
 
-  const handleAddToPlaylist = (song: SongProps) => {
-    // make dynamic so that the user can get choose which playlist to add a song to
-    const playlistId = "614b47f372dc1bfaa3260bfe"
-    addSongToPlaylist(playlistId, song);
+  const handleAddToPlaylist = (song: SongProps, playlist: Playlist) => {
+    addSongToPlaylist(playlist.name, song);
   }
 
   const printOutYoutubeContent = () => (
     <StyledWrapper>
-      {content.map((song: any, index: number) => (
+      {content.map((song: SongProps, index: number) => (
         <div key={index}>
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
             <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
             <PlaylistAddIcon onClick={() => setOpen(!open)} style={{ alignSelf: 'center' }} />
             <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
-            <DialogModal open={open} setOpen={setOpen} playlists={playlists} />
+            <DialogModal
+              open={open}
+              setOpen={setOpen}
+              playlists={playlists}
+              song={song}
+              handleAddToPlaylist={handleAddToPlaylist}
+            />
           </StyledSongWrapper>}
         </div>  
       ))}
