@@ -23,6 +23,11 @@ const PlaylistRowItem = ({ song }: any) => {
   return minutes + ":" + (+seconds < 10 ? '0' : '') + seconds;
   }
 
+   const handleDeleteSong = () => {
+    console.log("Delete song method.")
+  }
+
+
   return (
     <StyledRowWrapper>
 
@@ -31,7 +36,7 @@ const PlaylistRowItem = ({ song }: any) => {
         <StyledSongImage src="https://i.scdn.co/image/ab67616d0000b273dbb3dd82da45b7d7f31b1b42" />
         <StyledSongTitle>{song.title}</StyledSongTitle>
         <StyledDuration>{printDuration(song.duration)}</StyledDuration>
-        <StyledRemoveWrapper><DeleteIcon/></StyledRemoveWrapper>
+        <StyledRemoveWrapper><DeleteIcon onClick={() => handleDeleteSong} /></StyledRemoveWrapper>
       </StyledRow>
     </StyledRowWrapper>
   );
