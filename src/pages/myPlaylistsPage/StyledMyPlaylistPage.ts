@@ -18,7 +18,7 @@ export const StyledAddItem = styled.div`
 `;
 
 export const StyledAddPlaylistDiv = styled.div`
-
+  margin-top: 12px;
 `;
 
 export const StyledGridDiv = styled.div`
@@ -39,7 +39,7 @@ export const StyledWrapper = styled.div`
 
 export const StyledAddIcon = styled.span`
   font-size: 3.8rem;
-  margin: 3rem 1rem 2rem 2.5rem;
+  margin: 3em 1rem 2rem 2.5rem;
   padding: 0;
 `;
 
