@@ -48,3 +48,33 @@ export const StyledListTitle = styled.p`
   margin: 0;
   padding: 0;
 `;
+
+export const StyledInput = styled.input`
+  border: none;
+  outline: none;
+  text-decoration: none;
+  border-bottom: 1px solid grey;
+  background: transparent;
+  font-size: 16px;
+  color: black;
+`;
+
+export const StyledAddBtn = styled.button`
+  outline: none;
+  border: none;
+  color: black;
+  background: transparent;
+  font-size: 15px;
+  cursor: pointer;
+  &:hover{
+    color: green;
+  }
+`;
+
+export const StyledUndo = styled.span`
+  color: grey;
+  cursor: pointer;
+  &:hover{
+    color: black;
+  }
+`;
