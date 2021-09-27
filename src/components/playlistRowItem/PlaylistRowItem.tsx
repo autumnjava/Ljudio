@@ -7,6 +7,9 @@ import {
   StyledRemoveWrapper
 } from "./StyledPlaylistRowItem";
 import DeleteIcon from '@material-ui/icons//Delete';
+import { useContext } from 'react';
+import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
+
 interface SongProps {
   title: string,
   videoId: string,
@@ -16,6 +19,7 @@ interface SongProps {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const PlaylistRowItem = ({ song }: any) => {
+  const { removeSongFromPlaylist } = useContext(PlaylistContext)
   
   const printDuration = (millis: number) => {
     const minutes = Math.floor(millis / 60000);
@@ -24,7 +28,10 @@ const PlaylistRowItem = ({ song }: any) => {
   }
 
    const handleDeleteSong = () => {
-    console.log("Delete song method.")
+     console.log("Delete song method.")
+     console.log(song._id)
+     
+    //  removeSongFromPlaylist()
   }
 
 
