@@ -9,7 +9,8 @@ import {
   StyledVideoWrapper,
   StyledImg,
   StyledYouTubeWrapper,
-  StyledPlayer
+  StyledPlayer,
+  StyledSliderWrapper
 } from './StyledPlayer'
 import Sliders from '../slider/Slider'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -39,6 +40,9 @@ const MiniPlayer = () => {
   const [toggleVideo, setToggleVideo] = useState<boolean>(false);
   const [mute, setMute] = useState<boolean>(false)
   
+  useEffect(() => {
+    console.log(eventYoutube?.target.getCurrentTime());
+  }, [eventYoutube?.target])
 
   const handleStart = (event: any) => {
     setEventYoutube(event)
@@ -219,7 +223,7 @@ const MiniPlayer = () => {
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length && renderTitle()}
           {songs?.currentSong.length && renderYouTubePlayer()}
-          {expandPlayer && <div style={{ justifySelf: 'center'}}><Sliders width={350} /></div>}
+          {expandPlayer && <StyledSliderWrapper><Sliders width={230} duration={songs?.currentSong[currentIndex].duration}/></StyledSliderWrapper>}
           {renderIcons()}
         </StyledPlayer>
       </StyledWrapper>

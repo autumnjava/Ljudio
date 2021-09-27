@@ -16,10 +16,10 @@ export const StyledPlayer = styled.div<ExpandPlayer>`
   background: black;
   width: 100vw;
   display: ${props => props.expand ? 'grid' : ''};
-  grid-template-rows: ${props => props.expand ? '8rem 21rem 2rem 7rem' : ''};
+  grid-template-rows: ${props => props.expand ? '8rem 53% 2rem 7rem' : ''};
   height: ${props => props.expand ? '93.5vh' : '5rem'};
   @media (min-width: 769px) {
-    grid-template-rows: ${props => props.expand ? '10% 70% 7%' : ''};
+    grid-template-rows: ${props => props.expand ? '10% 61% 2rem 7%' : ''};
   }
 `
 
@@ -69,7 +69,7 @@ export const StyledVideoWrapper = styled.div<VideoProps>`
   display: flex;
   justify-content: center;
   @media (min-width: 769px) {
-    margin-top: 7%;
+    margin-top: 3%;
   } 
 `
 
@@ -87,4 +87,8 @@ export const StyledImg = styled.img`
 
 export const StyledControllerWrapper = styled.div<ExpandPlayer>`
   grid-row: ${props => props.expand ? '3' : ''};
+`
+
+export const StyledSliderWrapper = styled.div`
+  justify-self: center;
 `
