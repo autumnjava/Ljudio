@@ -3,9 +3,10 @@ import {
   StyledSongImage,
   StyledRow,
   StyledSongTitle,
-  StyledDuration
+  StyledDuration,
+  StyledRemoveWrapper
 } from "./StyledPlaylistRowItem";
-
+import DeleteIcon from '@material-ui/icons//Delete';
 interface SongProps {
   title: string,
   videoId: string,
@@ -30,6 +31,7 @@ const PlaylistRowItem = ({ song }: any) => {
         <StyledSongImage src="https://i.scdn.co/image/ab67616d0000b273dbb3dd82da45b7d7f31b1b42" />
         <StyledSongTitle>{song.title}</StyledSongTitle>
         <StyledDuration>{printDuration(song.duration)}</StyledDuration>
+        <StyledRemoveWrapper><DeleteIcon/></StyledRemoveWrapper>
       </StyledRow>
     </StyledRowWrapper>
   );
