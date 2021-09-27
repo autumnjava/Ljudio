@@ -24,6 +24,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import ReplayIcon from '@material-ui/icons/Replay';
+import {renderIcons} from './Assets'
 
 const MiniPlayer = () => {
 
@@ -38,19 +39,16 @@ const MiniPlayer = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [expandPlayer, setExpandPlayer] = useState<boolean>(false);
   const [toggleVideo, setToggleVideo] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<any>(0);
   const [mute, setMute] = useState<boolean>(false)
   
-  useEffect(() => {
-    console.log(eventYoutube?.target.getCurrentTime());
-  }, [eventYoutube?.target])
-
   const handleStart = (event: any) => {
     setEventYoutube(event)
     event.target.playVideo();
     setPlay(false)
   }
 
-  const handlePlay = () => {
+  const handlePlay = async () => {
     if (eventYoutube) {
       eventYoutube.target.playVideo();
       setPlay(!play)
@@ -98,12 +96,34 @@ const MiniPlayer = () => {
     eventYoutube.target.unMute()
   }
 
+  const handleToggleVideoToPicture = () => {
+    if (toggleVideo) {
+      eventYoutube.target.setSize(0, 0);
+      return <StyledImg src={songs?.currentSong[currentIndex].imgUrl} alt="" />;
+    }
+    if (!toggleVideo && eventYoutube && expandPlayer) {
+      eventYoutube.target.setSize(475, 350);
+    }
+    return
+  }
+
   useEffect(() => {
     if (eventYoutube) {
       handleStart(eventYoutube)
     }
     return;
   }, [songs, currentIndex])
+
+  useEffect(() => {
+    setCurrentTime(eventYoutube?.target.getCurrentTime());
+    console.log(eventYoutube?.target.getCurrentTime());
+  }, [currentTime])
+  
+  const handleState = (event: any) => {
+    if(eventYoutube?.target.getPlayerState() === 1) {
+      setCurrentTime(eventYoutube.target.getCurrentTime())
+    }
+  }
 
   const renderTitle = () => (
     <StyledTitleWrapper>
@@ -191,25 +211,15 @@ const MiniPlayer = () => {
     </StyledPlayerWrapper>
   )
 
-  const handleToggleVideoToPicture = () => {
-    if (toggleVideo) {
-      eventYoutube.target.setSize(0, 0);
-      return <StyledImg src={songs?.currentSong[currentIndex].imgUrl} alt="" />;
-    }
-    if (!toggleVideo && eventYoutube && expandPlayer) {
-      eventYoutube.target.setSize(475, 350);
-    }
-    return
-  }
-
   const renderYouTubePlayer = () => (
     <div>
       <StyledYouTubeWrapper show={expandPlayer}>
       <StyledVideoWrapper show={!toggleVideo}>
         <YouTube
-        videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
-        onReady={(e) => handleStart(e)}
-        opts={playerDefaultOpts}
+          videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
+          onReady={(e) => handleStart(e)}
+          opts={playerDefaultOpts}
+          onStateChange={handleState}
         />
       </StyledVideoWrapper>
       </StyledYouTubeWrapper>  
