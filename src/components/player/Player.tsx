@@ -9,8 +9,11 @@ import {
   StyledVideoWrapper,
   StyledImg,
   StyledYouTubeWrapper,
-  StyledPlayer
+  StyledPlayer,
+  StyledControllerWrapper
 } from './StyledPlayer'
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
@@ -149,7 +152,7 @@ const MiniPlayer = () => {
           justifySelf: 'start',
           color: 'white',
           paddingLeft: '1rem'
-        }}/>
+      }} />
     </>
   )
 
@@ -216,8 +219,16 @@ const MiniPlayer = () => {
     <>
       <StyledWrapper expand={expandPlayer}>
         <StyledPlayer expand={expandPlayer}>
-            {songs?.currentSong.length && renderTitle()}
-            {songs?.currentSong.length && renderYouTubePlayer()}
+          {songs?.currentSong.length && renderTitle()}
+          {songs?.currentSong.length && renderYouTubePlayer()}
+          {expandPlayer && <Box style={{gridColumn: 1/3}} width={300}>
+            <Slider
+            size="small"
+            defaultValue={70}
+            aria-label="Small"
+            valueLabelDisplay="on"
+            />
+          </Box>}
           {renderIcons()}
         </StyledPlayer>
       </StyledWrapper>

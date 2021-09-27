@@ -38,7 +38,7 @@ export const StyledPlayerWrapper = styled.div<PlayerProps>`
   width: 100vw;
   display: grid;
   grid-template-columns: ${props => props.expanded ? '1fr 1fr 1fr' : '1fr 7rem 1fr'};
-  grid-template-rows: ${props => props.expanded ? '1fr 1fr' : '1fr '};
+  grid-template-rows: ${props => props.expanded ? '1fr 1fr 1fr' : '1fr '};
 `
 
 export const StyledSongTitle = styled.p<ExpandPlayer>`
@@ -83,4 +83,8 @@ export const StyledImg = styled.img`
     @media (min-width: 769px) {
       height: 42.5vh;
   }
+`
+
+export const StyledControllerWrapper = styled.div<ExpandPlayer>`
+  grid-row: ${props => props.expand ? '3' : ''};
 `
