@@ -16,7 +16,7 @@ export const StyledPlayer = styled.div<ExpandPlayer>`
   background: black;
   width: 100vw;
   display: ${props => props.expand ? 'grid' : ''};
-  grid-template-rows: ${props => props.expand ? '8rem 22rem 7rem' : ''};
+  grid-template-rows: ${props => props.expand ? '8rem 21rem 2rem 7rem' : ''};
   height: ${props => props.expand ? '93.5vh' : '5rem'};
   @media (min-width: 769px) {
     grid-template-rows: ${props => props.expand ? '10% 70% 7%' : ''};
