@@ -69,6 +69,7 @@ const schema = buildSchema(`
     removePlaylist(_id: String!, userId: String): Playlist
     addSongToPlaylist(_id: String!, input: SongInput): Playlist
     removeSongFromPlaylist(songId: String!, playlistId: String!): Playlist
+    changeUsername(_id: String!, newName: String!): User!
   }
 
   

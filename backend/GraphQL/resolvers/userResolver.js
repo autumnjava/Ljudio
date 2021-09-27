@@ -14,6 +14,23 @@ const userResolver = {
     //   return user.save();
     // }
   
+  changeUsername: async args => {
+
+    console.log('what is args change username', args);
+    try {
+      await User.updateOne(
+        { _id: args._id },
+        {
+          $set:
+            { username: args.newName }
+        });
+      // Response from Update One is not User, therefore a findOne must be done
+      const user = await User.findOne({ _id: args._id });
+      return user;
+    } catch (error) {
+      throw new Error(error)
+    }
+  },
   getUser: async args => {
     try {
       const user = await User.findOne({ _id: args._id });
