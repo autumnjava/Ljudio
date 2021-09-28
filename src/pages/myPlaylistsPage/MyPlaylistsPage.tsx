@@ -13,7 +13,7 @@ interface List {
 }
 
 const MyPlaylistsPage = () => {
-  const { playlists, getUserPlaylists, deletePlaylist, createPlaylist } = useContext(PlaylistContext)
+  const { playlists, getUserPlaylists, deletePlaylist, createPlaylist} = useContext(PlaylistContext)
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [name, setName] = useState('');
