@@ -92,13 +92,12 @@ const MiniPlayer = () => {
   }, [songs, currentIndex])
 
   const handleCurrentTime = () => {
-    console.log('ja')
-    setCurrentTime(eventYoutube?.target.getCurrentTime());
+    setCurrentTime(eventYoutube?.target.getCurrentTime() * 1000);
   }
 
   const handleState = (event: any) => {
     if(eventYoutube?.target.getPlayerState() === 1) {
-      setCurrentTime(eventYoutube.target.getCurrentTime())
+      setCurrentTime(eventYoutube.target.getCurrentTime() * 1000)
       const intervalId = window.setInterval(() => {
         handleCurrentTime();
           if (eventYoutube?.target.getPlayerState() === 2) {
@@ -130,7 +129,12 @@ const MiniPlayer = () => {
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length && renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube)}
           {songs?.currentSong.length && renderYouTubePlayer()}
-          {expandPlayer && <StyledSliderWrapper><Sliders currentTime={currentTime} duration={songs?.currentSong[currentIndex].duration}/></StyledSliderWrapper>}
+          {expandPlayer && <StyledSliderWrapper><Sliders
+            currentTime={currentTime}
+            setCurrentTime={setCurrentTime}
+            duration={songs?.currentSong[currentIndex].duration}
+            youtubeEvent={eventYoutube}
+          /></StyledSliderWrapper>}
           {renderIcons(
             expandPlayer,
             handlePreviousSong,

@@ -9,9 +9,11 @@ import {
 interface Props {
   duration: number;
   currentTime: number;
+  setCurrentTime: React.Dispatch<any>
+  youtubeEvent: any
 }
 
-const Sliders = ({ duration, currentTime }: Props) => {
+const Sliders = ({ duration, currentTime, setCurrentTime, youtubeEvent }: Props) => {
   
   const calculateMinutes = (millis: number) => {
     const min = Math.floor((millis / 1000 / 60) << 0);
@@ -20,14 +22,11 @@ const Sliders = ({ duration, currentTime }: Props) => {
     return min + ':' + sec;
   }
 
-  // const print = () => {
-  //   setCurrentTime(eventYoutube?.target.getCurrentTime());
-  // }
+  const handleChange = async(e: any) => {
+    await setCurrentTime(e.target.value)
+    youtubeEvent.target.seekTo((currentTime / 1000), true)
+  } 
 
-  // const intervalId = window.setInterval(() => {
-  //   print();
-  // }, 1000);
-  
   return (
     <StyledWrapper>
     <StyledCurrentTime>00:00</StyledCurrentTime>
@@ -38,7 +37,8 @@ const Sliders = ({ duration, currentTime }: Props) => {
           aria-label="Small"
           valueLabelDisplay="off"
           max={duration}
-          value={currentTime * 1000}
+          onChange={(e) => handleChange(e)}
+          value={currentTime}
           step={1000}
       />
       </Box>
