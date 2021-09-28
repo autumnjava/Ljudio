@@ -19,4 +19,5 @@ export const StyledNavWrapper = styled.div`
 export const StyledLabel = styled.span`
   color: #f50057;
   z-index: -1;
+  font-size: 11px;
 `;

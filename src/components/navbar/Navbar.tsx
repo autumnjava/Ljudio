@@ -5,6 +5,7 @@ import QueueMusicRoundedIcon from '@material-ui/icons/QueueMusicRounded';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import HeadsetRoundedIcon from '@material-ui/icons/HeadsetRounded';
 import { useHistory } from "react-router-dom";
 import { StyledNavWrapper, StyledLabel } from "./StyledNavBar";
 
@@ -23,6 +24,12 @@ const Navbar: React.FC = () => {
           value={value}
           onClick={() => history.push('/home')}
           icon={<HomeRoundedIcon color="secondary" />}
+        />
+        <BottomNavigationAction
+          label={<StyledLabel>DJ Rooms</StyledLabel>}
+          value={value}
+          onClick={() => history.push("/djrooms")}
+          icon={<HeadsetRoundedIcon color="secondary" />}
       />
         <BottomNavigationAction
           label={<StyledLabel>My Playlists</StyledLabel>}
