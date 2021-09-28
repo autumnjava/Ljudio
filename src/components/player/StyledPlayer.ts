@@ -16,10 +16,10 @@ export const StyledPlayer = styled.div<ExpandPlayer>`
   background: black;
   width: 100vw;
   display: ${props => props.expand ? 'grid' : ''};
-  grid-template-rows: ${props => props.expand ? '8rem 53% 2rem 7rem' : ''};
+  grid-template-rows: ${props => props.expand ? '6rem 53% 4rem 7rem' : ''};
   height: ${props => props.expand ? '93.5vh' : '5rem'};
   @media (min-width: 769px) {
-    grid-template-rows: ${props => props.expand ? '10% 61% 2rem 7%' : ''};
+    grid-template-rows: ${props => props.expand ? '10% 61% 4rem 7%' : ''};
   }
 `
 

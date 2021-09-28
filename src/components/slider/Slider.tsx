@@ -7,12 +7,11 @@ import {
 }from './StyledSlider'
 
 interface Props {
-  width: number;
   duration: number;
   currentTime: number;
 }
 
-const Sliders = ({ width, duration, currentTime}: Props) => {
+const Sliders = ({ duration, currentTime }: Props) => {
   
   const calculateMinutes = (millis: number) => {
     const min = Math.floor((millis / 1000 / 60) << 0);
@@ -20,18 +19,26 @@ const Sliders = ({ width, duration, currentTime}: Props) => {
 
     return min + ':' + sec;
   }
+
+  // const print = () => {
+  //   setCurrentTime(eventYoutube?.target.getCurrentTime());
+  // }
+
+  // const intervalId = window.setInterval(() => {
+  //   print();
+  // }, 1000);
   
   return (
     <StyledWrapper>
     <StyledCurrentTime>00:00</StyledCurrentTime>
-      <Box width={width} style={{alignSelf: 'center'}}>
+      <Box width={230} style={{width: '65vw',alignSelf: 'center'}}>
       <Slider
           size="small"
           defaultValue={0}
           aria-label="Small"
           valueLabelDisplay="off"
           max={duration}
-          value={currentTime}
+          value={currentTime * 1000}
           step={1000}
       />
       </Box>

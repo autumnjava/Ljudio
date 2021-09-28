@@ -14,10 +14,12 @@ import {renderIcons, renderTitle} from './Assets'
 
 const MiniPlayer = () => {
 
-  const playerDefaultOpts = {
-    height: '0',
-    width: '0',
-  }
+  const opts = {
+    playerVars: {
+      controls: 0,
+      showinfo: 0,
+    }
+  };
 
   const [play, setPlay] = useState(true);
   const songs = useContext(PlaylistContext);
@@ -89,13 +91,20 @@ const MiniPlayer = () => {
     return;
   }, [songs, currentIndex])
 
-  useEffect(() => {
+  const handleCurrentTime = () => {
+    console.log('ja')
     setCurrentTime(eventYoutube?.target.getCurrentTime());
-  }, [currentTime])
-  
+  }
+
   const handleState = (event: any) => {
     if(eventYoutube?.target.getPlayerState() === 1) {
       setCurrentTime(eventYoutube.target.getCurrentTime())
+      const intervalId = window.setInterval(() => {
+        handleCurrentTime();
+          if (eventYoutube?.target.getPlayerState() === 2) {
+           clearInterval(intervalId);
+          }
+      }, 1000);
     }
   }
 
@@ -103,11 +112,11 @@ const MiniPlayer = () => {
     <div>
       <StyledYouTubeWrapper show={expandPlayer}>
       <StyledVideoWrapper show={!toggleVideo}>
-        <YouTube
-          videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
-          onReady={(e) => handleStart(e)}
-          opts={playerDefaultOpts}
-          onStateChange={handleState}
+          <YouTube
+            videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
+            opts={opts}
+            onReady={(e) => handleStart(e)}
+            onStateChange={handleState}
         />
       </StyledVideoWrapper>
       </StyledYouTubeWrapper>  
@@ -121,7 +130,7 @@ const MiniPlayer = () => {
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length && renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube)}
           {songs?.currentSong.length && renderYouTubePlayer()}
-          {expandPlayer && <StyledSliderWrapper><Sliders width={230} currentTime={currentTime} duration={songs?.currentSong[currentIndex].duration}/></StyledSliderWrapper>}
+          {expandPlayer && <StyledSliderWrapper><Sliders currentTime={currentTime} duration={songs?.currentSong[currentIndex].duration}/></StyledSliderWrapper>}
           {renderIcons(
             expandPlayer,
             handlePreviousSong,
