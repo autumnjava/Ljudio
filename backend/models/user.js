@@ -17,7 +17,7 @@ const userSchema = new Schema({
         unique: true,
         required: true
     },
-    djRoom: {
+    inRoomId: {
         type: Schema.Types.ObjectId,
         ref: 'DjRoom'
     },
