@@ -9,9 +9,10 @@ import {
 interface Props {
   width: number;
   duration: number;
+  currentTime: number;
 }
 
-const Sliders = ({ width, duration}: Props) => {
+const Sliders = ({ width, duration, currentTime}: Props) => {
   
   const calculateMinutes = (millis: number) => {
     const min = Math.floor((millis / 1000 / 60) << 0);
@@ -30,6 +31,7 @@ const Sliders = ({ width, duration}: Props) => {
           aria-label="Small"
           valueLabelDisplay="off"
           max={duration}
+          value={currentTime}
           step={1000}
       />
       </Box>
