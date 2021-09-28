@@ -15,7 +15,6 @@ const Navbar: React.FC = () => {
   const history = useHistory();
   const [value, setValue] = React.useState('');
   
-
   return (
     <StyledNavWrapper>
       <BottomNavigation sx={{ width: '100vw' }} value={value}>
