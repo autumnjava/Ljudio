@@ -19,7 +19,7 @@ const PlaylistItem = ({ data }: any) => {
         </div>
         <StyledListTitle>{data[0].name}</StyledListTitle>
         </StyledItemDiv>
-
+        
         </StyledPlaylistWrapper>
     </>
   );

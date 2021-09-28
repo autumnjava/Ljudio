@@ -138,15 +138,36 @@ export const PlaylistProvider = ({ children }: Props) => {
       `
     }
 
-    console.log(requestBody, 'body')
-    const respone = await fetcher(requestBody);
-    if (!respone) {
+    const response = await fetcher(requestBody);
+    if (!response) {
       setErrorMsg(true);
     } else {
       setErrorMsg(false);
       // if you want data, it will return what playlist a song has been added to
     }
   }
+  
+    const removeSongFromPlaylist = async (songId: string, playlistId: string) => {
+      const requestBody = {
+        query: `mutation{
+          removeSongFromPlaylist(
+            songId: "${songId}",
+            playlistId:"${playlistId}"
+          ){
+            _id
+            name
+          }
+        }`
+      }
+      
+      const response = await fetcher(requestBody);
+      if (!response) {
+        setErrorMsg(true)
+      } else {
+        setErrorMsg(false)
+        console.log(response.data)
+      }
+    }
   
   const values = {
       createPlaylist,
@@ -156,6 +177,7 @@ export const PlaylistProvider = ({ children }: Props) => {
       getUserPlaylists,
       getSongsFromPlaylist,
       addSongToPlaylist,
+      removeSongFromPlaylist,
       playlists,
       playlist,
       errorMsg,

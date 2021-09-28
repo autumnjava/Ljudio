@@ -27,7 +27,7 @@ const PlaylistPage = () => {
     if (userId) {
       playlistSongs();
     }
-  }, [userId]);
+  }, [userId, playlist]);
   
     const playlistSongs = async () => {
       await getSongsFromPlaylist(id);
@@ -41,7 +41,7 @@ const PlaylistPage = () => {
           <StyledPLTitle>{playlist.name}</StyledPLTitle>
         </div> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
         {playlist.songs && playlist.songs.map((song: SongProps) => {
-          return <PlaylistRowItem key={song._id} song={song} />
+          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} />
         })}
       </div>
     </>
