@@ -33,25 +33,24 @@ const MiniPlayer = () => {
   const handleStart = (event: any) => {
     setEventYoutube(event)
     event.target.playVideo();
-    setPlay(false)
   }
 
   const handlePlay = async () => {
     if (eventYoutube) {
       eventYoutube.target.playVideo();
-      setPlay(!play)
+      setPlay(false)
     }
     return;
   }
 
   const handlePaus = () => {
     eventYoutube.target.pauseVideo();
-    setPlay(!play)
+    setPlay(true)
   }
 
   const handleNextSong = () => {
     if (currentIndex !== songs?.currentSong.length - 1) {
-      setCurrentIndex(currentIndex + 1) 
+      setCurrentIndex(currentIndex + 1)
     }
     return;
   }
@@ -96,6 +95,7 @@ const MiniPlayer = () => {
   }
 
   const handleState = (event: any) => {
+    if (eventYoutube?.target.getPlayerState() === -1) {handlePlay()}
     if(eventYoutube?.target.getPlayerState() === 1) {
       setCurrentTime(eventYoutube.target.getCurrentTime() * 1000)
       const intervalId = window.setInterval(() => {
@@ -123,18 +123,24 @@ const MiniPlayer = () => {
     </div>
   )
 
+  const renderSlider = () => (
+    <StyledSliderWrapper>
+      <Sliders
+      currentTime={currentTime}
+      setCurrentTime={setCurrentTime}
+      duration={songs?.currentSong[currentIndex].duration}
+      youtubeEvent={eventYoutube}
+      />
+    </StyledSliderWrapper>
+  )
+
   return (
     <>
       <StyledWrapper expand={expandPlayer}>
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length && renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube)}
           {songs?.currentSong.length && renderYouTubePlayer()}
-          {expandPlayer && <StyledSliderWrapper><Sliders
-            currentTime={currentTime}
-            setCurrentTime={setCurrentTime}
-            duration={songs?.currentSong[currentIndex].duration}
-            youtubeEvent={eventYoutube}
-          /></StyledSliderWrapper>}
+          {expandPlayer && renderSlider()}
           {renderIcons(
             expandPlayer,
             handlePreviousSong,

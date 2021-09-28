@@ -22,6 +22,15 @@ const Sliders = ({ duration, currentTime, setCurrentTime, youtubeEvent }: Props)
     return min + ':' + sec;
   }
 
+    const calculateCurrentMinute = () => {
+    const min = Math.floor((currentTime / 1000 / 60) << 0);
+      const sec = Math.floor((currentTime / 1000) % 60) < 10 ?
+       '0' + Math.floor((currentTime / 1000) % 60)
+        : Math.floor((currentTime / 1000) % 60);
+
+    return min + ':' + sec;
+  }
+
   const handleChange = async(e: any) => {
     await setCurrentTime(e.target.value)
     youtubeEvent.target.seekTo((currentTime / 1000), true)
@@ -29,7 +38,7 @@ const Sliders = ({ duration, currentTime, setCurrentTime, youtubeEvent }: Props)
 
   return (
     <StyledWrapper>
-    <StyledCurrentTime>00:00</StyledCurrentTime>
+    <StyledCurrentTime>{calculateCurrentMinute()}</StyledCurrentTime>
       <Box width={230} style={{width: '65vw',alignSelf: 'center'}}>
       <Slider
           size="small"
