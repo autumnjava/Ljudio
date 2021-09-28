@@ -126,10 +126,10 @@ const MiniPlayer = () => {
   const renderSlider = () => (
     <StyledSliderWrapper>
       <Sliders
-      currentTime={currentTime}
-      setCurrentTime={setCurrentTime}
-      duration={songs?.currentSong[currentIndex].duration}
-      youtubeEvent={eventYoutube}
+        currentTime={currentTime}
+        setCurrentTime={setCurrentTime}
+        duration={songs?.currentSong[currentIndex].duration}
+        youtubeEvent={eventYoutube}
       />
     </StyledSliderWrapper>
   )
@@ -140,7 +140,7 @@ const MiniPlayer = () => {
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length && renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube)}
           {songs?.currentSong.length && renderYouTubePlayer()}
-          {expandPlayer && renderSlider()}
+          {expandPlayer && songs?.currentSong.length && renderSlider()}
           {renderIcons(
             expandPlayer,
             handlePreviousSong,

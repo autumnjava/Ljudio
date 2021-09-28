@@ -51,7 +51,7 @@ const Sliders = ({ duration, currentTime, setCurrentTime, youtubeEvent }: Props)
           step={1000}
       />
       </Box>
-      <StyledEndTime>{calculateMinutes(duration)}</StyledEndTime> 
+      <StyledEndTime>{calculateMinutes(duration)}</StyledEndTime>
     </StyledWrapper> 
   )
 }
