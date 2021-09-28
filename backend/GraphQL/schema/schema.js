@@ -29,7 +29,6 @@ const schema = buildSchema(`
     name: String
     description: String
     isOnline: Boolean
-    owner: User!
   }
 
   input UserInput {
