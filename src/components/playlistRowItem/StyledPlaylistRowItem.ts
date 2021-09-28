@@ -22,7 +22,7 @@ export const StyledSongImage = styled.img`
 
 export const StyledRow = styled.div`
   display: grid;
-  grid-template-columns: 6.5rem 1fr 3rem;
+  grid-template-columns: 6.5rem 1fr 3rem 3rem;
 `;
 
 export const StyledDuration = styled.p`
@@ -34,4 +34,14 @@ export const StyledDuration = styled.p`
 export const StyledSongTitle = styled.p`
 margin: 0;
   padding-top: 1.1rem;
+`;
+
+export const StyledRemoveWrapper = styled.span`
+  margin: 0;
+  padding-top: 2.3rem;
+  padding-left: 1rem;
+  color: grey;
+  &:hover{
+    color: black;
+  }
 `;
