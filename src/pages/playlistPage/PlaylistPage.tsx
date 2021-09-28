@@ -45,7 +45,7 @@ const PlaylistPage = () => {
           <StyledPLTitle>{currentPL.name}</StyledPLTitle>
         </div> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
         {playlist && playlist.map((song: SongProps) => {
-          return <PlaylistRowItem key={song.videoId} song={song} />
+          return <PlaylistRowItem key={song.videoId} song={song} playlistData={currentPL?.name} />
         })}
       </div>
     </>

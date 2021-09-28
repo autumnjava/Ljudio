@@ -8,12 +8,10 @@ const playlistSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Song'
     }],
-
-    // maybe need this later, maybe not, but keep it so far
-    // creator: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'User'
-    // }
+    djRoomId: {
+        type: Schema.Types.ObjectId,
+        ref: 'DjRoom'
+    }
 });
 
 module.exports = mongoose.model('Playlist', playlistSchema);
