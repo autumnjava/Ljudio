@@ -18,7 +18,7 @@ interface SongProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const PlaylistRowItem = ({ song }: any) => {
+const PlaylistRowItem = ({ song, playlistData }: any) => {
   const { removeSongFromPlaylist } = useContext(PlaylistContext)
   
   const printDuration = (millis: number) => {
@@ -27,11 +27,8 @@ const PlaylistRowItem = ({ song }: any) => {
   return minutes + ":" + (+seconds < 10 ? '0' : '') + seconds;
   }
 
-   const handleDeleteSong = () => {
-     console.log("Delete song method.")
-     console.log(song._id)
-     
-    //  removeSongFromPlaylist()
+   const handleDeleteSong = async () => {
+     await removeSongFromPlaylist(song._id, playlistData.id);
   }
 
 
@@ -43,7 +40,7 @@ const PlaylistRowItem = ({ song }: any) => {
         <StyledSongImage src="https://i.scdn.co/image/ab67616d0000b273dbb3dd82da45b7d7f31b1b42" />
         <StyledSongTitle>{song.title}</StyledSongTitle>
         <StyledDuration>{printDuration(song.duration)}</StyledDuration>
-        <StyledRemoveWrapper><DeleteIcon onClick={() => handleDeleteSong} /></StyledRemoveWrapper>
+        <StyledRemoveWrapper><DeleteIcon onClick={handleDeleteSong} /></StyledRemoveWrapper>
       </StyledRow>
     </StyledRowWrapper>
   );
