@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ArtistPage from "../pages/artistPage/ArtistPage";
 import HomePage from "../pages/homePage/HomePage";
 import LandingPage from "../pages/landingPage/LandingPage";
 import MyPlaylistsPage from "../pages/myPlaylistsPage/MyPlaylistsPage";
@@ -26,6 +27,7 @@ const AllRoutes: React.FC<Props> = ({children}: Props) => {
         <Route path="/playlist/:id" exact={true} component={PlaylistPage} />
         <Route path="/search" exact={true} component={SearchPage} />
         <Route path="/profile" exact={true} component={ProfilePage} />
+        <Route path="/artist/:id" exact={true} component={ArtistPage} />
       </Switch>
     </Router>
   )
