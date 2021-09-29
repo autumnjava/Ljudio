@@ -37,7 +37,7 @@ export const renderTitle = (
 ) => (
     <StyledTitleWrapper>
       <StyledSongTitle expand={expandPlayer}>
-        {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].name}
+        {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].title}
       </StyledSongTitle>
       {expandPlayer ? <KeyboardArrowDown style={{
         paddingTop: '0.5rem',

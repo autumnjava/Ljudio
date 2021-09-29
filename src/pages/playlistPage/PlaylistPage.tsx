@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 interface SongProps {
   _id: string,
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   image: string
