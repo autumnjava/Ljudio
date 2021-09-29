@@ -26,7 +26,8 @@ export const PlaylistProvider = ({ children }: Props) => {
   const [currentSong, setCurrentSong] = useState<SongProps[]>([]);
   const [playlists, setPlaylists] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
-  const [playlist, setPlaylist] = useState<Array<any>>();
+  const [playlist, setPlaylist] = useState([]);
+
 
   const getUserPlaylists = async (userId: string) => {
     const requestBody = {
@@ -99,6 +100,7 @@ export const PlaylistProvider = ({ children }: Props) => {
           _id
           name
           songs {
+            _id
             title
             image
             duration
@@ -114,7 +116,7 @@ export const PlaylistProvider = ({ children }: Props) => {
     if (!response) {
       setErrorMsg(true);
     } else {
-      setPlaylist(response.data.getSongsFromPlaylist.songs)
+      setPlaylist(response.data.getSongsFromPlaylist)
     }
   }
 
@@ -178,7 +180,7 @@ export const PlaylistProvider = ({ children }: Props) => {
       removeSongFromPlaylist,
       playlists,
       playlist,
-      errorMsg
+      errorMsg,
   }
   
   return (

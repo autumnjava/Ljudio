@@ -21,7 +21,7 @@ const schema = buildSchema(`
     title: String
     image: String
     duration: Int
-    videoId: Int
+    videoId: String
   }
 
   type DjRoom {
