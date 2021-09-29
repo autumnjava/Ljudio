@@ -28,7 +28,6 @@ export const StyledWrapper = styled.div<ExpandPlayer>`
   top: auto;
   bottom: 3.5rem;
   position: fixed;
-  border-top: 1px solid grey;
   @media (min-width: 769px) {
     bottom: 0;
   }

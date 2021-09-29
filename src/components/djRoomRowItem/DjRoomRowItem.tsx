@@ -5,7 +5,13 @@ import {
   StyledItemWrapper,
   StyledItemRow,
   StyledInfoDiv,
-  StyledDjIcon
+  StyledDjIcon,
+  StyledAudience,
+  StyledAudienceIcon,
+  StyledDJSpan,
+  StyledRoomTitle,
+  StyledRoomDJ,
+  StyledEnterRoom
 } from "./StyledDjRoomRowItem";
 
 const DjRoomRowItem = () => {
@@ -15,11 +21,11 @@ const DjRoomRowItem = () => {
       <StyledItemRow>
         <StyledDjIcon><HeadsetRoundedIcon fontSize="large"/></StyledDjIcon>
         <StyledInfoDiv>
-          <p>Room Title</p>
-          <p><span>DJ:</span> Name </p>
+          <StyledRoomTitle>Room Title</StyledRoomTitle>
+          <StyledRoomDJ><StyledDJSpan>DJ:</StyledDJSpan> Name</StyledRoomDJ>
         </StyledInfoDiv>
-        <p><PersonRoundedIcon /><span>14</span></p>
-        <p><ExitToAppRoundedIcon/></p>
+        <StyledAudienceIcon><PersonRoundedIcon color="secondary" /><StyledAudience>14</StyledAudience></StyledAudienceIcon>
+        <StyledEnterRoom><ExitToAppRoundedIcon/></StyledEnterRoom>
       </StyledItemRow>
     </StyledItemWrapper>
   );

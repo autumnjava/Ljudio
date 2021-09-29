@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
   
   return (
     <StyledNavWrapper>
-      <BottomNavigation sx={{ width: '100vw' }} value={value}>
+      <BottomNavigation sx={{ width: '100vw', background: "black" }} value={value}>
         <BottomNavigationAction
           label={<StyledLabel>Home</StyledLabel>}
           value={value}

@@ -160,13 +160,13 @@ const MiniPlayer = () => {
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: !expandPlayer ? '2.5rem' : '4.5rem',
-        color: 'white'
+        color: 'f50057'
       }} onClick={handlePreviousSong}/>
      {play ? <PlayArrowIcon style={{
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'center',
         fontSize: !expandPlayer ? '3.5rem' : '4.5rem',
-        color: 'white'
+        color: 'f50057'
       }}
       onClick={handlePlay}/>
       :
@@ -174,14 +174,14 @@ const MiniPlayer = () => {
           alignSelf: !expandPlayer ? 'center' : 'start',
           justifySelf: 'center',
           fontSize: !expandPlayer ? '3.5rem' : '4.5rem',
-          color: 'white'
+          color: 'f50057'
         }}
           onClick={handlePaus}/>}
       <SkipNextIcon style={{
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'start',
         fontSize: !expandPlayer ? '2.5rem' : '4.5rem',
-        color: 'white'
+        color: 'f50057'
       }} onClick={handleNextSong} />
     </StyledPlayerWrapper>
   )
