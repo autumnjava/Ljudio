@@ -12,8 +12,9 @@ const schema = buildSchema(`
 
   type Playlist {
     _id: ID!
-    name: String
+    name: String!
     songs: [Song]
+    djRoomId: DjRoom
   }
 
   type Song {
@@ -26,9 +27,10 @@ const schema = buildSchema(`
 
   type DjRoom {
     _id: ID!
-    name: String
+    name: String!
     description: String
-    isOnline: Boolean
+    isOnline: Boolean!
+    image: String
   }
 
   input UserInput {
@@ -54,6 +56,13 @@ const schema = buildSchema(`
     token: String!
     tokenExpiration: Int!
   }
+
+  input DjRoomInput {
+    name: String!
+    description: String
+    image: String
+    isOnline: Boolean!
+  }
   
   type Query {
     getUser(_id: String!): User!
@@ -69,6 +78,7 @@ const schema = buildSchema(`
     addSongToPlaylist(_id: String!, input: SongInput): Playlist
     removeSongFromPlaylist(songId: String!, playlistId: String!): Playlist
     changeUsername(_id: String!, newName: String!): User!
+    createDjRoom(playlistId: String, userId: String!, input: DjRoomInput): DjRoom!
   }
 
   
