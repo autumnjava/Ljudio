@@ -1,6 +1,14 @@
-import {StyledItemDiv, StyledImg, StyledPlaylistWrapper, StyledListTitle } from "./StyledPlaylistItem";
 import { useHistory } from "react-router-dom";
 import { Button } from "@mui/material";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
+import {
+  StyledItemDiv,
+  StyledImg,
+  StyledPlaylistWrapper,
+  StyledListTitle,
+  StyledDeleteBtn
+} from "./StyledPlaylistItem";
 
 
 
@@ -12,14 +20,15 @@ const PlaylistItem = ({ data }: any) => {
   return (
     <>
       <StyledPlaylistWrapper>
-      <Button onClick={() => data[1](data[0]._id)}>Delete</Button>
-      <StyledItemDiv onClick={() => {history.push("/playlist/" + data[0]._id)}}>
+       <StyledDeleteBtn onClick={() => data[1](data[0]._id)}><HighlightOffIcon/></StyledDeleteBtn>
+          
+        <StyledItemDiv onClick={() => history.push("/playlist/" + data[0]._id)}>
         <div>
           <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
         </div>
         <StyledListTitle>{data[0].name}</StyledListTitle>
         </StyledItemDiv>
-        
+
         </StyledPlaylistWrapper>
     </>
   );

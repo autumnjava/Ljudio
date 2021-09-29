@@ -1,11 +1,25 @@
 import { Popper } from "@material-ui/core";
 import { Fade } from "@mui/material";
 import Box from '@mui/material/Box';
+import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
+import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import { useState } from "react";
 import PlaylistItem from "../../components/playlistItem/PlaylistItem";
-import { StyledTitle, StyledAddPlaylistDiv, StyledGridDiv, StyledAddItem, StyledWrapper, StyledAddIcon, StyledListTitle} from "./StyledMyPlaylistPage";
 import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
 import { useContext, useEffect, useRef } from 'react';
+import {
+  StyledTitle,
+  StyledAddPlaylistDiv,
+  StyledGridDiv,
+  StyledAddItem,
+  StyledWrapper,
+  StyledAddIcon,
+  StyledListTitle,
+  StyledInput,
+  StyledAddBtn,
+  StyledUndo
+} from "./StyledMyPlaylistPage";
+
 
 interface List {
   name: string;
@@ -76,10 +90,11 @@ const MyPlaylistsPage = () => {
         </StyledAddPlaylistDiv>
         
         <Popper open={open} anchorEl={anchorEl} >
-          <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-            <input onChange={(e) => setName(e.target.value)} type="text" placeholder="Name of playlist..." />
-            <button onClick={addPlaylist}>Create</button>
-            <span onClick={handleCreate}>[X]</span>
+          <Box sx={{ p: 1, bgcolor: '#cfcfcf', borderRadius: '5px', display: 'grid', gridTemplateColumns: '1fr', gridTemplateRows: '1fr 1fr 1fr' }}>
+            <StyledUndo onClick={handleCreate}><HighlightOffRoundedIcon/></StyledUndo>
+            <StyledInput onChange={(e) => setName(e.target.value)} type="text" placeholder="Name of playlist..." />
+            <StyledAddBtn onClick={addPlaylist}>Create</StyledAddBtn>
+            
           </Box>
         </Popper>
         
