@@ -30,7 +30,7 @@ const SearchPage = () => {
 
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content } = useContext(PlaylistContext);
+  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content, handleArtistSearch, artistContent } = useContext(PlaylistContext);
   const [open, setOpen] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [userId, setUserId] = useState<string | null>('');
@@ -74,6 +74,12 @@ const SearchPage = () => {
     setSongToAdd(song);
   }
 
+  const printOutAristContent = () => (
+    <StyledWrapper>
+      <p>{artistContent.name}</p>
+    </StyledWrapper>
+  );
+
   const printOutYoutubeContent = () => (
     <StyledWrapper>
       <SnackBar
@@ -99,14 +105,15 @@ const SearchPage = () => {
         handleAddToPlaylist={handleAddToPlaylist}
       />}
       {!showMore ? <ExpandMoreIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />
-      : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }}/>}
+        : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />}
     </StyledWrapper>
   )
 
   return (
     <>
-      <SearchField handleYoutubeSearch={handleSearch} />
+      <SearchField handleYoutubeSearch={handleSearch} handleArtistSearch={handleArtistSearch} />
       {content && printOutYoutubeContent()}
+      {artistContent && printOutAristContent()}
     </>
   )
 }

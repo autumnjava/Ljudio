@@ -46,14 +46,12 @@ export const PlaylistProvider = ({ children }: Props) => {
   const handleArtistSearch = (artistName: string) => {
     fetch('https://yt-music-api.herokuapp.com/api/yt/artists/' + artistName)
       .then(response => response.json())
-      .then( data => setArtistContent(data.content.map((artist: any) => {
-        return {
-          name: artist.name,
-          browseId: artist.browseId,
-          thumbnail: artist.thumbnails[1].url
-        }
-      })));
-  }
+      .then(data => setArtistContent(data.content[0]) 
+    )
+    console.log(artistContent?.name , 'wtf?')
+    
+  };
+  
 
 
   const getUserPlaylists = async (userId: string) => {
@@ -199,6 +197,7 @@ export const PlaylistProvider = ({ children }: Props) => {
       handleSearch,
       handleArtistSearch,
       content,
+      artistContent,
       createPlaylist,
       deletePlaylist,
       currentSong,
