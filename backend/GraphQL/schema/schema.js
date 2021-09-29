@@ -73,12 +73,17 @@ const schema = gql`
     changeUsername(_id: String!, newName: String!): User!
   }
 
-  
-  schema {
-    query: Query
-    mutation: Mutation
+  type Subscription {
+    userCreated: User
   }
 `;
+  // not sure need this:
+// schema {
+//   query: Query
+//   mutation: Mutation
+// }
+
+
 
 // type Subscription {
 //     addSongToPlaylist(song: Song, playlist: Playlist): Playlist!

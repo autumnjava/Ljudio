@@ -1,6 +1,9 @@
 const playlistResolver = require('./playlistResolver');
 const userResolver = require('./userResolver');
 
+const { PubSub } = require("graphql-subscriptions");
+global.pubsub = new PubSub();
+
 const rootResolver = {
     Query: {
         ...playlistResolver.Query,
@@ -10,7 +13,9 @@ const rootResolver = {
         ...playlistResolver.Mutation,
         ...userResolver.Mutation
     },
-    // Subscription: {}
+    Subscription: {
+        ...userResolver.Subscription
+    }
 }
 
 module.exports = rootResolver;

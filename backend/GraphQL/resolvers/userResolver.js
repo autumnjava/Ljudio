@@ -3,6 +3,7 @@ const Playlist = require('../../models/playlist');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+
 const userResolver = {
   Query: {
     login: async (_parent, {email, password}, __, ___) => {
@@ -66,7 +67,11 @@ const userResolver = {
           password: hashedPassword,
           username: args.input.username,
         });
+
+        pubsub.publish('USER_CREATED', {userCreated: user});
+
         const result = await user.save(); // possible we also need to populate() user with Playlist and DjRoom models, gonna check it later
+        
         return { ...result._doc, password: null }; // the response we get back, we want to hide  password!
       } catch (err) {
         throw err;
@@ -74,6 +79,12 @@ const userResolver = {
     },
 
   },
+
+  Subscription: {
+    userCreated: {
+      subscribe: () => pubsub.asyncIterator(['USER_CREATED']),
+    },
+  }
   }
 
 module.exports = userResolver;
