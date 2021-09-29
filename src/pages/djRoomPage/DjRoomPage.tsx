@@ -1,10 +1,16 @@
-import { StyledWrapper } from "./StyledDjRoomPage";
 import DjRoomRowItem from "../../components/djRoomRowItem/DjRoomRowItem";
+import {
+  StyledWrapper,
+  StyledPageTitle
+} from "./StyledDjRoomPage";
+import banner from "./images/banner.png"
 
 const DjRoomPage = () => {
   return (
     <StyledWrapper>
-      <p>ALL ONLINE DJ ROOMS</p>
+        <StyledPageTitle>JOIN THE DJ ROOMS AND LISSTEN MUSIC TOGETHER!</StyledPageTitle>
+      <DjRoomRowItem/>
+      <DjRoomRowItem/>
       <DjRoomRowItem/>
     </StyledWrapper>
   );

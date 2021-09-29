@@ -7,13 +7,17 @@ export const StyledItemWrapper = styled.div`
 
 export const StyledItemRow = styled.div`
   display: grid;
-  grid-template-columns: 10% 70% 10% 10%;
+  grid-template-columns: 15% 65% 13% 7%;
+  cursor: pointer;
     @media (min-width: 769px) {
+        
+      margin: 0 auto;
+      grid-template-columns: 5% 1fr 5% 5%;
       width: 80%;
       display: grid;
-  
-  margin: 0 auto;
-    grid-template-columns: 5% 1fr 5% 5%;
+    &:hover{
+    background: #141414;
+  }
   }
 `;
 
@@ -34,25 +38,26 @@ align-self: start;
 margin: 0;
 `;
 export const StyledRoomTitle = styled.p`
-  color: purple;
+
 `;
 export const StyledRoomDJ = styled.p`
 
 `;
 export const StyledDJSpan = styled.span`
 font-weight: 500;
-color: purple;
+ color: #f50057;
 `;
 
 
 export const StyledDjIcon = styled.div`
-  color: purple;
+  color: #f50057;
   padding: 5px;
   align-self: center;
 `;
 
 
 export const StyledEnterRoom = styled.p`
+
   cursor: pointer;
   &:hover{
     color: green;
