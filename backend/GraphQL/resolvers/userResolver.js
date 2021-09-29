@@ -2,44 +2,57 @@ const User = require('../../models/user')
 const Playlist = require('../../models/playlist');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { isJSDocReturnTag, updateYield } = require('typescript');
 
 const userResolver = {
-    // createUser: async (args) => {
-    //     const user = await new User({
-    //       email: args.input.email,
-    //       password: args.input.password,
-    //       username: args.input.username
-    //     })
-    //   return user.save();
-    // }
-  
-  changeUsername: async args => {
+  Query: {
+    login: async (_parent, {email, password}, __, ___) => {
+      const errorMsg='Bad credentials'
+        const user = await User.findOne({email})
+        if(!user){
+            throw new Error(errorMsg);
+        }
+        const isEqual = await bcrypt.compare(password, user.password);
+        if(!isEqual){
+            throw new Error(errorMsg);
+        }
 
-    console.log('what is args change username', args);
-    try {
-      await User.updateOne(
-        { _id: args._id },
-        {
-          $set:
-            { username: args.newName }
-        });
-      // Response from Update One is not User, therefore a findOne must be done
-      const user = await User.findOne({ _id: args._id });
-      return user;
-    } catch (error) {
-      throw new Error(error)
-    }
+        const token = jwt.sign({userId: user.id, email: user.email}, process.env.TOKEN_KEY, {expiresIn: '1h'})
+        
+        return {
+            userId: user.id,
+            token,
+            tokenExpiration: 1
+        }
+    },
+
+    getUser: async (_parent, args, __, ___) => {
+      try {
+        const user = await User.findOne({ _id: args._id });
+        return user;
+      } catch (error) { throw new Error(error); }
+    },
+
   },
-  getUser: async args => {
-    try {
-      const user = await User.findOne({ _id: args._id });
-      return user;
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
-    createUser: async args => {
+
+  Mutation: {
+    changeUsername: async (_parent, args, __, ___) => {
+      console.log('what is args change username', args);
+      try {
+        await User.updateOne(
+          { _id: args._id },
+          {
+            $set:
+              { username: args.newName }
+          });
+        // Response from Update One is not User, therefore a findOne must be done
+        const user = await User.findOne({ _id: args._id });
+        return user;
+      } catch (error) {
+        throw new Error(error)
+      }
+    },
+
+    createUser: async (_parent, args, __, ___) => {
       try {
         const existingUserEmail = await User.findOne({ email: args.input.email});
         const existingUserName = await User.findOne({ username: args.input.username});
@@ -60,25 +73,7 @@ const userResolver = {
       }
     },
 
-    login: async ({email, password}) => {
-      const errorMsg='Bad credentials'
-        const user = await User.findOne({email})
-        if(!user){
-            throw new Error(errorMsg);
-        }
-        const isEqual = await bcrypt.compare(password, user.password);
-        if(!isEqual){
-            throw new Error(errorMsg);
-        }
-
-        const token = jwt.sign({userId: user.id, email: user.email}, process.env.TOKEN_KEY, {expiresIn: '1h'})
-        
-        return {
-            userId: user.id,
-            token,
-            tokenExpiration: 1
-        }
-    }
+  },
   }
 
 module.exports = userResolver;
