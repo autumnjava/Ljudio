@@ -11,7 +11,10 @@ import {
   StyledWrapper,
   StyledSongs,
   StyledSongWrapper,
-  StyledSongImg
+  StyledSongImg,
+  StyledCategory,
+  StyledArtistImg,
+  StyledArtistName
 } from './StyledSearchPage'
 
 interface SongProps {
@@ -76,9 +79,14 @@ const SearchPage = () => {
 
   const printOutAristContent = () => (
     <StyledWrapper>
-      <p>{artistContent.name}</p>
+      <StyledCategory>Artist</StyledCategory>
+      <div style={{width: '30%'}}>
+      <StyledArtistImg src={artistContent.thumbnails[1].url} />
+        <StyledArtistName>{artistContent.name}</StyledArtistName>
+        </div>
     </StyledWrapper>
   );
+
 
   const printOutYoutubeContent = () => (
     <StyledWrapper>
@@ -87,6 +95,7 @@ const SearchPage = () => {
         open={openSnackBar}
         setOpen={setOpenSnackBar}
       />
+      <StyledCategory>Videos</StyledCategory>
       {content.map((song: SongProps, index: number) => (
         <div key={index}>
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>

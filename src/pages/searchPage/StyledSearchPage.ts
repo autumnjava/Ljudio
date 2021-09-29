@@ -40,3 +40,18 @@ export const StyledSongImg = styled.img`
   height: 7vh;
   align-self: center;
 `
+
+export const StyledCategory = styled.p`
+  
+  font-size: 20px;
+  letter-spacing: 2px;
+`;
+
+export const StyledArtistImg = styled.img`
+  border-radius: 50%;
+`;
+
+export const StyledArtistName = styled.p`
+text-align: center;
+margin: 0;
+`;
