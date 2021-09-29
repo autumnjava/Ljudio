@@ -34,6 +34,7 @@ const SearchPage = () => {
   const [open, setOpen] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [userId, setUserId] = useState<string | null>('');
+  const [songToAdd, setSongToAdd] = useState<SongProps | null>()
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -68,6 +69,11 @@ const SearchPage = () => {
     addSongToPlaylist(playlist._id, song);
   }
 
+  const handleOpenDialog = (song: SongProps, playlist: Playlist) => {
+    setOpen(!open)
+    setSongToAdd(song);
+  }
+
   const printOutYoutubeContent = () => (
     <StyledWrapper>
       <SnackBar
@@ -80,18 +86,18 @@ const SearchPage = () => {
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
             <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
-            <PlaylistAddIcon onClick={() => setOpen(!open)} style={{ alignSelf: 'center' }} />
+            <PlaylistAddIcon onClick={() => handleOpenDialog(song, playlists)} style={{ alignSelf: 'center' }} />
             <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
-            <DialogModal
-              open={open}
-              setOpen={setOpen}
-              playlists={playlists}
-              song={song}
-              handleAddToPlaylist={handleAddToPlaylist}
-            />
           </StyledSongWrapper>}
         </div>  
       ))}
+      {songToAdd && <DialogModal
+        open={open}
+        setOpen={setOpen}
+        playlists={playlists}
+        song={songToAdd}
+        handleAddToPlaylist={handleAddToPlaylist}
+      />}
       {!showMore ? <ExpandMoreIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />
       : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }}/>}
     </StyledWrapper>
