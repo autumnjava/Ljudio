@@ -28,10 +28,9 @@ interface Playlist{
 
 const SearchPage = () => {
 
-  const [content, setContent] = useState<any>('');
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists  } = useContext(PlaylistContext);
+  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content } = useContext(PlaylistContext);
   const [open, setOpen] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [userId, setUserId] = useState<string | null>('');
@@ -49,19 +48,6 @@ const SearchPage = () => {
 
   const myPlaylists = async () => {
     await getUserPlaylists(userId);
-  }
-
-  const handleSearch = (searchWord: string) => { 
-    fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
-      .then(response => response.json())
-      .then(data => setContent(data.content.map((song: any) => {
-        return {
-          name: song.name,
-          videoId: song.videoId,
-          duration: song.duration,
-          imgUrl: song.thumbnails.url
-        }
-      })));
   }
 
   const handleSearchResult = () => {

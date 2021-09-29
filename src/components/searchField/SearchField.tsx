@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import {
   StyledSearchField,
   StyledForm
@@ -11,11 +12,14 @@ interface props {
 
 const SearchField = ({handleYoutubeSearch}: props) => {
 
+  const history = useHistory();
   const[searchInput, setSearchInput] = useState<string>('');
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleYoutubeSearch(searchInput);
+    history.push('/search')
+    handleYoutubeSearch ? handleYoutubeSearch(searchInput) : '';
+    return;
   }
 
   return (
