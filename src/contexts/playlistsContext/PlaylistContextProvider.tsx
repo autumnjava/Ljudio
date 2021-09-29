@@ -27,6 +27,20 @@ export const PlaylistProvider = ({ children }: Props) => {
   const [playlists, setPlaylists] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
   const [playlist, setPlaylist] = useState([]);
+  const [content, setContent] = useState<any>('');
+
+  const handleSearch = (searchWord: string) => { 
+    fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
+      .then(response => response.json())
+      .then(data => setContent(data.content.map((song: any) => {
+        return {
+          name: song.name,
+          videoId: song.videoId,
+          duration: song.duration,
+          imgUrl: song.thumbnails.url
+        }
+      })));
+  }
 
 
   const getUserPlaylists = async (userId: string) => {
@@ -170,6 +184,8 @@ export const PlaylistProvider = ({ children }: Props) => {
     }
   
   const values = {
+      handleSearch,
+      content,
       createPlaylist,
       deletePlaylist,
       currentSong,

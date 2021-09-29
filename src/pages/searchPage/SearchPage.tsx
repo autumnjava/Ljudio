@@ -21,23 +21,9 @@ interface SongProps {
 
 const SearchPage = () => {
 
-  const [content, setContent] = useState<any>('');
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const {currentSong, setCurrentSong, addSongToPlaylist } = useContext(PlaylistContext);
-
-  const handleSearch = (searchWord: string) => { 
-    fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
-      .then(response => response.json())
-      .then(data => setContent(data.content.map((song: any) => {
-        return {
-          name: song.name,
-          videoId: song.videoId,
-          duration: song.duration,
-          imgUrl: song.thumbnails.url
-        }
-      })));
-  }
+  const {currentSong, setCurrentSong, addSongToPlaylist, handleSearch, content } = useContext(PlaylistContext);
 
   const handleSearchResult = () => {
     !showMore ? setAmountOfSearchResult(content.length) : setAmountOfSearchResult(2);

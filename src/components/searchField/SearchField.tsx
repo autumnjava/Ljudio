@@ -6,7 +6,7 @@ import {
 } from './StyledSearchField'
 
 interface props {
-  handleYoutubeSearch: (searchWord: string) => void
+  handleYoutubeSearch?: (searchWord: string) => void
 }
 
 const SearchField = ({handleYoutubeSearch}: props) => {
@@ -15,7 +15,8 @@ const SearchField = ({handleYoutubeSearch}: props) => {
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleYoutubeSearch(searchInput);
+    handleYoutubeSearch ? handleYoutubeSearch(searchInput) : '';
+    return;
   }
 
   return (
