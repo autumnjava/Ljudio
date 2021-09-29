@@ -134,7 +134,6 @@ export const PlaylistProvider = ({ children }: Props) => {
   }
 
   const addSongToPlaylist = async (playlistId: string, song: SongProps) => {
-    console.log('hallå', song.imgUrl)
     const requestBody = {
       query: `mutation{
         addSongToPlaylist(
@@ -179,7 +178,6 @@ export const PlaylistProvider = ({ children }: Props) => {
         setErrorMsg(true)
       } else {
         setErrorMsg(false)
-        console.log(response.data)
       }
     }
   

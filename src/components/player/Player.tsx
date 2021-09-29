@@ -88,6 +88,11 @@ const MiniPlayer = () => {
   }
 
   const handleState = (event: any) => {
+    if (eventYoutube?.target.getPlayerState() === 0) {
+      if (songs?.currentSong.length > 1 && currentIndex < songs?.currentSong.length - 1) {
+        setCurrentIndex(currentIndex + 1)
+      }
+    }
     if (eventYoutube?.target.getPlayerState() === -1) {handlePlay()}
     if(eventYoutube?.target.getPlayerState() === 1) {
       setCurrentTime(eventYoutube.target.getCurrentTime() * 1000)
