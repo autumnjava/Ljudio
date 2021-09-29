@@ -121,7 +121,7 @@ const MiniPlayer = () => {
       <Sliders
         currentTime={currentTime}
         setCurrentTime={setCurrentTime}
-        duration={songs?.currentSong[currentIndex].duration}
+        duration={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].duration}
         youtubeEvent={eventYoutube}
       />
     </StyledSliderWrapper>
