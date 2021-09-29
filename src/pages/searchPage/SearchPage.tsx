@@ -81,7 +81,7 @@ const SearchPage = () => {
 
   const handleAddToPlaylist = (song: SongProps, playlist: Playlist) => {
     setOpenSnackBar(true);
-    addSongToPlaylist(playlist.name, song);
+    addSongToPlaylist(playlist.id, song);
   }
 
   const printOutYoutubeContent = () => (
