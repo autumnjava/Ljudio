@@ -169,7 +169,6 @@ const MiniPlayer = () => {
 
   return (
     <>
-      {console.log('ja')}
       <StyledWrapper expand={expandPlayer}>
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length && renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube)}
