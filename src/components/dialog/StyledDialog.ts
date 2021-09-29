@@ -6,8 +6,10 @@ export const StyledList = styled.ul`
 
 export const StyledListItem = styled.li`
   padding: 0.7rem;
-
-  &:nth-child(2n+1) {
-    background: #ededed;
-  }
+  cursor: pointer;
+   @media (min-width: 769px) {
+    &:hover{
+      background: #ededed;
+    }
+   }  
 `
