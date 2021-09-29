@@ -32,6 +32,7 @@ import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContext
 
   return (
     <StyledRowWrapper>
+      {console.log(song)}
         <StyledRow onClick={() => setCurrentSong([song])}>
         <StyledSongImage src={imgSrc} key={song.videoId} />
         <StyledSongTitle>{song.title}</StyledSongTitle>
