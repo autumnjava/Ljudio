@@ -13,14 +13,7 @@ import Sliders from '../slider/Slider'
 import {renderIcons, renderTitle} from './Assets'
 
 const MiniPlayer = () => {
-
-  const opts = {
-    playerVars: {
-      controls: 0,
-      showinfo: 0,
-    }
-  };
-
+  
   const [play, setPlay] = useState(true);
   const songs = useContext(PlaylistContext);
   const [eventYoutube, setEventYoutube] = useState<any>();
@@ -113,7 +106,7 @@ const MiniPlayer = () => {
       <StyledVideoWrapper show={!toggleVideo}>
           <YouTube
             videoId={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId}
-            opts={opts}
+            opts={{playerVars: {controls: 0,showinfo: 0}}}
             onReady={(e) => handleStart(e)}
             onStateChange={handleState}
         />
