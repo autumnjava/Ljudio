@@ -17,8 +17,8 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
 
   const[token, setToken] = useState(null);
   const[userId, setUserId] = useState(null);
-
-  const [errorMsg, setErrorMsg] = useState(false)
+  const [user, setUser] = useState({});
+  const [errorMsg, setErrorMsg] = useState(false);
 
   const registerUser = async (user: User) => {
     const requestBody = {
@@ -55,13 +55,12 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
   
     const response = await fetcher(requestBody);
     if (!response.data) {
-      setErrorMsg(true);
+      return false; // failed to login
     } else {
       if(response.data.login.token){
-        localStorage.setItem('JWT_KEY', response.data.login.token);
-        localStorage.setItem('userId', response.data.login.userId);
-        setToken(response.data.login.token);
-        setUserId(response.data.login.userId);
+      localStorage.setItem('JWT_KEY', response.data.login.token);
+      localStorage.setItem('userId', response.data.login.userId);
+      return true; // successfully logged in
       }
     }
     }
@@ -69,16 +68,61 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
     const logout = () => {
       localStorage.removeItem('JWT_KEY');
       localStorage.removeItem('userId');
-      setUserId(null);
-      setToken(null)
+    }
+  
+  const getUser = async (userId: string) => {
+    const requestBody = {
+      query: `query {
+        getUser(_id: "${userId}")
+        {
+          _id
+          username
+          email
+        }
+      }`
     }
 
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      setUser(response.data.getUser);
+      setErrorMsg(false);
+    }
+  }
+  
+  const changeUsername = async (userId: string, newName: string) => {
+    const requestBody = {
+      query: `mutation {
+        changeUsername(_id: "${userId}", newName: "${newName}")
+        {
+          _id
+          username
+          email
+        }
+      }`
+    }
+
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      getUser(userId);
+      setErrorMsg(false);
+    }
+  }
+
+  
+
   const values = {
+    getUser,
+    changeUsername,
     registerUser,
     login,
     logout,
     errorMsg,
-    userId
+    userId,
+    user
   }
 
   return (
