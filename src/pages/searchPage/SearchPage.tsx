@@ -1,10 +1,12 @@
-import { useState, useContext } from "react";
-import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
+import { useState, useContext, useEffect } from "react";
 import SearchField from "../../components/searchField/SearchField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
+import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
+import DialogModal from '../../components/dialog/DialogModal';
+import SnackBar from '../../components/snackBar/SnackBar'
 import {
   StyledWrapper,
   StyledSongs,
@@ -19,24 +21,34 @@ interface SongProps {
   imgUrl: string
 }
 
+interface Playlist{
+  name: string;
+  _id: string;
+}
+
 const SearchPage = () => {
 
-  const [content, setContent] = useState<any>('');
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const {currentSong, setCurrentSong, addSongToPlaylist } = useContext(PlaylistContext);
+  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content } = useContext(PlaylistContext);
+  const [open, setOpen] = useState(false);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [userId, setUserId] = useState<string | null>('');
+  const [songToAdd, setSongToAdd] = useState<SongProps | null>()
 
-  const handleSearch = (searchWord: string) => { 
-    fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
-      .then(response => response.json())
-      .then(data => setContent(data.content.map((song: any) => {
-        return {
-          name: song.name,
-          videoId: song.videoId,
-          duration: song.duration,
-          imgUrl: song.thumbnails.url
-        }
-      })));
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    setUserId(userId);
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      myPlaylists();
+    }
+  }, [!playlists, userId]);
+
+  const myPlaylists = async () => {
+    await getUserPlaylists(userId);
   }
 
   const handleSearchResult = () => {
@@ -52,24 +64,40 @@ const SearchPage = () => {
     setCurrentSong([...currentSong, song])
   }
 
-  const handleAddToPlaylist = (song: SongProps) => {
-    // make dynamic so that the user can get choose which playlist to add a song to
-    const playlistId = "614b47f372dc1bfaa3260bfe"
-    addSongToPlaylist(playlistId, song);
+  const handleAddToPlaylist = (song: SongProps, playlist: Playlist) => {
+    setOpenSnackBar(true);
+    addSongToPlaylist(playlist._id, song);
   }
-  
+
+  const handleOpenDialog = (song: SongProps, playlist: Playlist) => {
+    setOpen(!open)
+    setSongToAdd(song);
+  }
+
   const printOutYoutubeContent = () => (
     <StyledWrapper>
-      {content.map((song: any, index: number) => (
+      <SnackBar
+        snackbarContent="The song has been added to your playlist!"
+        open={openSnackBar}
+        setOpen={setOpenSnackBar}
+      />
+      {content.map((song: SongProps, index: number) => (
         <div key={index}>
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
             <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
-            <PlaylistAddIcon onClick={() => handleAddToPlaylist(song)} style={{ alignSelf: 'center' }} />
-            <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }}/>
+            <PlaylistAddIcon onClick={() => handleOpenDialog(song, playlists)} style={{ alignSelf: 'center' }} />
+            <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
           </StyledSongWrapper>}
         </div>  
       ))}
+      {songToAdd && <DialogModal
+        open={open}
+        setOpen={setOpen}
+        playlists={playlists}
+        song={songToAdd}
+        handleAddToPlaylist={handleAddToPlaylist}
+      />}
       {!showMore ? <ExpandMoreIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />
       : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }}/>}
     </StyledWrapper>

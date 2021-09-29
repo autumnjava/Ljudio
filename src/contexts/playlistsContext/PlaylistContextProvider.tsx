@@ -26,7 +26,22 @@ export const PlaylistProvider = ({ children }: Props) => {
   const [currentSong, setCurrentSong] = useState<SongProps[]>([]);
   const [playlists, setPlaylists] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
-  const [playlist, setPlaylist] = useState<Array<any>>();
+  const [playlist, setPlaylist] = useState([]);
+  const [content, setContent] = useState<any>('');
+
+  const handleSearch = (searchWord: string) => { 
+    fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
+      .then(response => response.json())
+      .then(data => setContent(data.content.map((song: any) => {
+        return {
+          name: song.name,
+          videoId: song.videoId,
+          duration: song.duration,
+          imgUrl: song.thumbnails.url
+        }
+      })));
+  }
+
 
   const getUserPlaylists = async (userId: string) => {
     const requestBody = {
@@ -81,7 +96,6 @@ export const PlaylistProvider = ({ children }: Props) => {
 
 
     const response = await fetcher(requestBody);
-    console.log('what is response from add', response);
     
     if (!response.data) {
       setErrorMsg(true);
@@ -99,6 +113,7 @@ export const PlaylistProvider = ({ children }: Props) => {
           _id
           name
           songs {
+            _id
             title
             image
             duration
@@ -114,7 +129,7 @@ export const PlaylistProvider = ({ children }: Props) => {
     if (!response) {
       setErrorMsg(true);
     } else {
-      setPlaylist(response.data.getSongsFromPlaylist.songs)
+      setPlaylist(response.data.getSongsFromPlaylist)
     }
   }
 
@@ -136,9 +151,8 @@ export const PlaylistProvider = ({ children }: Props) => {
       `
     }
 
-    console.log(requestBody, 'body')
-    const respone = await fetcher(requestBody);
-    if (!respone) {
+    const response = await fetcher(requestBody);
+    if (!response) {
       setErrorMsg(true);
     } else {
       setErrorMsg(false);
@@ -146,7 +160,31 @@ export const PlaylistProvider = ({ children }: Props) => {
     }
   }
   
+    const removeSongFromPlaylist = async (songId: string, playlistId: string) => {
+      const requestBody = {
+        query: `mutation{
+          removeSongFromPlaylist(
+            songId: "${songId}",
+            playlistId:"${playlistId}"
+          ){
+            _id
+            name
+          }
+        }`
+      }
+      
+      const response = await fetcher(requestBody);
+      if (!response) {
+        setErrorMsg(true)
+      } else {
+        setErrorMsg(false)
+        console.log(response.data)
+      }
+    }
+  
   const values = {
+      handleSearch,
+      content,
       createPlaylist,
       deletePlaylist,
       currentSong,
@@ -154,9 +192,10 @@ export const PlaylistProvider = ({ children }: Props) => {
       getUserPlaylists,
       getSongsFromPlaylist,
       addSongToPlaylist,
+      removeSongFromPlaylist,
       playlists,
       playlist,
-      errorMsg
+      errorMsg,
   }
   
   return (
