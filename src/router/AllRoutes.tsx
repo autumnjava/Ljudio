@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ArtistPage from "../pages/artistPage/ArtistPage";
-import DjRoomPage from "../pages/djRoomsPage/DjRoomPage";
+import DjRoomPage from "../pages/djRoomPage/DjRoomPage";
+import DjRoomsPage from "../pages/djRoomsPage/DjRoomsPage";
 import HomePage from "../pages/homePage/HomePage";
 import LandingPage from "../pages/landingPage/LandingPage";
 import MyPlaylistsPage from "../pages/myPlaylistsPage/MyPlaylistsPage";
@@ -29,7 +30,8 @@ const AllRoutes: React.FC<Props> = ({children}: Props) => {
         <Route path="/search" exact={true} component={SearchPage} />
         <Route path="/profile" exact={true} component={ProfilePage} />
         <Route path="/artist/:id" exact={true} component={ArtistPage} />
-        <Route path="/djrooms" exact={true} component={DjRoomPage} />
+        <Route path="/djrooms" exact={true} component={DjRoomsPage} />
+        <Route path="/djroom" exact={true} component={DjRoomPage} />
       </Switch>
     </Router>
   )

@@ -5,7 +5,7 @@ import {
 } from "./StyledDjRoomPage";
 import banner from "./images/banner.png"
 
-const DjRoomPage = () => {
+const DjRoomsPage = () => {
   return (
     <StyledWrapper>
         <StyledPageTitle>JOIN THE DJ ROOMS AND LISSTEN MUSIC TOGETHER!</StyledPageTitle>
@@ -16,4 +16,4 @@ const DjRoomPage = () => {
   );
 }
 
-export default DjRoomPage;
+export default DjRoomsPage;

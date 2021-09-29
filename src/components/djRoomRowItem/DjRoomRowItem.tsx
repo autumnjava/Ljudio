@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router';
 import HeadsetRoundedIcon from '@material-ui/icons/HeadsetRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
@@ -13,6 +14,9 @@ import {
 } from "./StyledDjRoomRowItem";
 
 const DjRoomRowItem = () => {
+
+  const history = useHistory();
+
   return (
     <StyledItemWrapper>
 
