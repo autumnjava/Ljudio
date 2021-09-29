@@ -96,7 +96,6 @@ export const PlaylistProvider = ({ children }: Props) => {
 
 
     const response = await fetcher(requestBody);
-    console.log('what is response from add', response);
     
     if (!response.data) {
       setErrorMsg(true);
