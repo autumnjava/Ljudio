@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ArtistPage from "../pages/artistPage/ArtistPage";
-import DjRoomPage from "../pages/djRoomPage/DjRoomPage";
+import DjRoomPage from "../pages/djRoomsPage/DjRoomPage";
 import HomePage from "../pages/homePage/HomePage";
 import LandingPage from "../pages/landingPage/LandingPage";
 import MyPlaylistsPage from "../pages/myPlaylistsPage/MyPlaylistsPage";

@@ -37,12 +37,7 @@ padding-top: 15px;
 align-self: start;
 margin: 0;
 `;
-export const StyledRoomTitle = styled.p`
 
-`;
-export const StyledRoomDJ = styled.p`
-
-`;
 export const StyledDJSpan = styled.span`
 font-weight: 500;
  color: #f50057;

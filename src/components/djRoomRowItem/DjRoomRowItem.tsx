@@ -9,8 +9,6 @@ import {
   StyledAudience,
   StyledAudienceIcon,
   StyledDJSpan,
-  StyledRoomTitle,
-  StyledRoomDJ,
   StyledEnterRoom
 } from "./StyledDjRoomRowItem";
 
@@ -21,8 +19,8 @@ const DjRoomRowItem = () => {
       <StyledItemRow>
         <StyledDjIcon><HeadsetRoundedIcon fontSize="large"/></StyledDjIcon>
         <StyledInfoDiv>
-          <StyledRoomTitle>Room Title</StyledRoomTitle>
-          <StyledRoomDJ><StyledDJSpan>DJ:</StyledDJSpan> Name</StyledRoomDJ>
+          <p>Room Title</p>
+          <p><StyledDJSpan>DJ:</StyledDJSpan> Name</p>
         </StyledInfoDiv>
         <StyledAudienceIcon><PersonRoundedIcon color="secondary" /><StyledAudience>14</StyledAudience></StyledAudienceIcon>
         <StyledEnterRoom><ExitToAppRoundedIcon/></StyledEnterRoom>
