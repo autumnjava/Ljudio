@@ -16,7 +16,7 @@ interface SongProps {
 const PlaylistPage = () => {
 
   const { id }: any = useParams();
-  const { playlist, getSongsFromPlaylist } = useContext(PlaylistContext);
+  const { playlist, getSongsFromPlaylist, setCurrentSong} = useContext(PlaylistContext);
   const [userId, setUserId] = useState<string | null>();
 
   useEffect(() => {
@@ -34,14 +34,17 @@ const PlaylistPage = () => {
       await getSongsFromPlaylist(id);
     }
   
+  const handlePlayAll = () => {
+    setCurrentSong(playlist.songs)
+  }
+  
 
   return (
     <>
-      {console.log('here',playlist.songs)}
       <div>
         {playlist ? <StyledHeadWrapper>
           <StyledPLTitle>{playlist.name}</StyledPLTitle>
-          <StyledButton>PLAY ALL</StyledButton>
+          <StyledButton onClick={handlePlayAll}>PLAY ALL</StyledButton>
         </StyledHeadWrapper> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
         {playlist.songs && playlist.songs.map((song: SongProps) => {
           return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} />
