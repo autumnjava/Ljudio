@@ -23,7 +23,7 @@ interface SongProps {
 
 interface Playlist{
   name: string;
-  id: string;
+  _id: string;
 }
 
 const SearchPage = () => {
@@ -31,11 +31,9 @@ const SearchPage = () => {
   const [content, setContent] = useState<any>('');
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const { currentSong, setCurrentSong, addSongToPlaylist } = useContext(PlaylistContext);
+  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists  } = useContext(PlaylistContext);
   const [open, setOpen] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
-  const { getUserPlaylists } = useContext(PlaylistContext);
-  const { playlists } = useContext(PlaylistContext)
   const [userId, setUserId] = useState<string | null>('');
 
   useEffect(() => {
@@ -81,7 +79,7 @@ const SearchPage = () => {
 
   const handleAddToPlaylist = (song: SongProps, playlist: Playlist) => {
     setOpenSnackBar(true);
-    addSongToPlaylist(playlist.id, song);
+    addSongToPlaylist(playlist._id, song);
   }
 
   const printOutYoutubeContent = () => (

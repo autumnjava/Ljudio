@@ -3,7 +3,7 @@ import { Dialog } from "@mui/material";
 import { StyledList, StyledListItem } from './StyledDialog'
 
 interface Playlist {
-  id: string,
+  _id: string,
   name: string
 }
 
@@ -34,7 +34,7 @@ const DialogModal = ({open, setOpen, playlists, song, handleAddToPlaylist}: Prop
       <DialogTitle style={{ borderBottom: '1px solid black' }}>Choose a playlists to add {song.name} to:</DialogTitle>
       <StyledList>
         {playlists.map(playlist => (
-          <StyledListItem key={playlist.id} onClick={() => handlePlaylist(playlist)}>
+          <StyledListItem key={playlist._id} onClick={() => handlePlaylist(playlist)}>
             {playlist.name}
           </StyledListItem>
         ))}
