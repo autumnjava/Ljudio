@@ -5,6 +5,7 @@ import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContext
 import { useParams } from "react-router-dom";
 
 interface SongProps {
+  _id: string,
   name: string,
   videoId: string,
   duration: number,
@@ -14,38 +15,33 @@ interface SongProps {
 const PlaylistPage = () => {
 
   const { id }: any = useParams();
-  const { playlist, playlists, getSongsFromPlaylist, getUserPlaylists } = useContext(PlaylistContext)
-
-  const currentPL = playlists?.find((p: any) => p._id === id);
-
+  const { playlist, getSongsFromPlaylist } = useContext(PlaylistContext);
+  const [userId, setUserId] = useState<string | null>();
 
   useEffect(() => {
-    playlistSongs();
-  }, [!playlist]);
-  
-  useEffect(() => {
-    myPlaylists();
-  }, [!playlists]);
+    const userId = localStorage.getItem('userId');
+    setUserId(userId);
+  }, [])
 
-  const myPlaylists = async () => {
-    const userId = "614c45add183eb4b3d148816";
-    await getUserPlaylists(userId);
-   
-  }
+  useEffect(() => {
+    if (userId) {
+      playlistSongs();
+    }
+  }, [userId, playlist]);
   
     const playlistSongs = async () => {
-      const playlistId = "614b47f372dc1bfaa3260bfe";
-      await getSongsFromPlaylist(playlistId);
+      await getSongsFromPlaylist(id);
     }
-    
+  
+
   return (
     <>
       <div>
-        {currentPL ? <div>
-          <StyledPLTitle>{currentPL.name}</StyledPLTitle>
+        {playlist ? <div>
+          <StyledPLTitle>{playlist.name}</StyledPLTitle>
         </div> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
-        {playlist && playlist.map((song: SongProps) => {
-          return <PlaylistRowItem key={song.videoId} song={song} />
+        {playlist.songs && playlist.songs.map((song: SongProps) => {
+          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} />
         })}
       </div>
     </>

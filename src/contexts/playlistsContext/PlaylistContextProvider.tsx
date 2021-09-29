@@ -26,7 +26,8 @@ export const PlaylistProvider = ({ children }: Props) => {
   const [currentSong, setCurrentSong] = useState<SongProps[]>([]);
   const [playlists, setPlaylists] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
-  const [playlist, setPlaylist] = useState<Array<any>>();
+  const [playlist, setPlaylist] = useState([]);
+
 
   const getUserPlaylists = async (userId: string) => {
     const requestBody = {
@@ -99,6 +100,7 @@ export const PlaylistProvider = ({ children }: Props) => {
           _id
           name
           songs {
+            _id
             title
             image
             duration
@@ -114,7 +116,7 @@ export const PlaylistProvider = ({ children }: Props) => {
     if (!response) {
       setErrorMsg(true);
     } else {
-      setPlaylist(response.data.getSongsFromPlaylist.songs)
+      setPlaylist(response.data.getSongsFromPlaylist)
     }
   }
 
@@ -136,15 +138,36 @@ export const PlaylistProvider = ({ children }: Props) => {
       `
     }
 
-    console.log(requestBody, 'body')
-    const respone = await fetcher(requestBody);
-    if (!respone) {
+    const response = await fetcher(requestBody);
+    if (!response) {
       setErrorMsg(true);
     } else {
       setErrorMsg(false);
       // if you want data, it will return what playlist a song has been added to
     }
   }
+  
+    const removeSongFromPlaylist = async (songId: string, playlistId: string) => {
+      const requestBody = {
+        query: `mutation{
+          removeSongFromPlaylist(
+            songId: "${songId}",
+            playlistId:"${playlistId}"
+          ){
+            _id
+            name
+          }
+        }`
+      }
+      
+      const response = await fetcher(requestBody);
+      if (!response) {
+        setErrorMsg(true)
+      } else {
+        setErrorMsg(false)
+        console.log(response.data)
+      }
+    }
   
   const values = {
       createPlaylist,
@@ -154,9 +177,10 @@ export const PlaylistProvider = ({ children }: Props) => {
       getUserPlaylists,
       getSongsFromPlaylist,
       addSongToPlaylist,
+      removeSongFromPlaylist,
       playlists,
       playlist,
-      errorMsg
+      errorMsg,
   }
   
   return (

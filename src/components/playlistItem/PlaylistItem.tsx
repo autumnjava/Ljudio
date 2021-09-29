@@ -22,7 +22,7 @@ const PlaylistItem = ({ data }: any) => {
       <StyledPlaylistWrapper>
        <StyledDeleteBtn onClick={() => data[1](data[0]._id)}><HighlightOffIcon/></StyledDeleteBtn>
           
-        <StyledItemDiv onClick={() => history.push("/playlist/" + data._id)}>
+        <StyledItemDiv onClick={() => history.push("/playlist/" + data[0]._id)}>
         <div>
           <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
         </div>

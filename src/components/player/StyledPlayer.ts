@@ -16,10 +16,10 @@ export const StyledPlayer = styled.div<ExpandPlayer>`
   background: black;
   width: 100vw;
   display: ${props => props.expand ? 'grid' : ''};
-  grid-template-rows: ${props => props.expand ? '8rem 22rem 7rem' : ''};
+  grid-template-rows: ${props => props.expand ? '6rem 53% 4rem 7rem' : ''};
   height: ${props => props.expand ? '93.5vh' : '5rem'};
   @media (min-width: 769px) {
-    grid-template-rows: ${props => props.expand ? '10% 70% 7%' : ''};
+    grid-template-rows: ${props => props.expand ? '10% 61% 4rem 7%' : ''};
   }
 `
 
@@ -28,7 +28,6 @@ export const StyledWrapper = styled.div<ExpandPlayer>`
   top: auto;
   bottom: 3.5rem;
   position: fixed;
-  border-top: 1px solid grey;
   @media (min-width: 769px) {
     bottom: 0;
   }
@@ -38,7 +37,7 @@ export const StyledPlayerWrapper = styled.div<PlayerProps>`
   width: 100vw;
   display: grid;
   grid-template-columns: ${props => props.expanded ? '1fr 1fr 1fr' : '1fr 7rem 1fr'};
-  grid-template-rows: ${props => props.expanded ? '1fr 1fr' : '1fr '};
+  grid-template-rows: ${props => props.expanded ? '1fr 1fr 1fr' : '1fr '};
 `
 
 export const StyledSongTitle = styled.p<ExpandPlayer>`
@@ -69,7 +68,7 @@ export const StyledVideoWrapper = styled.div<VideoProps>`
   display: flex;
   justify-content: center;
   @media (min-width: 769px) {
-    margin-top: 7%;
+    margin-top: 3%;
   } 
 `
 
@@ -83,4 +82,12 @@ export const StyledImg = styled.img`
     @media (min-width: 769px) {
       height: 42.5vh;
   }
+`
+
+export const StyledControllerWrapper = styled.div<ExpandPlayer>`
+  grid-row: ${props => props.expand ? '3' : ''};
+`
+
+export const StyledSliderWrapper = styled.div`
+  justify-self: center;
 `
