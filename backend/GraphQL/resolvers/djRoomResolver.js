@@ -17,35 +17,27 @@ const djRoomResolver = {
 
   // },
   // Mutation: {
-  createDjRoom: async (_parent, { playlistId, userId, input }) => {
+  // createDjRoom: async (_parent, { playlistId, userId, input }) => {
+    createDjRoom: async (args, __, ___) => {
     let playlistToCopy;
-    
-    console.log('Im inside create dj room', _parent);
-    console.log('Im inside create dj room what is playlist Id', playlistId);
-    console.log('Im inside create dj room what is user id', userId);
-    console.log('Im inside create dj room what is input', input);
 
-      if (playlistId) {
-        playlistToCopy = await Playlist.findOne({ _id: playlistId });
+      if (args.playlistId) {
+        playlistToCopy = await Playlist.findOne({ _id: args.playlistId });
       }
 
       const playlist = await new Playlist({
-        name: '(Dj list) ' + input.name ? input.name : playlistToCopy.name,
-        songs: playlistToCopy.songs ? playlistToCopy.songs : []
+        name: `(Dj list) ${(args.input.name ? args.input.name : playlistToCopy.name)}`,
+        songs: !playlistToCopy ? [] : playlistToCopy.songs
        });
       await playlist.save();
-
-      console.log('The new playlsit is', playlist);
       
       const djRoom = await new DjRoom({
-        name: args.name ? args.name : playlist.name,
-        description: args.description,
-        isOnline: args.isOnline,
-        image: args.imgUrl
+        name: args.input.name ? args.input.name : playlist.name,
+        description: args.input.description,
+        isOnline: args.input.isOnline,
+        image: args.input.imgUrl
       });
       await djRoom.save();
-
-      console.log('the created dj room is', djRoom);
 
       await Playlist.findOneAndUpdate({ _id: playlist._id }, {
         $set: {
@@ -53,7 +45,7 @@ const djRoomResolver = {
         }
       });
 
-      await User.findOneAndUpdate({ _id: userId }, {
+      await User.findOneAndUpdate({ _id: args.userId }, {
         $push: {
           myPlaylists: {
             _id: playlist._id
