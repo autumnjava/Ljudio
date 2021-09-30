@@ -16,7 +16,7 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 interface SongProps {
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   imgUrl: string
