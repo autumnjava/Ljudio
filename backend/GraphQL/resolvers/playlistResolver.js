@@ -32,7 +32,7 @@ const playlistResolver = {
   Mutation: {
     changeCurrentSong: (_parent, args, __, ___) => {
       currentSong = {...currentSong, title: args.newSongName};
-      pubsub.publish('SONG_UPDATED', {songUpdated: currentSong});
+      pubsub.publish('SONG_UPDATED', {currentSong});
       return currentSong;
     },
 
@@ -126,18 +126,15 @@ const playlistResolver = {
             songs: args.songId
           }
         })
-    
         return playlist
     }
-
   },
 
   Subscription: {
-    songUpdated: {
+    currentSong: {
       subscribe: () => pubsub.asyncIterator(['SONG_UPDATED']),
     },
   }
- 
 };
 
 module.exports = playlistResolver;

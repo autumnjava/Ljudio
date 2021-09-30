@@ -9,20 +9,20 @@ import { useQuery, useMutation, useSubscription, gql } from "@apollo/client";
 
 const HomePage: React.FC = () => {
 
-function CurrentSong() {
-  const GET_CURRENT_SONG = gql`
-  query { getCurrentSong { title }}
+function SongSubscr() {
+  const SONG_SUBSCRIPTION = gql`
+  subscription {
+    currentSong { title }
+  }
   `;
 
-  const { loading, error, data } = useQuery(GET_CURRENT_SONG);
+const { data, loading } = useSubscription(SONG_SUBSCRIPTION);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
-  return (
-  <p>{data.getCurrentSong.title}</p>
-  )
+return (
+<h4>Current song: {!loading && data.currentSong.title}</h4>
+)
 }
+
 
 function ChangeSong() {
   const [newSongName, setNewSongName] = useState('');
@@ -55,22 +55,6 @@ function ChangeSong() {
         </form>
       </div>
     );
-
-    function SongSubscr() {
-      const SONG_SUBSCRIPTION = gql`
-      subscription{songUpdated{title}}
-      `;
-  
-    const { data, loading } = useSubscription(
-      SONG_SUBSCRIPTION,
-      {}
-    );
-  
-    return (
-    <h4>New comment: {!loading && data.songUpdated.title}</h4>
-    )
-  }
-   
 }
 
 
@@ -89,9 +73,8 @@ function ChangeSong() {
       <StyledTitle>HOME</StyledTitle>
         <SearchField handleYoutubeSearch={handleSearch} />
       <button onClick={logoutHandler}>Logout</button>
-      <CurrentSong />
+      <SongSubscr />
       <ChangeSong />
-      {/* <SongSubscr /> */}
       
     </>
   )

@@ -62,10 +62,10 @@ const schema = gql`
     getUser(_id: String!): User!
     getUserPlaylists(_id: String!): User!
     getSongsFromPlaylist(_id: String!): Playlist
-    getCurrentSong: currentSong!
+    getCurrentSong: CurrentSong!
   }
 
-  type currentSong {
+  type CurrentSong {
     title: String!
     djRoom: Int!
   }
@@ -77,12 +77,12 @@ const schema = gql`
     addSongToPlaylist(_id: String!, input: SongInput): Playlist
     removeSongFromPlaylist(songId: String!, playlistId: String!): Playlist
     changeUsername(_id: String!, newName: String!): User!
-    changeCurrentSong(newSongName: String!): currentSong!
+    changeCurrentSong(newSongName: String!): CurrentSong!
   }
 
   type Subscription {
     userCreated: User
-    songUpdated: currentSong!
+    currentSong: CurrentSong!
   }
 `;
   // not sure need this:
