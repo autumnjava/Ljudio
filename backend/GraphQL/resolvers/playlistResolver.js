@@ -57,7 +57,6 @@ const playlistResolver = {
         throw new Error(error);
       }
     },
-
     addSongToPlaylist: async (_parent, args, __, ___) => {
       try {
         let song = await Song.findOne({ videoId: args.input.videoId });
@@ -85,20 +84,20 @@ const playlistResolver = {
         throw new Error(error)
       }
     },
-  
     removeSongFromPlaylist: async (_parent, args, __, ___) => {
-        // will remove all songs with the matching songId 
-        const playlist = await Playlist.findByIdAndUpdate({
-          _id: args.playlistId
-        }, {
-          $pull: {
-            songs: args.songId
-          }
-        })
-    
+      try {
+        const playlist = await Playlist.findById({ _id: args.playlistId });
+        await playlist.songs.splice(args.index, 1);
+        await Playlist.findOneAndUpdate({ _id: playlist._id }, {
+        $set: {
+          songs: playlist.songs
+        }
+      }).populate('songs').exec();
         return playlist
+      } catch (error) {
+        throw new Error(error)
+      }
     }
-
   },
  
 };
