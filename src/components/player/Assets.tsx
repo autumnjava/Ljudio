@@ -13,6 +13,7 @@ import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import Switch from '@mui/material/Switch';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import ShareIcon from '@material-ui/icons/Share';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 interface SongProps {
@@ -61,6 +62,15 @@ const handleOpenDialog = (song: SongProps, playlist: Playlist, setOpen: any, set
   setSongToAdd(song);
 }
 
+const handleCopy = () => {
+  const el = document.createElement("input");
+    el.value = 'youtube.com';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+}
+
 export const renderTitle = (
   songs: any,
   currentIndex: number,
@@ -73,13 +83,19 @@ export const renderTitle = (
       <StyledSongTitle expand={expandPlayer}>
         {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].title}
       </StyledSongTitle>
-      {expandPlayer ? <KeyboardArrowDown style={{
+    {expandPlayer ?
+      <div>
+        <ShareIcon onClick={handleCopy} style={{display: 'inline'}}/>
+        <KeyboardArrowDown style={{
+        display: 'inline',
         paddingTop: '0.5rem',
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
-        color: 'white',
-      }} onClick={() => handleMinimizePlayer(setToggleVideo, setExpandPlayer, eventYoutube)} />
+          color: 'white',
+        marginLeft: '6px'
+        }} onClick={() => handleMinimizePlayer(setToggleVideo, setExpandPlayer, eventYoutube)} />
+      </div>  
       :
       <KeyboardArrowUp style={{
         alignSelf: !expandPlayer ? 'center' : 'start',

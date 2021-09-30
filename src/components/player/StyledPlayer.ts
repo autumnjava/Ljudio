@@ -54,7 +54,7 @@ export const StyledSongTitle = styled.p<ExpandPlayer>`
 export const StyledTitleWrapper = styled.div`
   height: 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 2rem;
+  grid-template-columns: 1fr 1fr;
 `
 
 export const StyledYouTubeWrapper = styled.div<VideoProps>`
