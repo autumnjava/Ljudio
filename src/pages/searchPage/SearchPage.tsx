@@ -14,7 +14,8 @@ import {
   StyledSongImg,
   StyledCategory,
   StyledArtistImg,
-  StyledArtistName
+  StyledArtistName,
+  StyledAvatarDiv
 } from './StyledSearchPage'
 
 interface SongProps {
@@ -80,10 +81,12 @@ const SearchPage = () => {
   const printOutAristContent = () => (
     <StyledWrapper>
       <StyledCategory>Artist</StyledCategory>
-      <div style={{width: '30%'}}>
+
+      <StyledAvatarDiv>
       <StyledArtistImg src={artistContent.thumbnails[1].url} />
         <StyledArtistName>{artistContent.name}</StyledArtistName>
-        </div>
+      </StyledAvatarDiv>
+      
     </StyledWrapper>
   );
 

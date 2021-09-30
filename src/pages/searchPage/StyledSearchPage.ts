@@ -42,9 +42,9 @@ export const StyledSongImg = styled.img`
 `
 
 export const StyledCategory = styled.p`
-  
   font-size: 20px;
   letter-spacing: 2px;
+  margin: 10px;
 `;
 
 export const StyledArtistImg = styled.img`
@@ -54,4 +54,9 @@ export const StyledArtistImg = styled.img`
 export const StyledArtistName = styled.p`
 text-align: center;
 margin: 0;
+`;
+
+export const StyledAvatarDiv = styled.div`
+  float: left;
+  margin-bottom: 20%;
 `;
