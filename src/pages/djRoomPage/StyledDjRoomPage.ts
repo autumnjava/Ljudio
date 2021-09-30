@@ -1,12 +1,19 @@
 import styled, { keyframes } from "styled-components";
 
-const spin = keyframes `
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
+const moveHead = keyframes `
+ 0% {
+   transform: translateX(10%);
+ }
+
+ 33%{
+   transform: translateX(60%);
+     border: 7px solid #EF02EB;
+    box-shadow: 0 0 20px #EF02EB;
+ }
+
+ 100%{
+   transform: translateX(10%);
+ }
 `
 
 const leftToRight = keyframes`
@@ -16,6 +23,14 @@ const leftToRight = keyframes`
 
  33%{
    transform: translateY(70%);
+    border: 6px solid #9001C7;
+    box-shadow: 0 0 20px #9001C7;
+ }
+
+  70%{
+   transform: translateX(10%);
+     border: 5px solid #9001C7;
+    box-shadow: 0 0 20px #9001C7;
  }
 
 
@@ -26,16 +41,23 @@ const leftToRight = keyframes`
 
 const leftToRight2 = keyframes`
  0% {
-   transform: translateY(40%);
+   transform: translateY(30%);
  }
 
  33%{
    transform: translateY(5%);
+     border: 7px solid #EF02EB;
+    box-shadow: 0 0 20px #EF02EB;
  }
 
+ 70%{
+   transform: translateX(20%);
+     border: 8px solid #EF02EB;
+    box-shadow: 0 0 20px #EF02EB;
+ }
 
  100%{
-   transform: translateY(40%);
+   transform: translateY(30%);
  }
 `
 
@@ -46,6 +68,8 @@ const leftToRight3 = keyframes`
 
  33%{
    transform: translateY(10%);
+     border: 5px solid #9001C7;
+    box-shadow: 0 0 20px #9001C7;
  }
 
 
@@ -61,6 +85,8 @@ const leftToRight4 = keyframes`
 
  33%{
    transform: translateX(70%);
+    border: 7px solid #EF02EB;
+    box-shadow: 0 0 20px #EF02EB;
  }
 
  100%{
@@ -81,21 +107,24 @@ export const StyledWrapper = styled.div`
 `
 
 export const StyledHead = styled.div`
-  width: 100%;
+  width: 125%;
   height: 100%;
-  grid-row: 3/6;
-  grid-column: 2/6;
+  grid-row: 4/6;
+  grid-column: 2/4;
   background: black;
   border-radius: 50%;
   background-size: cover;
+  animation-name: ${moveHead};
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
   border: 5px solid #7A00C0;
   box-shadow: 0 0 20px #EF02EB;
 `
 
 export const StyledAvatar1 = styled.div`
   background: black;
-  grid-row: 1.5;
-  grid-column: 1.5;
+  grid-row: 2;
+  grid-column: 1;
 `
 
 export const StyledInner1 = styled.div`
