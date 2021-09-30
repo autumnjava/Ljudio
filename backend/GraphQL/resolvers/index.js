@@ -14,7 +14,8 @@ const rootResolver = {
         ...userResolver.Mutation
     },
     Subscription: {
-        ...userResolver.Subscription
+        ...userResolver.Subscription,
+        ...playlistResolver.Subscription
     }
 }
 

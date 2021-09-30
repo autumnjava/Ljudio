@@ -2,7 +2,10 @@ const Playlist = require('../../models/playlist');
 const User = require('../../models/user');
 const Song = require('../../models/song');
 
-let currentSong = 'Without me';
+let currentSong = {
+  title: "Without me",
+  djRoomId: 1,
+}
 
 const playlistResolver = {
   Query: {
@@ -28,9 +31,8 @@ const playlistResolver = {
 
   Mutation: {
     changeCurrentSong: (_parent, args, __, ___) => {
-      currentSong = args.newSongName;
-
-
+      currentSong = {...currentSong, title: args.newSongName};
+      pubsub.publish('SONG_UPDATED', {songUpdated: currentSong});
       return currentSong;
     },
 
@@ -129,6 +131,12 @@ const playlistResolver = {
     }
 
   },
+
+  Subscription: {
+    songUpdated: {
+      subscribe: () => pubsub.asyncIterator(['SONG_UPDATED']),
+    },
+  }
  
 };
 
