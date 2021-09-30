@@ -161,10 +161,21 @@ const djRoomResolver = {
     }
     return true;
     },
-    changeDjRoomSettings: async (args) => {
-      
+  changeDjRoomSettings: async (args) => {
+    try {
+      const djRoom = await DjRoom.findOne({ _id: args._id });
+      const updatedDjRoom = await DjRoom.findOneAndUpdate({ _id: args._id }, {
+        $set: {
+          name: args.name ? args.name : djRoom.name,
+          description: args.description ? args.description : djRoom.description,
+          image: args.imgUrl ? args.imgUrl : djRoom.image
+        }
+      });
+      return true;
+    } catch (error) {
+      return error;
+      }
     }
-
   }
 // }
 

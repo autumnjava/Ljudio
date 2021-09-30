@@ -103,6 +103,7 @@ const schema = buildSchema(`
     deleteDjRoom(_id: String!): Boolean
     kickUsers(djRoomId: String!): Boolean
     changeStatusDjRoom(_id: String!, isOnline: Boolean!): Boolean
+    changeDjRoomSettings(_id: String!, name: String, description: String, imgUrl: String): Boolean
   }
 
   
