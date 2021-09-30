@@ -4,16 +4,23 @@ const Playlist = require('../../models/playlist');
 
 const djRoomResolver = {
   // Query: {
-  //   getOwnersDjRoom: async (_parent, {_id}) => {
-  //     const user = User.findOne({ _id: _id }).populate('inRoomId');
-  //     return user.inRoomId;
-  //   },
-  //   getVisitorsDjRoom: async (_parent, { _id }) => {
+    getOwnersDjRooms: async (args, __, ___) => {
+    const user = await User.findOne({ _id: args._id }).populate('myPlaylists').exec();
+    let djRooms = [];
+    for (playlist of user.myPlaylists) {
+      const p = await Playlist.findOne({ _id: playlist._id }).populate('djRoomId').exec()
+      if (p.djRoomId) {
+        djRooms.push(p.djRoomId);
+      }
+    }
+    return djRooms;
+    },
+    getVisitorsDjRoom: async (_parent, { _id }) => {
       
-  //   },
-  //   getActiveDjRooms: async (_parent, { }) => {
+    },
+    getActiveDjRooms: async (_parent, { }) => {
       
-  //   }
+    },
 
   // },
   // Mutation: {
@@ -59,8 +66,11 @@ const djRoomResolver = {
       
     },
     changeStatusDjRoom: async (_parent, { }) => {
+      // check if user already has a online dj room, and in that case close the dj room and open the other
+  },
+  kickUsers: async () => {
       
-    },
+    }
 
   }
 // }
