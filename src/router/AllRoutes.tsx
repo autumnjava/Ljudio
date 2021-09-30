@@ -31,7 +31,7 @@ const AllRoutes: React.FC<Props> = ({children}: Props) => {
         <Route path="/profile" exact={true} component={ProfilePage} />
         <Route path="/artist/:id" exact={true} component={ArtistPage} />
         <Route path="/djrooms" exact={true} component={DjRoomsPage} />
-        <Route path="/djroom" exact={true} component={DjRoomPage} />
+        <Route path="/djroom/:id" exact={true} component={DjRoomPage} />
       </Switch>
     </Router>
   )
