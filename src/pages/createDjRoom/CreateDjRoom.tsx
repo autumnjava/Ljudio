@@ -1,9 +1,13 @@
+import HeadsetRoundedIcon from '@material-ui/icons/HeadsetRounded';
+import InsertPhotoRoundedIcon from '@material-ui/icons/InsertPhotoRounded';
+import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
 import {
   StyledWrapper,
   StyledForm,
   StyledTextInput,
   StyledLabel,
-  StyledTextBox
+  StyledTextBox,
+  StyledTitle
 } from "./StyledCreateDjRoom";
 
 
@@ -13,12 +17,14 @@ const CreateDjRoom = () => {
   return (
     <StyledWrapper>
       <StyledForm>
-        <p>CREATING DJ ROOM</p>
+        <StyledTitle>CREATING DJ ROOM</StyledTitle>
 
-        <StyledTextInput type="text" placeholder="Room Name" />
-        <StyledTextInput type="text" placeholder="Image URL" />
-        <StyledTextBox placeholder="Description" />
-        
+        <StyledLabel>Room Name:</StyledLabel>
+        <HeadsetRoundedIcon style={{color: 'purple'}}/><StyledTextInput type="text" placeholder="Room Name" />
+        <StyledLabel>Image:</StyledLabel>
+        <InsertPhotoRoundedIcon style={{color: 'purple'}}/><StyledTextInput type="text" placeholder="Image URL" />
+        <StyledLabel>Description:</StyledLabel>
+        <DescriptionRoundedIcon style={{color: 'purple'}}/><StyledTextBox maxLength={50} placeholder="Description" />
       </StyledForm>
     </StyledWrapper>
   );

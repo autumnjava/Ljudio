@@ -1,7 +1,6 @@
 import { Popper } from "@material-ui/core";
 import { Fade } from "@mui/material";
 import Box from '@mui/material/Box';
-import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import { useState } from "react";
 import PlaylistItem from "../../components/playlistItem/PlaylistItem";
