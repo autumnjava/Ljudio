@@ -92,7 +92,7 @@ export const renderTitle = (
       <div>
         <ShareIcon onClick={() => handleCopy(songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
           setOpenSnackBar,
-          setSnackBarContent)} style={{ display: 'inline' }} />
+          setSnackBarContent)} style={{ display: 'inline', cursor: 'pointer' }} />
         <KeyboardArrowDown style={{
         display: 'inline',
         paddingTop: '0.5rem',
@@ -100,7 +100,8 @@ export const renderTitle = (
         justifySelf: 'end',
         fontSize: '2rem',
           color: 'white',
-        marginLeft: '6px'
+          marginLeft: '6px',
+        cursor: 'pointer'
         }} onClick={() => handleMinimizePlayer(setToggleVideo, setExpandPlayer, eventYoutube)} />
       </div>  
       :
@@ -109,6 +110,7 @@ export const renderTitle = (
         justifySelf: 'end',
         fontSize: '2rem',
         color: 'white',
+        cursor: 'pointer'
       }} onClick={() => handleExpandPlayer(setExpandPlayer, eventYoutube)} />
       }
     </StyledTitleWrapper>  

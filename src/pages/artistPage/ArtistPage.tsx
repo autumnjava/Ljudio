@@ -94,7 +94,7 @@ const ArtistPage = () => {
           fontSize='small'
           style={{color: 'white', position: 'relative', top: '3px', marginLeft: '3px'}}
           />
-            <ShareIcon onClick={() => handleCopy(artistContent.browseId)} style={{color: 'white', marginRight: '3px', float: 'right'}}/>
+            <ShareIcon onClick={() => handleCopy(artistContent.browseId)} style={{color: 'white', marginRight: '3px', float: 'right', cursor: 'pointer'}}/>
           </StyledTitle>
         <StyledName>{artistContent && artistContent.name.toUpperCase()}</StyledName>
           {artistContent && <StyledImg src={artistContent.thumbnails[1].url} />}
