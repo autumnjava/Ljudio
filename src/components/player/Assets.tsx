@@ -62,9 +62,9 @@ const handleOpenDialog = (song: SongProps, playlist: Playlist, setOpen: any, set
   setSongToAdd(song);
 }
 
-const handleCopy = () => {
+const handleCopy = (id: string) => {
   const el = document.createElement("input");
-    el.value = 'youtube.com';
+    el.value = `https://www.youtube.com/watch?v=${id}`;
     document.body.appendChild(el);
     el.select();
     document.execCommand("copy");
@@ -85,7 +85,7 @@ export const renderTitle = (
       </StyledSongTitle>
     {expandPlayer ?
       <div>
-        <ShareIcon onClick={handleCopy} style={{display: 'inline'}}/>
+        <ShareIcon onClick={() => handleCopy(songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId)} style={{display: 'inline'}}/>
         <KeyboardArrowDown style={{
         display: 'inline',
         paddingTop: '0.5rem',
