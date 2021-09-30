@@ -3,8 +3,8 @@ const User = require('../../models/user');
 const Playlist = require('../../models/playlist');
 
 const djRoomResolver = {
-  // Query: {
-  getOwnersDjRooms: async (args, __, ___) => {
+  Query: {
+  getOwnersDjRooms: async (_parent, args, __, ___) => {
     try {
       const user = await User.findOne({ _id: args._id }).populate('myPlaylists').exec();
       let djRooms = [];
@@ -19,7 +19,7 @@ const djRoomResolver = {
       return error;
     }
   },
-  getVisitorsDjRoom: async (args, __, ___) => {
+  getVisitorsDjRoom: async (_parent, args, __, ___) => {
     try {
       const user = await User.findOne({ _id: args._id });
       if (!user.inRoomId) {
@@ -31,7 +31,7 @@ const djRoomResolver = {
       return error;
     }
   },
-  getActiveDjRooms: async (args, __, ___) => {
+  getActiveDjRooms: async (_parent, args, __, ___) => {
     try {
       const djRooms = await DjRoom.find({ isOnline: true });
       const activeDjRooms = [];
@@ -48,7 +48,7 @@ const djRoomResolver = {
       return error;
     }
   },
-  getDjRoom: async (args, __, ___) => {
+  getDjRoom: async (_parent, args, __, ___) => {
     try {
       const djRoom = await DjRoom.findOne({ _id: args._id });
       const playlist = await Playlist.findOne({ djRoomId: djRoom._id });
@@ -76,10 +76,10 @@ const djRoomResolver = {
   },
     
 
-  // },
-  // Mutation: {
+  },
+  Mutation: {
   // createDjRoom: async (_parent, { playlistId, userId, input }) => {
-  createDjRoom: async (args, __, ___) => {
+  createDjRoom: async (_parent, args, __, ___) => {
     try {
       
       let playlistToCopy;
@@ -121,7 +121,7 @@ const djRoomResolver = {
       return error;
     }
   },
-  joinDjRoom: async (args, __, ___) => {
+  joinDjRoom: async (_parent, args, __, ___) => {
     try {
       await User.findOneAndUpdate({ _id: args._id }, {
         $set: {
@@ -135,7 +135,7 @@ const djRoomResolver = {
       return error;
     }
   },
-  disjoinDjRoom: async (args, __, ___) => {
+  disjoinDjRoom: async (_parent, args, __, ___) => {
     try {
       await User.findOneAndUpdate({ _id: args._id }, {
         $set: {
@@ -147,7 +147,7 @@ const djRoomResolver = {
       return error;
     }
   }, 
-  deleteDjRoom: async (args, __, ___) => {
+  deleteDjRoom: async (_parent, args, __, ___) => {
     try {
       await DjRoom.deleteOne({ _id: args._id });
       const playlist = await Playlist.findOne({ djRoomId: args._id });
@@ -166,7 +166,7 @@ const djRoomResolver = {
     }
     return true;
     },
-  changeStatusDjRoom: async (args, __, ___) => {
+  changeStatusDjRoom: async (_parent, args, __, ___) => {
     try {
       await DjRoom.findOneAndUpdate({ _id: args._id }, {
         $set: {
@@ -178,7 +178,7 @@ const djRoomResolver = {
     }
     return true;
     },
-  kickUsers: async (args, __, ___) => {
+  kickUsers: async (_parent, args, __, ___) => {
     try {
       await User.updateMany({ inRoomId: args.djRoomId }, {
         $set: {
@@ -190,10 +190,10 @@ const djRoomResolver = {
     }
     return true;
     },
-  changeDjRoomSettings: async (args) => {
+  changeDjRoomSettings: async (_parent, args, __, ___) => {
     try {
       const djRoom = await DjRoom.findOne({ _id: args._id });
-      const updatedDjRoom = await DjRoom.findOneAndUpdate({ _id: args._id }, {
+      await DjRoom.findOneAndUpdate({ _id: args._id }, {
         $set: {
           name: args.name ? args.name : djRoom.name,
           description: args.description ? args.description : djRoom.description,
@@ -206,6 +206,6 @@ const djRoomResolver = {
       }
     }
   }
-// }
+}
 
 module.exports = djRoomResolver;
