@@ -102,7 +102,8 @@ export const StyledWrapper = styled.div`
   margin: 20px auto;
   height: 75vh;
   @media (min-width: 769px) {
-    width: 50%;
+    width: 45%;
+    height: 80vh;
   }
 `
 
