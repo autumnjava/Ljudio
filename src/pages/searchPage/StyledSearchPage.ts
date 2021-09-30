@@ -59,6 +59,7 @@ export const StyledAvatarDiv = styled.div`
   float: left;
   margin-bottom: 20%;
   cursor: pointer;
+  margin-bottom: 10rem;
   &:hover{
     opacity: 85%;
   }

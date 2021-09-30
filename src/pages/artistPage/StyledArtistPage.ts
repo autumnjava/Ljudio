@@ -23,7 +23,12 @@ export const StyledName = styled.p`
 `;
 
 export const StyledMusicDiv = styled.div`
+`;
 
+export const StyledTest = styled.div`
+  &:last-child {
+          margin-bottom: 10rem;
+      }
 `;
 
 // MUSIC LIST STYLE
@@ -57,3 +62,10 @@ export const StyledSongImg = styled.img`
   height: 7vh;
   align-self: center;
 `
+
+export const StyledCategory = styled.p`
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin: 10px;
+
+`;

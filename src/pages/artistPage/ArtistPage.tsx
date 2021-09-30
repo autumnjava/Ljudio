@@ -14,7 +14,9 @@ import {
   StyledMusicDiv,
   StyledSongWrapper,
   StyledSongs,
-  StyledSongImg
+  StyledSongImg,
+  StyledCategory,
+  StyledTest
 } from "./StyledArtistPage";
 
 interface SongProps {
@@ -74,16 +76,16 @@ const ArtistPage = () => {
       </StyledNameDiv>
       
       <StyledMusicDiv>
-      <p>Videos</p>
-        {content.map((song: SongProps, index: number) => (
-          <div key={index}>
-            {index && song.videoId !== undefined && <StyledSongWrapper>
+      <StyledCategory>Videos</StyledCategory>
+        {content && content.map((song: SongProps, index: number) => (
+          <StyledTest key={index}>
+            {index && song.videoId !== undefined ? <StyledSongWrapper>
               <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
               <StyledSongs onClick={() => handleSong(song)}>{song.title}</StyledSongs>
               <PlaylistAddIcon onClick={() => handleOpenDialog(song, playlists)} style={{ alignSelf: 'center' }} />
               <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
-            </StyledSongWrapper>}
-          </div>
+            </StyledSongWrapper> : ''}
+          </StyledTest>
         ))}
         {songToAdd && <DialogModal
         open={open}
