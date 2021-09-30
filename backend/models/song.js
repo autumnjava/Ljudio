@@ -3,10 +3,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const songSchema = new Schema({
-    artist: [String], 
     title: String,
+    videoId: String,
     duration: Number,
-    videoId: String
+    image: String
 });
 
 module.exports = mongoose.model('Song', songSchema);
