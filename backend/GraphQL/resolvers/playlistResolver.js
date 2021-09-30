@@ -2,6 +2,8 @@ const Playlist = require('../../models/playlist');
 const User = require('../../models/user');
 const Song = require('../../models/song');
 
+let currentSong = 'Without me';
+
 const playlistResolver = {
   Query: {
     getUserPlaylists: async (_parent, args, __, ___) => {
@@ -18,9 +20,22 @@ const playlistResolver = {
   
       return songs
     },
+
+    getCurrentSong: () => {
+      return currentSong;
+    }
   },
 
   Mutation: {
+    changeCurrentSong: (_parent, args, __, ___) => {
+      currentSong = args.newSongName;
+
+
+      return currentSong;
+    },
+
+
+
     createPlaylist: async (_parent, args, __, ___) => {
     
       const playlist = new Playlist({
