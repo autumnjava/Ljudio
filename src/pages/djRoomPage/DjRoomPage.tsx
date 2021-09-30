@@ -10,8 +10,6 @@ import {
   StyledInner3,
   StyledAvatar4,
   StyledInner4,
-  StyledAvatar5,
-  StyledInner5
 } from "./StyledDjRoomPage";
 
 
@@ -25,7 +23,6 @@ const DjRoomPage = () => {
     <StyledAvatar1>
       <StyledInner1>
         <StyledName1>
-          
         </StyledName1>
       </StyledInner1>
     </StyledAvatar1>
@@ -51,12 +48,6 @@ const DjRoomPage = () => {
 
       </StyledInner4>
     </StyledAvatar4>
-
-    <StyledAvatar5>
-      <StyledInner5>
-
-      </StyledInner5>
-    </StyledAvatar5>
 
   </StyledWrapper>
   );
