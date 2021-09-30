@@ -5,8 +5,6 @@ import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import DialogModal from '../../components/dialog/DialogModal';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 import {
   StyledWrapper,
@@ -20,7 +18,7 @@ import {
 } from "./StyledArtistPage";
 
 interface SongProps {
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   imgUrl: string
@@ -81,7 +79,7 @@ const ArtistPage = () => {
           <div key={index}>
             {index && song.videoId !== undefined && <StyledSongWrapper>
               <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
-              <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
+              <StyledSongs onClick={() => handleSong(song)}>{song.title}</StyledSongs>
               <PlaylistAddIcon onClick={() => handleOpenDialog(song, playlists)} style={{ alignSelf: 'center' }} />
               <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
             </StyledSongWrapper>}
