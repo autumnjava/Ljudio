@@ -10,7 +10,6 @@ export const StyledWrapper = styled.div`
     margin: 0 auto;
   }
 `
-
 export const StyledSongWrapper = styled.div`
   display: grid;
   grid-template-columns: 5rem 1fr 2rem 2rem;
@@ -59,4 +58,10 @@ margin: 0;
 export const StyledAvatarDiv = styled.div`
   float: left;
   margin-bottom: 20%;
+  cursor: pointer;
+  &:hover{
+    opacity: 85%;
+  }
 `;
+
+

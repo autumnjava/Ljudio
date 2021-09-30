@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router";
+
 import SearchField from "../../components/searchField/SearchField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -83,11 +84,9 @@ const SearchPage = () => {
 
   const printOutAristContent = () => (
     <StyledWrapper>
-      <StyledCategory>Artist
-        
-      </StyledCategory>
+      <StyledCategory>Artist</StyledCategory>
 
-      <StyledAvatarDiv onClick={() => history.push('/artist/' + artistContent.browseId)}>
+      <StyledAvatarDiv onClick={() => history.push('/artist/' + artistContent.name)}>
       <StyledArtistImg src={artistContent.thumbnails[1].url} />
         <StyledArtistName>{artistContent.name}
           <CheckCircleRoundedIcon
