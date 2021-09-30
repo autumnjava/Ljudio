@@ -69,6 +69,15 @@ const schema = buildSchema(`
     name: String!
     _id: ID!
   }
+
+  type CurrentDjRoom {
+    _id: ID!
+    djRoom: DjRoom!
+    playlist: Playlist!
+    dj: User!
+    visitors: [User]
+    count: Int!
+  }
   
   type Query {
     getUser(_id: String!): User!
@@ -78,6 +87,7 @@ const schema = buildSchema(`
     getOwnersDjRooms(_id: String!): [DjRoom]!
     getVisitorsDjRoom(_id: String!): DjRoom
     getActiveDjRooms(input: Boolean): [ActiveDjRooms]
+    getDjRoom(_id: String!): CurrentDjRoom
   }
 
   type Mutation {

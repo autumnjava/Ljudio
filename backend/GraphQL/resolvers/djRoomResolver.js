@@ -1,7 +1,6 @@
 const DjRoom = require('../../models/djRoom');
 const User = require('../../models/user');
 const Playlist = require('../../models/playlist');
-const djRoom = require('../../models/djRoom');
 
 const djRoomResolver = {
   // Query: {
@@ -24,7 +23,7 @@ const djRoomResolver = {
       const djRoom = await DjRoom.findOne({ _id: user.inRoomId });
       return djRoom;
     },
-    getActiveDjRooms: async (_parent, { args }) => {
+    getActiveDjRooms: async (args, __, ___) => {
       const djRooms = await DjRoom.find({ isOnline: true });
       const activeDjRooms = [];
       for (let i = 0; i < djRooms.length; i++) {
@@ -37,6 +36,38 @@ const djRoomResolver = {
       }
       return activeDjRooms;
     },
+    getDjRoom: async (args, __, ___) => {
+      const djRoom = await DjRoom.findOne({ _id: args._id });
+      const playlist = await Playlist.findOne({ djRoomId: djRoom._id });
+      const dj = await User.findOne({myPlaylists: playlist._id});
+      const inRoom = await User.find({ inRoomId: djRoom._id });
+      let visitors = [];
+      for (visitor of inRoom) {
+        visitors.push({
+          name: visitor.username,
+          _id: visitor._id
+        });
+      }
+      const object = {
+        _id: djRoom._id,
+        djRoom,
+        playlist,
+        dj,
+        visitors,
+        count: visitors.length
+      }
+      console.log('the object', object);
+      return {
+        _id: djRoom._id,
+        djRoom,
+        playlist,
+        dj,
+        visitors,
+        count: visitors.length
+      }
+    
+  },
+    
 
   // },
   // Mutation: {
