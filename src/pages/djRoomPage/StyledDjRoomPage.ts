@@ -108,6 +108,7 @@ export const StyledWrapper = styled.div`
 `
 
 export const StyledHead = styled.div`
+  display: grid;
   width: 125%;
   height: 100%;
   grid-row: 4/6;
@@ -129,6 +130,7 @@ export const StyledAvatar1 = styled.div`
 `
 
 export const StyledInner1 = styled.div`
+  display: grid;
   width: 120%;
   height: 100%;
   border-radius: 50%;
@@ -140,9 +142,10 @@ export const StyledInner1 = styled.div`
 `
 
 export const StyledName1 = styled.p`
-position: relative;
-top: 22%;
-left:22%;
+font-weight: bolder;
+color: #EF02EB;
+align-self: center;
+justify-self: center;
 letter-spacing: 3px;
 `
 
@@ -154,8 +157,9 @@ background: black;
 `
 
 export const StyledInner2 = styled.div`
-  width: 140%;
-  height: 120%;
+  display: grid;
+  width: 120%;
+  height: 100%;
   border-radius: 50%;
   animation-name: ${leftToRight2};
   animation-duration: 7s;
@@ -172,6 +176,7 @@ background: black;
 `
 
 export const StyledInner3 = styled.div`
+  display: grid;
   width: 120%;
   height: 100%;
   border-radius: 50%;
@@ -188,6 +193,7 @@ export const StyledAvatar4 = styled.div`
 `
 
 export const StyledInner4 = styled.div`
+  display: grid;
   width: 120%;
   height: 100%;
   border-radius: 50%;

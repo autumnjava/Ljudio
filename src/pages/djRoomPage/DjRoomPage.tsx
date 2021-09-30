@@ -16,13 +16,15 @@ import {
 const DjRoomPage = () => {
   
   return (
-    <StyledWrapper>
-      <StyledHead>
+  <StyledWrapper>
+    <StyledHead>
+        <StyledName1>DJ</StyledName1>
     </StyledHead>
 
     <StyledAvatar1>
       <StyledInner1>
-        <StyledName1>
+          <StyledName1>
+            I.P
         </StyledName1>
       </StyledInner1>
     </StyledAvatar1>
@@ -30,7 +32,7 @@ const DjRoomPage = () => {
     <StyledAvatar2>
       <StyledInner2>
         <StyledName1>
-          
+            A.A
         </StyledName1>
       </StyledInner2>
     </StyledAvatar2>
@@ -38,14 +40,16 @@ const DjRoomPage = () => {
     <StyledAvatar3>
       <StyledInner3>
         <StyledName1>
-          
+            O.G
         </StyledName1>
       </StyledInner3>
     </StyledAvatar3>
 
     <StyledAvatar4>
       <StyledInner4>
-
+          <StyledName1>
+            R.S
+        </StyledName1>
       </StyledInner4>
     </StyledAvatar4>
 
