@@ -1,6 +1,7 @@
 const DjRoom = require('../../models/djRoom');
 const User = require('../../models/user');
 const Playlist = require('../../models/playlist');
+const djRoom = require('../../models/djRoom');
 
 const djRoomResolver = {
   // Query: {
@@ -23,8 +24,18 @@ const djRoomResolver = {
       const djRoom = await DjRoom.findOne({ _id: user.inRoomId });
       return djRoom;
     },
-    getActiveDjRooms: async (_parent, { }) => {
-      
+    getActiveDjRooms: async (_parent, { args }) => {
+      const djRooms = await DjRoom.find({ isOnline: true });
+      const activeDjRooms = [];
+      for (let i = 0; i < djRooms.length; i++) {
+        let userCount = await User.find({ inRoomId: djRooms[i]._id }).count();
+        activeDjRooms.push({
+          userCount: userCount,
+          name: djRooms[i].name,
+          _id: djRooms[i]._id
+        });
+      }
+      return activeDjRooms;
     },
 
   // },

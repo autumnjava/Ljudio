@@ -63,6 +63,12 @@ const schema = buildSchema(`
     image: String
     isOnline: Boolean!
   }
+
+  type ActiveDjRooms {
+    userCount: Int!
+    name: String!
+    _id: ID!
+  }
   
   type Query {
     getUser(_id: String!): User!
@@ -71,6 +77,7 @@ const schema = buildSchema(`
     login(email: String!, password: String!): AuthData!
     getOwnersDjRooms(_id: String!): [DjRoom]!
     getVisitorsDjRoom(_id: String!): DjRoom
+    getActiveDjRooms(input: Boolean): [ActiveDjRooms]
   }
 
   type Mutation {
