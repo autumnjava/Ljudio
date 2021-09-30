@@ -16,7 +16,12 @@ const djRoomResolver = {
     return djRooms;
     },
     getVisitorsDjRoom: async (args, __, ___) => {
-      
+      const user = await User.findOne({ _id: args._id });
+      if (!user.inRoomId) {
+        return null;
+      }
+      const djRoom = await DjRoom.findOne({ _id: user.inRoomId });
+      return djRoom;
     },
     getActiveDjRooms: async (_parent, { }) => {
       
