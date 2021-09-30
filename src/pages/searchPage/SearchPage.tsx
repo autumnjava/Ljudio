@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router";
 import SearchField from "../../components/searchField/SearchField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -6,7 +7,8 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
 import DialogModal from '../../components/dialog/DialogModal';
-import SnackBar from '../../components/snackBar/SnackBar'
+import SnackBar from '../../components/snackBar/SnackBar';
+import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import {
   StyledWrapper,
   StyledSongs,
@@ -32,6 +34,7 @@ interface Playlist{
 
 const SearchPage = () => {
 
+  const history = useHistory();
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
   const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content, handleArtistSearch, artistContent } = useContext(PlaylistContext);
@@ -80,11 +83,18 @@ const SearchPage = () => {
 
   const printOutAristContent = () => (
     <StyledWrapper>
-      <StyledCategory>Artist</StyledCategory>
+      <StyledCategory>Artist
+        
+      </StyledCategory>
 
-      <StyledAvatarDiv>
+      <StyledAvatarDiv onClick={() => history.push('/artist/' + artistContent.browseId)}>
       <StyledArtistImg src={artistContent.thumbnails[1].url} />
-        <StyledArtistName>{artistContent.name}</StyledArtistName>
+        <StyledArtistName>{artistContent.name}
+          <CheckCircleRoundedIcon
+          fontSize='small'
+          style={{color: 'white', position: 'relative', top: '3px', marginLeft: '3px'}}
+          />
+        </StyledArtistName>
       </StyledAvatarDiv>
       
     </StyledWrapper>
