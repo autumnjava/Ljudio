@@ -100,6 +100,8 @@ const schema = buildSchema(`
     createDjRoom(playlistId: String, userId: String!, input: DjRoomInput): DjRoom!
     joinDjRoom(_id: String!, djRoomId: String!): DjRoom!
     disjoinDjRoom(_id: String!): Boolean
+    deleteDjRoom(_id: String!): Boolean
+    kickUsers(djRoomId: String!): Boolean
   }
 
   
