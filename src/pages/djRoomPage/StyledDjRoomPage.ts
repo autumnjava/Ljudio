@@ -109,7 +109,7 @@ export const StyledWrapper = styled.div`
 
 export const StyledHead = styled.div`
   display: grid;
-  width: 125%;
+  width: 120%;
   height: 100%;
   grid-row: 4/6;
   grid-column: 2/4;

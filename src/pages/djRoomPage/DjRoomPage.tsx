@@ -18,7 +18,7 @@ const DjRoomPage = () => {
   return (
   <StyledWrapper>
     <StyledHead>
-        <StyledName1>DJ</StyledName1>
+        <StyledName1>DJ ALEX</StyledName1>
     </StyledHead>
 
     <StyledAvatar1>
