@@ -8,6 +8,7 @@ import PlaylistItem from "../../components/playlistItem/PlaylistItem";
 import MyDjRoomItem from "../../components/myDjRoomItem/MyDjRoomItem";
 import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
 import { useContext, useEffect, useRef } from 'react';
+import { useHistory } from "react-router";
 import {
   StyledTitle,
   StyledAddPlaylistDiv,
@@ -29,6 +30,7 @@ interface List {
 }
 
 const MyPlaylistsPage = () => {
+  const history = useHistory();
   const { playlists, getUserPlaylists, deletePlaylist, createPlaylist} = useContext(PlaylistContext)
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -106,7 +108,7 @@ const MyPlaylistsPage = () => {
         <StyledTitle>My Dj Rooms</StyledTitle>
 
         <StyledGridDiv> 
-        <StyledAddPlaylistDiv typeof="button" onClick={handleCreate}>
+        <StyledAddPlaylistDiv typeof="button" onClick={() => history.push('/createDjRoom')}>
           <StyledAddItem>
             <StyledAddIcon>+</StyledAddIcon>
           </StyledAddItem>
