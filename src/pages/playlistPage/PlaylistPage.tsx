@@ -37,6 +37,16 @@ const PlaylistPage = () => {
   const handlePlayAll = () => {
     setCurrentSong(playlist.songs)
   }
+
+  const handlePrintOutSongs = () => {
+    return (
+    <>
+      {playlist.songs && playlist.songs.map((song: SongProps) => {
+          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} handlePrintOutSongs={handlePrintOutSongs} />
+      })}
+    </>    
+    )
+  }
   
 
   return (
@@ -46,9 +56,7 @@ const PlaylistPage = () => {
           <StyledPLTitle>{playlist.name}</StyledPLTitle>
           <StyledButton onClick={handlePlayAll}>PLAY ALL</StyledButton>
         </StyledHeadWrapper> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
-        {playlist.songs && playlist.songs.map((song: SongProps) => {
-          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} />
-        })}
+        {handlePrintOutSongs()}
       </div>
     </>
   )
