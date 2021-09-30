@@ -16,7 +16,9 @@ import {
   StyledSongs,
   StyledSongImg,
   StyledCategory,
-  StyledTest
+  StyledTest,
+  StyledImg,
+  StyledAllContent
 } from "./StyledArtistPage";
 
 interface SongProps {
@@ -67,16 +69,19 @@ const ArtistPage = () => {
 
   return (
     <StyledWrapper>
+      <StyledAllContent>
       <StyledNameDiv>
+      
       <StyledTitle>ARTIST<CheckCircleRoundedIcon
           fontSize='small'
           style={{color: 'white', position: 'relative', top: '3px', marginLeft: '3px'}}
       /></StyledTitle>
         <StyledName>{artistContent && artistContent.name.toUpperCase()}</StyledName>
+          {artistContent && <StyledImg src={artistContent.thumbnails[1].url} />}
       </StyledNameDiv>
       
       <StyledMusicDiv>
-      <StyledCategory>Videos</StyledCategory>
+        <StyledCategory>Music</StyledCategory>
         {content && content.map((song: SongProps, index: number) => (
           <StyledTest key={index}>
             {index && song.videoId !== undefined ? <StyledSongWrapper>
@@ -94,7 +99,8 @@ const ArtistPage = () => {
         song={songToAdd}
         handleAddToPlaylist={handleAddToPlaylist}
       />}
-      </StyledMusicDiv>
+        </StyledMusicDiv>
+        </StyledAllContent>
     </StyledWrapper>
   );
 

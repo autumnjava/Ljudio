@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
+width: 100%;
+`;
 
+export const StyledAllContent = styled.div`
+
+ @media (min-width: 769px) {
+  width: 80%;
+  margin: 10px auto;
+ }
 `;
 
 export const StyledTitle = styled.p`
@@ -16,10 +24,13 @@ export const StyledNameDiv = styled.div`
   letter-spacing: 2px;
   margin-top: 10%;
   padding: 0;
+  width: 100%;
+  align-content: center;
 `;
 
 export const StyledName = styled.p`
   margin: 0 0 0 10px;
+  width: fit-content;
 `;
 
 export const StyledMusicDiv = styled.div`
@@ -41,8 +52,9 @@ export const StyledSongWrapper = styled.div`
   }
   @media (min-width: 769px) {
   grid-template-columns: 7rem 1fr 2rem 2rem;
+
    &:hover{
-     background:#F5F5F5;
+     opacity: 80%;
      cursor: pointer;
    }
   }
@@ -67,5 +79,9 @@ export const StyledCategory = styled.p`
   font-size: 20px;
   letter-spacing: 2px;
   margin: 10px;
+`;
 
+export const StyledImg = styled.img`
+  border-radius: 50%;
+  margin: 10px;
 `;
