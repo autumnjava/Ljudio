@@ -14,5 +14,8 @@ export const StyledForm = styled.form`
 export const StyledSearchField = styled.input`
   padding: 0.5rem;
   outline: none;
-  border: 1px solid #9C27B0;
+  border: 1px solid #f50057;
+  background: black;
+  color: white;
+  border-radius: 5px;
 `

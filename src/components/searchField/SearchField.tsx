@@ -26,7 +26,7 @@ const SearchField = ({handleYoutubeSearch}: props) => {
     <>
       <StyledForm onSubmit={e => handleSearch(e)}>
         <StyledSearchField onChange={e => setSearchInput(e.target.value)} type="text" placeholder="Search for songs/playlists" />
-        <Button type="submit" color="secondary" variant="outlined">SEARCH</Button>
+        <Button style={{color: '#f50057', border:'1px solid #f50057'}} type="submit" variant="outlined">SEARCH</Button>
       </StyledForm>  
     </>
   )

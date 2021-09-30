@@ -81,13 +81,18 @@ const MiniPlayer = () => {
       handleStart(eventYoutube)
     }
     return;
-  }, [songs, currentIndex])
+  }, [songs.currentSong, currentIndex])
 
   const handleCurrentTime = () => {
     setCurrentTime(eventYoutube?.target.getCurrentTime() * 1000);
   }
 
   const handleState = (event: any) => {
+    if (eventYoutube?.target.getPlayerState() === 0) {
+      if (songs?.currentSong.length > 1 && currentIndex < songs?.currentSong.length - 1) {
+        setCurrentIndex(currentIndex + 1)
+      }
+    }
     if (eventYoutube?.target.getPlayerState() === -1) {handlePlay()}
     if(eventYoutube?.target.getPlayerState() === 1) {
       setCurrentTime(eventYoutube.target.getCurrentTime() * 1000)
@@ -121,7 +126,7 @@ const MiniPlayer = () => {
       <Sliders
         currentTime={currentTime}
         setCurrentTime={setCurrentTime}
-        duration={songs?.currentSong[currentIndex].duration}
+        duration={songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].duration}
         youtubeEvent={eventYoutube}
       />
     </StyledSliderWrapper>
@@ -131,8 +136,8 @@ const MiniPlayer = () => {
     <>
       <StyledWrapper expand={expandPlayer}>
         <StyledPlayer expand={expandPlayer}>
-          {songs?.currentSong.length && renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube)}
-          {songs?.currentSong.length && renderYouTubePlayer()}
+          {songs?.currentSong.length ? renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube) : ''}
+          {songs?.currentSong.length ? renderYouTubePlayer() : ''}
           {expandPlayer && songs?.currentSong.length && renderSlider()}
           {renderIcons(
             expandPlayer,

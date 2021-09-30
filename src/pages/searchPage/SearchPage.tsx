@@ -15,7 +15,7 @@ import {
 } from './StyledSearchPage'
 
 interface SongProps {
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   imgUrl: string
@@ -85,7 +85,7 @@ const SearchPage = () => {
         <div key={index}>
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
-            <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
+            <StyledSongs onClick={() => handleSong(song)}>{song.title}</StyledSongs>
             <PlaylistAddIcon onClick={() => handleOpenDialog(song, playlists)} style={{ alignSelf: 'center' }} />
             <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
           </StyledSongWrapper>}
