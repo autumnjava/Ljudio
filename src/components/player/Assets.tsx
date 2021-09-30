@@ -43,7 +43,7 @@ interface IconProps{
   songs: any,
   currentIndex: number,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setSongToAdd: React.Dispatch<React.SetStateAction<SongProps | null | undefined>>
+  setSongToAdd: React.Dispatch<React.SetStateAction<SongProps | null | undefined>>,
 }
 
 const handleMinimizePlayer = (setToggleVideo: any, setExpandPlayer: any, eventYoutube: any) => {
@@ -62,7 +62,9 @@ const handleOpenDialog = (song: SongProps, playlist: Playlist, setOpen: any, set
   setSongToAdd(song);
 }
 
-const handleCopy = (id: string) => {
+const handleCopy = (id: string, setOpen: any, setContent: any) => {
+  setOpen(true);
+  setContent('Copied')
   const el = document.createElement("input");
     el.value = `https://www.youtube.com/watch?v=${id}`;
     document.body.appendChild(el);
@@ -71,13 +73,16 @@ const handleCopy = (id: string) => {
     document.body.removeChild(el);
 }
 
+
 export const renderTitle = (
   songs: any,
   currentIndex: number,
   expandPlayer: boolean,
   setToggleVideo: React.Dispatch<React.SetStateAction<boolean>>,
   setExpandPlayer: React.Dispatch<React.SetStateAction<boolean>>,
-  eventYoutube: any
+  eventYoutube: any,
+  setOpenSnackBar: any,
+  setSnackBarContent: any
 ) => (
     <StyledTitleWrapper>
       <StyledSongTitle expand={expandPlayer}>
@@ -85,7 +90,9 @@ export const renderTitle = (
       </StyledSongTitle>
     {expandPlayer ?
       <div>
-        <ShareIcon onClick={() => handleCopy(songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId)} style={{display: 'inline'}}/>
+        <ShareIcon onClick={() => handleCopy(songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
+          setOpenSnackBar,
+          setSnackBarContent)} style={{ display: 'inline' }} />
         <KeyboardArrowDown style={{
         display: 'inline',
         paddingTop: '0.5rem',

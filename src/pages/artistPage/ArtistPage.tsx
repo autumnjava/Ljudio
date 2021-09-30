@@ -5,6 +5,8 @@ import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import DialogModal from '../../components/dialog/DialogModal';
+import ShareIcon from '@material-ui/icons/Share';
+import SnackBar from '../../components/snackBar/SnackBar'
 
 import {
   StyledWrapper,
@@ -40,6 +42,7 @@ const ArtistPage = () => {
   const [open, setOpen] = useState(false);
   const [songToAdd, setSongToAdd] = useState<SongProps | null>();
   const [showMore, setShowMore] = useState(false);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
   
 
   useEffect(() => {
@@ -67,15 +70,32 @@ const ArtistPage = () => {
     setSongToAdd(song);
   }
 
+  const handleCopy = (id: string) => {
+  const el = document.createElement("input");
+    el.value = `https://www.youtube.com/channel/${id}`;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    setOpenSnackBar(true);
+}
+
   return (
     <StyledWrapper>
+      {openSnackBar && <SnackBar
+        snackbarContent="Copied"
+        open={openSnackBar}
+        setOpen={setOpenSnackBar}
+      />}
       <StyledAllContent>
       <StyledNameDiv>
       
       <StyledTitle>ARTIST<CheckCircleRoundedIcon
           fontSize='small'
           style={{color: 'white', position: 'relative', top: '3px', marginLeft: '3px'}}
-      /></StyledTitle>
+          />
+            <ShareIcon onClick={() => handleCopy(artistContent.browseId)} style={{color: 'white', marginRight: '3px', float: 'right'}}/>
+          </StyledTitle>
         <StyledName>{artistContent && artistContent.name.toUpperCase()}</StyledName>
           {artistContent && <StyledImg src={artistContent.thumbnails[1].url} />}
       </StyledNameDiv>
