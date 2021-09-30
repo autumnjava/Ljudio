@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
+import DialogModal from '../dialog/DialogModal';
+import SnackBar from '../../components/snackBar/SnackBar'
 import YouTube from 'react-youtube';
 import {
   StyledWrapper,
@@ -10,7 +12,19 @@ import {
   StyledSliderWrapper
 } from './StyledPlayer'
 import Sliders from '../slider/Slider'
-import {renderIcons, renderTitle} from './Assets'
+import { renderAllIcons, renderTitle } from './Assets'
+
+interface SongProps {
+  name: string,
+  videoId: string,
+  duration: number,
+  imgUrl: string
+}
+
+interface Playlist{
+  name: string;
+  _id: string;
+}
 
 const MiniPlayer = () => {
   
@@ -21,6 +35,9 @@ const MiniPlayer = () => {
   const [expandPlayer, setExpandPlayer] = useState<boolean>(false);
   const [toggleVideo, setToggleVideo] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<any>(0);
+  const [songToAdd, setSongToAdd] = useState<SongProps | null>()
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [mute, setMute] = useState<boolean>(false)
   
   const handleStart = (event: any) => {
@@ -105,6 +122,11 @@ const MiniPlayer = () => {
     }
   }
 
+  const handleAddToPlaylist = (song: SongProps, playlist: Playlist) => {
+    setOpenSnackBar(true);
+    songs.addSongToPlaylist(playlist._id, song);
+  }
+
   const renderYouTubePlayer = () => (
     <div>
       <StyledYouTubeWrapper show={expandPlayer}>
@@ -132,6 +154,24 @@ const MiniPlayer = () => {
     </StyledSliderWrapper>
   )
 
+    const iconProps = {
+    expandPlayer,
+    handlePreviousSong,
+    play,
+    handlePlay,
+    handlePaus,
+    handleNextSong,
+    setToggleVideo,
+    toggleVideo,
+    mute,
+    handleMute,
+    handleVolume,
+    songs,
+    currentIndex,
+    setOpen,
+    setSongToAdd
+  }
+
   return (
     <>
       <StyledWrapper expand={expandPlayer}>
@@ -139,21 +179,21 @@ const MiniPlayer = () => {
           {songs?.currentSong.length ? renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube) : ''}
           {songs?.currentSong.length ? renderYouTubePlayer() : ''}
           {expandPlayer && songs?.currentSong.length && renderSlider()}
-          {renderIcons(
-            expandPlayer,
-            handlePreviousSong,
-            play,
-            handlePlay,
-            handlePaus,
-            handleNextSong,
-            setToggleVideo,
-            toggleVideo,
-            mute,
-            handleMute,
-            handleVolume
-          )}
+          {renderAllIcons(iconProps)}
         </StyledPlayer>
       </StyledWrapper>
+      {songToAdd && <DialogModal
+        open={open}
+        setOpen={setOpen}
+        playlists={songs.playlists}
+        song={songToAdd}
+        handleAddToPlaylist={handleAddToPlaylist}
+      />}
+      {openSnackBar && <SnackBar
+        snackbarContent="The song has been added to your playlist!"
+        open={openSnackBar}
+        setOpen={setOpenSnackBar}
+      />}
     </>
   )
 }
