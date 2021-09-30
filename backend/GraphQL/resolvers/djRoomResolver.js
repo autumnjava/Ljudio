@@ -15,7 +15,7 @@ const djRoomResolver = {
     }
     return djRooms;
     },
-    getVisitorsDjRoom: async (_parent, { _id }) => {
+    getVisitorsDjRoom: async (args, __, ___) => {
       
     },
     getActiveDjRooms: async (_parent, { }) => {
@@ -62,6 +62,25 @@ const djRoomResolver = {
 
       return djRoom;
     },
+    joinDjRoom: async (args, __, ___) => {
+      await User.findOneAndUpdate({ _id: args._id }, {
+        $set: {
+          inRoomId: args.djRoomId
+        }
+      });
+   
+      const djRoom = await DjRoom.findOne({ _id: args.djRoomId });
+      return djRoom;
+    },
+    disjoinDjRoom: async(args, __, ___) => {
+      await User.findOneAndUpdate({ _id: args._id }, {
+        $set: {
+          inRoomId: null
+        }
+      });
+      return true;
+    },
+    
     deleteDjRoom: async (_parent, { }) => {
       
     },

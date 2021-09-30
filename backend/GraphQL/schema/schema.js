@@ -70,6 +70,7 @@ const schema = buildSchema(`
     getSongsFromPlaylist(_id: String!): Playlist
     login(email: String!, password: String!): AuthData!
     getOwnersDjRooms(_id: String!): [DjRoom]!
+    getVisitorsDjRoom(_id: String!): DjRoom!
   }
 
   type Mutation {
@@ -80,6 +81,8 @@ const schema = buildSchema(`
     removeSongFromPlaylist(songId: String!, playlistId: String!): Playlist
     changeUsername(_id: String!, newName: String!): User!
     createDjRoom(playlistId: String, userId: String!, input: DjRoomInput): DjRoom!
+    joinDjRoom(_id: String!, djRoomId: String!): DjRoom!
+    disjoinDjRoom(_id: String!): Boolean
   }
 
   
