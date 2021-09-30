@@ -69,11 +69,11 @@ const playlistResolver = {
           })
           await song.save();
         }
-        // song will be added even if it already exists in the playlist
+
         const playlist = await Playlist.findByIdAndUpdate({
           _id: args._id
         }, {
-          $push: {
+          $addToSet: {
             songs: {
               _id: song._id
             }
