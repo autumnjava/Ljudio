@@ -7,10 +7,12 @@ import {
 } from './StyledSearchField'
 
 interface props {
-  handleYoutubeSearch: (searchWord: string) => void
+  handleYoutubeSearch: (searchWord: string) => void; 
+  handleArtistSearch: (searchWord: string) => void;
 }
 
-const SearchField = ({handleYoutubeSearch}: props) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const SearchField = ({handleYoutubeSearch, handleArtistSearch}: props) => {
 
   const history = useHistory();
   const[searchInput, setSearchInput] = useState<string>('');
@@ -19,6 +21,7 @@ const SearchField = ({handleYoutubeSearch}: props) => {
     event.preventDefault();
     history.push('/search')
     handleYoutubeSearch ? handleYoutubeSearch(searchInput) : '';
+    handleArtistSearch ? handleArtistSearch(searchInput) : '';
     return;
   }
 
