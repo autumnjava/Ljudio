@@ -1,6 +1,7 @@
-const { buildSchema } = require('graphql');
+const { gql } = require('apollo-server-express');
 
-const schema = buildSchema(`
+
+const schema = gql`
   type User {
     _id: ID!
     email: String!
@@ -80,6 +81,7 @@ const schema = buildSchema(`
   }
   
   type Query {
+    login(email: String!, password: String!): AuthData!
     getUser(_id: String!): User!
     getUserPlaylists(_id: String!): User!
     getSongsFromPlaylist(_id: String!): Playlist
@@ -106,12 +108,17 @@ const schema = buildSchema(`
     changeDjRoomSettings(_id: String!, name: String, description: String, imgUrl: String): Boolean
   }
 
-  
-  schema {
-    query: Query
-    mutation: Mutation
+  type Subscription {
+    userCreated: User
   }
-`)
+`;
+  // not sure need this:
+// schema {
+//   query: Query
+//   mutation: Mutation
+// }
+
+
 
 // type Subscription {
 //     addSongToPlaylist(song: Song, playlist: Playlist): Playlist!

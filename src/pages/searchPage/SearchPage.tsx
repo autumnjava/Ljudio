@@ -1,4 +1,6 @@
 import { useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router";
+
 import SearchField from "../../components/searchField/SearchField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -6,16 +8,21 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
 import DialogModal from '../../components/dialog/DialogModal';
-import SnackBar from '../../components/snackBar/SnackBar'
+import SnackBar from '../../components/snackBar/SnackBar';
+import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import {
   StyledWrapper,
   StyledSongs,
   StyledSongWrapper,
-  StyledSongImg
+  StyledSongImg,
+  StyledCategory,
+  StyledArtistImg,
+  StyledArtistName,
+  StyledAvatarDiv
 } from './StyledSearchPage'
 
 interface SongProps {
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   imgUrl: string
@@ -28,9 +35,10 @@ interface Playlist{
 
 const SearchPage = () => {
 
+  const history = useHistory();
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content } = useContext(PlaylistContext);
+  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content, handleArtistSearch, artistContent } = useContext(PlaylistContext);
   const [open, setOpen] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [userId, setUserId] = useState<string | null>('');
@@ -74,6 +82,24 @@ const SearchPage = () => {
     setSongToAdd(song);
   }
 
+  const printOutAristContent = () => (
+    <StyledWrapper>
+      <StyledCategory>Artist</StyledCategory>
+
+      <StyledAvatarDiv onClick={() => history.push('/artist/' + artistContent.name)}>
+      <StyledArtistImg src={artistContent.thumbnails[1].url} />
+        <StyledArtistName>{artistContent.name}
+          <CheckCircleRoundedIcon
+          fontSize='small'
+          style={{color: 'white', position: 'relative', top: '3px', marginLeft: '3px'}}
+          />
+        </StyledArtistName>
+      </StyledAvatarDiv>
+      
+    </StyledWrapper>
+  );
+
+
   const printOutYoutubeContent = () => (
     <StyledWrapper>
       <SnackBar
@@ -81,11 +107,12 @@ const SearchPage = () => {
         open={openSnackBar}
         setOpen={setOpenSnackBar}
       />
+      <StyledCategory>Videos</StyledCategory>
       {content.map((song: SongProps, index: number) => (
         <div key={index}>
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
-            <StyledSongs onClick={() => handleSong(song)}>{song.name}</StyledSongs>
+            <StyledSongs onClick={() => handleSong(song)}>{song.title}</StyledSongs>
             <PlaylistAddIcon onClick={() => handleOpenDialog(song, playlists)} style={{ alignSelf: 'center' }} />
             <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
           </StyledSongWrapper>}
@@ -99,14 +126,15 @@ const SearchPage = () => {
         handleAddToPlaylist={handleAddToPlaylist}
       />}
       {!showMore ? <ExpandMoreIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />
-      : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }}/>}
+        : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />}
     </StyledWrapper>
   )
 
   return (
     <>
-      <SearchField handleYoutubeSearch={handleSearch} />
+      <SearchField handleYoutubeSearch={handleSearch} handleArtistSearch={handleArtistSearch} />
       {content && printOutYoutubeContent()}
+      {artistContent && printOutAristContent()}
     </>
   )
 }

@@ -1,14 +1,10 @@
-import {
-  StyledWrapper
-} from "./StyledDjRoomPage";
-
+import Bubbels from '../../components/bubbels/Bubbels'
 
 const DjRoomPage = () => {
-  
   return (
-    <StyledWrapper>
-      <h3>DJ ROOM</h3>
-    </StyledWrapper>
+    <>
+      <Bubbels />
+    </>  
   );
 }
 

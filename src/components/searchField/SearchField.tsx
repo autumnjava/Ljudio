@@ -7,10 +7,12 @@ import {
 } from './StyledSearchField'
 
 interface props {
-  handleYoutubeSearch: (searchWord: string) => void
+  handleYoutubeSearch: (searchWord: string) => void; 
+  handleArtistSearch: (searchWord: string) => void;
 }
 
-const SearchField = ({handleYoutubeSearch}: props) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const SearchField = ({handleYoutubeSearch, handleArtistSearch}: props) => {
 
   const history = useHistory();
   const[searchInput, setSearchInput] = useState<string>('');
@@ -19,6 +21,7 @@ const SearchField = ({handleYoutubeSearch}: props) => {
     event.preventDefault();
     history.push('/search')
     handleYoutubeSearch ? handleYoutubeSearch(searchInput) : '';
+    handleArtistSearch ? handleArtistSearch(searchInput) : '';
     return;
   }
 
@@ -26,7 +29,7 @@ const SearchField = ({handleYoutubeSearch}: props) => {
     <>
       <StyledForm onSubmit={e => handleSearch(e)}>
         <StyledSearchField onChange={e => setSearchInput(e.target.value)} type="text" placeholder="Search for songs/playlists" />
-        <Button type="submit" color="secondary" variant="outlined">SEARCH</Button>
+        <Button style={{color: '#f50057', border:'1px solid #f50057'}} type="submit" variant="outlined">SEARCH</Button>
       </StyledForm>  
     </>
   )

@@ -14,7 +14,7 @@ type Props = {
 // }
 
 interface SongProps {
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   imgUrl: string
@@ -28,19 +28,30 @@ export const PlaylistProvider = ({ children }: Props) => {
   const [errorMsg, setErrorMsg] = useState(false);
   const [playlist, setPlaylist] = useState([]);
   const [content, setContent] = useState<any>('');
+  const [artistContent, setArtistContent] = useState<any>('');
 
   const handleSearch = (searchWord: string) => { 
     fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
       .then(response => response.json())
       .then(data => setContent(data.content.map((song: any) => {
         return {
-          name: song.name,
+          title: song.name,
           videoId: song.videoId,
           duration: song.duration,
           imgUrl: song.thumbnails.url
         }
       })));
   }
+
+  const handleArtistSearch = (artistName: string) => {
+    fetch('https://yt-music-api.herokuapp.com/api/yt/artists/' + artistName)
+      .then(response => response.json())
+      .then(data => setArtistContent(data.content[0]) 
+    )
+    console.log(artistContent?.name , 'wtf?')
+    
+  };
+  
 
 
   const getUserPlaylists = async (userId: string) => {
@@ -139,7 +150,7 @@ export const PlaylistProvider = ({ children }: Props) => {
         addSongToPlaylist(
           _id:"${playlistId}",
           input:
-            {title: "${song.name}",
+            {title: "${song.title}",
             image:"${song.imgUrl}",
             duration: ${song.duration},
             videoId:"${song.videoId}"
@@ -178,13 +189,14 @@ export const PlaylistProvider = ({ children }: Props) => {
         setErrorMsg(true)
       } else {
         setErrorMsg(false)
-        console.log(response.data)
       }
     }
   
   const values = {
       handleSearch,
+      handleArtistSearch,
       content,
+      artistContent,
       createPlaylist,
       deletePlaylist,
       currentSong,

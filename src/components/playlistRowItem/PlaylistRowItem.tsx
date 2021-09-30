@@ -14,7 +14,7 @@ import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContext
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 // const PlaylistRowItem = ({ song }: any) => {
 
-  const PlaylistRowItem = ({ song, playlistId }: any) => {
+  const PlaylistRowItem = ({ song, playlistId, handlePrintOutSongs }: any) => {
     const { setCurrentSong, removeSongFromPlaylist } = useContext(PlaylistContext);
   
   const printDuration = (millis: number) => {
@@ -32,9 +32,9 @@ import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContext
 
   return (
     <StyledRowWrapper>
-        <StyledRow onClick={() => setCurrentSong([song])}>
-        <StyledSongImage src={imgSrc} key={song.videoId} />
-        <StyledSongTitle>{song.title}</StyledSongTitle>
+        <StyledRow>
+        <StyledSongImage onClick={() => setCurrentSong([song])} src={imgSrc} key={song.videoId} />
+        <StyledSongTitle onClick={() => setCurrentSong([song])}>{song.title}</StyledSongTitle>
         <StyledDuration>{printDuration(song.duration)}</StyledDuration>
         <StyledRemoveWrapper><DeleteIcon onClick={handleDeleteSong} /></StyledRemoveWrapper>
         </StyledRow>

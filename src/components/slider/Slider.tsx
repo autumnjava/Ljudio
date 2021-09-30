@@ -40,7 +40,8 @@ const Sliders = ({ duration, currentTime, setCurrentTime, youtubeEvent }: Props)
     <StyledWrapper>
     <StyledCurrentTime>{calculateCurrentMinute()}</StyledCurrentTime>
       <Box width={230} style={{width: '65vw',alignSelf: 'center'}}>
-      <Slider
+        <Slider
+          style={{color: '#f50057'}}
           size="small"
           defaultValue={0}
           aria-label="Small"
