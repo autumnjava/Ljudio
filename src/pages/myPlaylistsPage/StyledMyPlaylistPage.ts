@@ -6,14 +6,14 @@ export const StyledTitle = styled.h2`
 `
 
 export const StyledAddItem = styled.div`
-  border: 1px solid purple;
+  border: 1px solid #f50057;
   width: 7rem;
   height: 6rem;
   margin: 0.5rem;
   cursor: pointer;
   border-radius: 0.3rem;
    &:hover{
-    color: #D96CFB;
+    color: #f50057;
   }
 `;
 

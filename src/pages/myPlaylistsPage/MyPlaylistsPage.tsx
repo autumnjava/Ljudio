@@ -41,7 +41,6 @@ const MyPlaylistsPage = () => {
 
   const handleAddPlaylist = () => {
     
-    console.log("Add playlist function.")
      setOpen(false);
   }
 

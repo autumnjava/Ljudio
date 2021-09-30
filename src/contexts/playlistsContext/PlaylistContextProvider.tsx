@@ -14,7 +14,7 @@ type Props = {
 // }
 
 interface SongProps {
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   imgUrl: string
@@ -35,7 +35,7 @@ export const PlaylistProvider = ({ children }: Props) => {
       .then(response => response.json())
       .then(data => setContent(data.content.map((song: any) => {
         return {
-          name: song.name,
+          title: song.name,
           videoId: song.videoId,
           duration: song.duration,
           imgUrl: song.thumbnails.url
@@ -150,7 +150,7 @@ export const PlaylistProvider = ({ children }: Props) => {
         addSongToPlaylist(
           _id:"${playlistId}",
           input:
-            {title: "${song.name}",
+            {title: "${song.title}",
             image:"${song.imgUrl}",
             duration: ${song.duration},
             videoId:"${song.videoId}"
@@ -189,7 +189,6 @@ export const PlaylistProvider = ({ children }: Props) => {
         setErrorMsg(true)
       } else {
         setErrorMsg(false)
-        console.log(response.data)
       }
     }
   
