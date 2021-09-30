@@ -57,7 +57,7 @@ const djRoomResolver = {
       let visitors = [];
       for (visitor of inRoom) {
         visitors.push({
-          name: visitor.username,
+          username: visitor.username,
           _id: visitor._id
         });
       }
