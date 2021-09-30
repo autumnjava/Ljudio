@@ -1,7 +1,6 @@
 const DjRoom = require('../../models/djRoom');
 const User = require('../../models/user');
 const Playlist = require('../../models/playlist');
-const userResolver = require('./userResolver');
 
 const djRoomResolver = {
   // Query: {
@@ -118,8 +117,7 @@ const djRoomResolver = {
       }
     });
     return true;
-  },
-    
+  }, 
   deleteDjRoom: async (args, __, ___) => {
     try {
       await DjRoom.deleteOne({ _id: args._id });
@@ -139,8 +137,17 @@ const djRoomResolver = {
     }
     return true;
     },
-    changeStatusDjRoom: async (_parent, { }) => {
-      // check if user already has a online dj room, and in that case close the dj room and open the other
+  changeStatusDjRoom: async (args, __, ___) => {
+    try {
+      await DjRoom.findOneAndUpdate({ _id: args._id }, {
+        $set: {
+          isOnline: args.isOnline
+        }
+      });
+    } catch (error) {
+      return error;
+    }
+    return true;
     },
   kickUsers: async (args, __, ___) => {
     try {

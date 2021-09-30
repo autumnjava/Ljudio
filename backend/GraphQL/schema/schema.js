@@ -102,6 +102,7 @@ const schema = buildSchema(`
     disjoinDjRoom(_id: String!): Boolean
     deleteDjRoom(_id: String!): Boolean
     kickUsers(djRoomId: String!): Boolean
+    changeStatusDjRoom(_id: String!, isOnline: Boolean!): Boolean
   }
 
   
