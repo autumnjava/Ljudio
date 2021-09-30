@@ -48,15 +48,6 @@ const djRoomResolver = {
           _id: visitor._id
         });
       }
-      const object = {
-        _id: djRoom._id,
-        djRoom,
-        playlist,
-        dj,
-        visitors,
-        count: visitors.length
-      }
-      console.log('the object', object);
       return {
         _id: djRoom._id,
         djRoom,
