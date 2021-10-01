@@ -120,17 +120,8 @@ const MyPlaylistsPage = () => {
           </StyledAddItem>
           <StyledListTitle>Skapa Dj Room</StyledListTitle>
         </StyledAddPlaylistDiv>
-        
-        <Popper open={open} anchorEl={anchorEl} >
-          <Box sx={{ p: 1, bgcolor: '#cfcfcf', borderRadius: '5px', display: 'grid', gridTemplateColumns: '1fr', gridTemplateRows: '1fr 1fr 1fr' }}>
-            <StyledUndo onClick={handleCreate}><HighlightOffRoundedIcon/></StyledUndo>
-            <StyledInput onChange={(e) => setName(e.target.value)} type="text" placeholder="Name of playlist..." />
-            <StyledAddBtn>Create</StyledAddBtn>
             
-          </Box>
-            </Popper>
-            
-             {ownersDjRooms && ownersDjRooms.map((list: List) => {
+        {ownersDjRooms && ownersDjRooms.map((list: List) => {
           return <MyDjRoomItem key={list._id} data={list} />
         })}
        

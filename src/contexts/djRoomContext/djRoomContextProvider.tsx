@@ -41,11 +41,11 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   }
 
 
-  const createDjRoom = async (userId: string, playlistId: string, input: djRoomProps) => {
+  const createDjRoom = async (userId: string, input: djRoomProps, playlistId: string) => {
     const requestBody = {
       query: `mutation{createDjRoom(
           userId: "${userId}",
-          playlistId:"${playlistId}"
+          playlistId:"${playlistId ? playlistId : ''}"
         input:{
           name:"${input.name}",
           description:"${input.description}",
@@ -61,7 +61,6 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     if (!response) {
       setErrorMsg(true);
     } else {
-      console.log(response.data)
       setErrorMsg(false);
     }
   }
