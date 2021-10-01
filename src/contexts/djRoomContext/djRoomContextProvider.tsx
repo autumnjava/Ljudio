@@ -165,10 +165,24 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
       setErrorMsg(false);
     }
   }
+
+  const disjoinDjRoom = async (userId: string) => {
+    const requestBody = {
+      quest: `mutation{disjoinDjRoom(_id:"${userId}")}`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      console.log(response.data)
+    }
+  }
   
   const values = {
     deleteDjRoom,
     joinDjRoom,
+    disjoinDjRoom,
     getDjRoom,
     djRoom,
     activeDjRooms,
