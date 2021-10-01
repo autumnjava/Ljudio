@@ -51,3 +51,21 @@ export const StyledTextBox = styled.textarea`
   min-width: 300px;
   min-height: 100px;
 `;
+
+export const StyledCreateBtn = styled.button`
+  display: block;
+  margin: 0 auto;
+`;
+
+export const StyledBotSection = styled.div`
+
+`;
+
+export const StyledSpan = styled.span`
+  position: relative;
+  bottom: 5px;
+  font-size: 20px;
+
+  
+
+`;
