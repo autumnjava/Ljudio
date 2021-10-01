@@ -2,13 +2,11 @@ import styled from "styled-components";
 
 
 export const StyledWrapper = styled.div`
-
 `;
 
 export const StyledTitle = styled.p`
   font-size: 25px;
   font-weight: 500;
-
 `;
 
 export const StyledForm = styled.form`
@@ -58,14 +56,10 @@ export const StyledCreateBtn = styled.button`
 `;
 
 export const StyledBotSection = styled.div`
-
 `;
 
 export const StyledSpan = styled.span`
   position: relative;
   bottom: 5px;
   font-size: 20px;
-
-  
-
 `;
