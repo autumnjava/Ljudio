@@ -190,11 +190,33 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
       setErrorMsg(false);
     }
   }
+
+  const changeDjRoomSettings = async (djRoomId: string, input: djRoomProps) => {
+    const requestBody = {
+      query: ` mutation{
+        changeDjRoomSettings
+        (
+          _id:"${djRoomId}", 
+          name:"${input.name ? input.name : ''}",
+          description:"${input.description ? input.description : ''}",
+          imgUrl:"${input.imgUrl ? input.imgUrl : ''}"
+        )
+      }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+    }
+  }
   
   const values = {
     deleteDjRoom,
     joinDjRoom,
     disjoinDjRoom,
+    changeStatusDjRoom,
+    changeDjRoomSettings,
     getDjRoom,
     djRoom,
     activeDjRooms,
