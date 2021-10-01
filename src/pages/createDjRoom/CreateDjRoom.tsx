@@ -30,7 +30,7 @@ const CreateDjRoom = () => {
       name: name,
       description: description,
       imgUrl: imgUrl,
-      isOnline: true
+      isOnline: false
     }
     await createDjRoom(userId, input);
   }
