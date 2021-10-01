@@ -26,11 +26,12 @@ interface Props {
 const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
   
   const [editName, setEditName] = useState(false);
-  const [name, setName] = useState('');
+  const [name, setName] = useState('Room name');
   const [editImg, setEditImg] = useState(false);
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState('Image URL');
   const [editDesc, setEditDesc] = useState(false);
-  const [edit, setEdit] = useState('');
+  const [desc, setDesc] = useState('Description');
+  const [checked, setChecked] = useState(true);
 
   const handleClose = () => {
     setOpen(false);
@@ -44,19 +45,19 @@ const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
   const renderContent = () => (
     <Box sx={style}>
       <StyledTitle style={{ color: 'black' }}>Edit DJ room</StyledTitle>
-      {!editName && <StyledText><EditIcon onClick={() => setEditName(true)} style={{ cursor: 'pointer' }} /> Room name</StyledText>}
+      {!editName && <StyledText><EditIcon onClick={() => setEditName(true)} style={{ cursor: 'pointer' }} /> {name}</StyledText>}
       {editName && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditName)} style={{ color: 'black' }} />
         <StyledInput onChange={e => setName(e.target.value)} type="text" /></StyledEditWrapper>}
       
-      {!editImg && <StyledText><EditIcon onClick={() => setEditImg(true)} style={{ cursor: 'pointer' }} /> Image URL</StyledText>}
+      {!editImg && <StyledText><EditIcon onClick={() => setEditImg(true)} style={{ cursor: 'pointer' }} /> {img}</StyledText>}
       {editImg && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditImg)} style={{ color: 'black' }} />
         <StyledInput onChange={e => setImg(e.target.value)} type="text" /></StyledEditWrapper>}
       
-      {!editDesc && <StyledText><EditIcon onClick={() => setEditDesc(true)} style={{ cursor: 'pointer' }} /> Description</StyledText>}
+      {!editDesc && <StyledText><EditIcon onClick={() => setEditDesc(true)} style={{ cursor: 'pointer' }} /> {desc}</StyledText>}
       {editDesc && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditDesc)} style={{ color: 'black' }} />
-        <StyledInput onChange={e => setEdit(e.target.value)} type="text" /></StyledEditWrapper>}
+        <StyledInput onChange={e => setDesc(e.target.value)} type="text" /></StyledEditWrapper>}
 
-      <StyledText>Online <Switch defaultChecked /></StyledText>
+      <StyledText>Online <Switch onChange={e => setChecked(e.target.checked)} defaultChecked /></StyledText>
     </Box>  
   )
 
