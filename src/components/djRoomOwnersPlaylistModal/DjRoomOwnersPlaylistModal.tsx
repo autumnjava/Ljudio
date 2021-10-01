@@ -1,8 +1,9 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import { useContext, useEffect, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
-import {StyledSongWrapper, StyledSongImg, StyledSongs} from './StyledDjRoomOwnersModal'
+import {StyledTitleWrapper ,StyledTitle, StyledSongWrapper, StyledSongImg, StyledSongs} from './StyledDjRoomOwnersModal'
 
 interface Props {
   open: boolean,
@@ -52,10 +53,9 @@ const DjRoomOwnersPlaylistModal = ({ open, setOpen }: Props) => {
   const playlistSongs = async () => {
     await getSongsFromPlaylist('614dcec7992e5906dc69de1f');
   }
-
-  const renderSongs = (song: SongProps) => (
-    <StyledSongWrapper>
-      {console.log(song.image)}
+ 
+  const renderSongs = (song: SongProps, key: string) => (
+    <StyledSongWrapper key={key} onClick={() => setCurrentSong([song])}>
       <StyledSongImg src={song.image} alt="" />
       <StyledSongs>{song.title}</StyledSongs>
     </StyledSongWrapper>
@@ -69,12 +69,11 @@ const DjRoomOwnersPlaylistModal = ({ open, setOpen }: Props) => {
     aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        {playlist.songs && playlist.songs.map((song: SongProps) => (
-          <StyledSongWrapper key={song._id}>
-      <StyledSongImg src={song.image} alt="" />
-      <StyledSongs>{song.title}</StyledSongs>
-    </StyledSongWrapper>
-        ))}
+        <StyledTitleWrapper>
+          <StyledTitle>Playlist name</StyledTitle>
+          <PlaylistPlayIcon onClick={() => setCurrentSong(playlist.songs)} style={{justifySelf: 'end',alignSelf: 'center', fontSize: '2rem', marginRight: '1rem'}}/>
+        </StyledTitleWrapper>
+        {playlist.songs && playlist.songs.map((song: SongProps) => renderSongs(song, song._id))}
       </Box>
     </Modal>
   )
