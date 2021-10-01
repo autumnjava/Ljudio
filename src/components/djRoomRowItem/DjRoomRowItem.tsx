@@ -20,7 +20,7 @@ const DjRoomRowItem = ({ data }: any) => {
   return (
     <StyledItemWrapper>
 
-      <StyledItemRow>
+      <StyledItemRow onClick={() => history.push("/djroom/" + data._id)}>
         <StyledDjIcon><HeadsetRoundedIcon fontSize="large"/></StyledDjIcon>
         <StyledInfoDiv>
           <p>{data.name}</p>
