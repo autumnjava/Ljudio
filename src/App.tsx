@@ -25,10 +25,10 @@ const App: React.FC = () => {
     uri: 'ws://localhost:4000/graphql',
     options: {
       reconnect: true,
-      timeout: 1000,
-      lazy: true,
     }
   });
+  // timeout: 1000,
+  // lazy: true,
 
   const splitLink = split(
     ({ query }) => {

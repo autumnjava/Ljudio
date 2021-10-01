@@ -2,10 +2,24 @@ const Playlist = require('../../models/playlist');
 const User = require('../../models/user');
 const Song = require('../../models/song');
 
-let currentSong = {
-  title: "Without me",
-  djRoomId: 1,
-}
+let songs = [
+  {
+    songId: 1,
+    title: "Without me",
+    djRoomId: 1,
+  },
+  {
+    songId: 2,
+    title: "Freestyler",
+    djRoomId: 1,
+  },
+  {
+    songId: 3,
+    title: "Rock the mic",
+    djRoomId: 2,
+  },
+
+]
 
 const playlistResolver = {
   Query: {
@@ -24,16 +38,25 @@ const playlistResolver = {
       return songs
     },
 
-    getCurrentSong: () => {
-      return currentSong;
+    songs: () => {
+      return songs;
     }
   },
 
   Mutation: {
-    changeCurrentSong: (_parent, args, __, ___) => {
-      currentSong = {...currentSong, title: args.newSongName};
-      pubsub.publish('SONG_UPDATED', {currentSong});
-      return currentSong;
+    changeSongTitle: (_parent, { input }, __, ___) => {
+      const  {songId, title } = input;
+      const song = songs.find(song => song.songId === songId);
+
+      pubsub.publish("SONG_TITLE_CHANGED", {
+        songTitleChanged: { ...song, title }
+      });
+      //Return the new song title
+      return {
+        ...song,
+        title
+      };
+
     },
 
 
@@ -131,9 +154,9 @@ const playlistResolver = {
   },
 
   Subscription: {
-    currentSong: {
-      subscribe: () => pubsub.asyncIterator(['SONG_UPDATED']),
-    },
+    songTitleChanged: {
+      subscribe: () => pubsub.asyncIterator(["SONG_TITLE_CHANGED"])
+    }
   }
 };
 
