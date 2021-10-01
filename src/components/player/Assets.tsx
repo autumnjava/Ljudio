@@ -13,6 +13,7 @@ import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import Switch from '@mui/material/Switch';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import ShareIcon from '@material-ui/icons/Share';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 interface SongProps {
@@ -42,7 +43,7 @@ interface IconProps{
   songs: any,
   currentIndex: number,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setSongToAdd: React.Dispatch<React.SetStateAction<SongProps | null | undefined>>
+  setSongToAdd: React.Dispatch<React.SetStateAction<SongProps | null | undefined>>,
 }
 
 const handleMinimizePlayer = (setToggleVideo: any, setExpandPlayer: any, eventYoutube: any) => {
@@ -61,31 +62,55 @@ const handleOpenDialog = (song: SongProps, playlist: Playlist, setOpen: any, set
   setSongToAdd(song);
 }
 
+const handleCopy = (id: string, setOpen: any, setContent: any) => {
+  setOpen(true);
+  setContent('Copied')
+  const el = document.createElement("input");
+    el.value = `https://www.youtube.com/watch?v=${id}`;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+}
+
+
 export const renderTitle = (
   songs: any,
   currentIndex: number,
   expandPlayer: boolean,
   setToggleVideo: React.Dispatch<React.SetStateAction<boolean>>,
   setExpandPlayer: React.Dispatch<React.SetStateAction<boolean>>,
-  eventYoutube: any
+  eventYoutube: any,
+  setOpenSnackBar: any,
+  setSnackBarContent: any
 ) => (
     <StyledTitleWrapper>
       <StyledSongTitle expand={expandPlayer}>
         {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].title}
       </StyledSongTitle>
-      {expandPlayer ? <KeyboardArrowDown style={{
+    {expandPlayer ?
+      <div>
+        <ShareIcon onClick={() => handleCopy(songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
+          setOpenSnackBar,
+          setSnackBarContent)} style={{ display: 'inline', cursor: 'pointer' }} />
+        <KeyboardArrowDown style={{
+        display: 'inline',
         paddingTop: '0.5rem',
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
-        color: 'white',
-      }} onClick={() => handleMinimizePlayer(setToggleVideo, setExpandPlayer, eventYoutube)} />
+          color: 'white',
+          marginLeft: '6px',
+        cursor: 'pointer'
+        }} onClick={() => handleMinimizePlayer(setToggleVideo, setExpandPlayer, eventYoutube)} />
+      </div>  
       :
       <KeyboardArrowUp style={{
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
         color: 'white',
+        cursor: 'pointer'
       }} onClick={() => handleExpandPlayer(setExpandPlayer, eventYoutube)} />
       }
     </StyledTitleWrapper>  

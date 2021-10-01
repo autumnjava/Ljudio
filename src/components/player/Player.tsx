@@ -37,6 +37,7 @@ const MiniPlayer = () => {
   const [currentTime, setCurrentTime] = useState<any>(0);
   const [songToAdd, setSongToAdd] = useState<SongProps | null>()
   const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [snackBarContent, setSnackBarContent] = useState('');
   const [open, setOpen] = useState<boolean>(false);
   const [mute, setMute] = useState<boolean>(false)
   
@@ -123,6 +124,7 @@ const MiniPlayer = () => {
   }
 
   const handleAddToPlaylist = (song: SongProps, playlist: Playlist) => {
+    setSnackBarContent('The song has been added to your playlist!');
     setOpenSnackBar(true);
     songs.addSongToPlaylist(playlist._id, song);
   }
@@ -176,7 +178,14 @@ const MiniPlayer = () => {
     <>
       <StyledWrapper expand={expandPlayer}>
         <StyledPlayer expand={expandPlayer}>
-          {songs?.currentSong.length ? renderTitle(songs, currentIndex, expandPlayer, setToggleVideo, setExpandPlayer, eventYoutube) : ''}
+          {songs?.currentSong.length ? renderTitle(songs,
+            currentIndex,
+            expandPlayer,
+            setToggleVideo,
+            setExpandPlayer,
+            eventYoutube,
+            setOpenSnackBar,
+            setSnackBarContent) : ''}
           {songs?.currentSong.length ? renderYouTubePlayer() : ''}
           {expandPlayer && songs?.currentSong.length && renderSlider()}
           {renderAllIcons(iconProps)}
@@ -190,7 +199,7 @@ const MiniPlayer = () => {
         handleAddToPlaylist={handleAddToPlaylist}
       />}
       {openSnackBar && <SnackBar
-        snackbarContent="The song has been added to your playlist!"
+        snackbarContent={snackBarContent}
         open={openSnackBar}
         setOpen={setOpenSnackBar}
       />}

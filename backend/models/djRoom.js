@@ -8,6 +8,7 @@ const djRoomSchema = new Schema({
     },
     description: String,
     isOnline: Boolean,
+    image: String
 });
 
 module.exports = mongoose.model('DjRoom', djRoomSchema);

@@ -25,6 +25,7 @@ const playlistResolver = {
     
       const playlist = new Playlist({
         name: args.name,
+        djRoomId: null
       })
   
       await playlist.save();
