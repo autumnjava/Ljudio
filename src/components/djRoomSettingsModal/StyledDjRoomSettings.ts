@@ -11,5 +11,20 @@ export const StyledTitle = styled.p`
 export const StyledText = styled.p`
   color: black;
   letter-spacing: 2px;
-  font-size: 0.8rem;
+  font-size: 1rem;
+  padding: 0.5rem;
+`
+
+export const StyledInput = styled.input`
+  text-decoration: none;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid grey;
+  font-size: 1rem;
+`
+
+export const StyledEditWrapper = styled.div`
+display: grid;
+grid-template-columns: 1rem 8rem;
+grid-gap: 1rem;
 `
