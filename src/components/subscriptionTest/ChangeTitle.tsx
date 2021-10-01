@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
 
 type Song = {
@@ -24,13 +24,17 @@ const ChangeTitle = (props: SongProps ): JSX.Element => {
       djRoomId
     }
   }`;
+  
+  const [changeTitle, { data, loading, error }] = useMutation(CHANGE_SONG_TITLE);
+
   const [title, setTitle] = useState(song.title);
 
-  const [changeTitle, { data, loading, error }] = useMutation(CHANGE_SONG_TITLE);
+  useEffect(() => {
+    setTitle(song.title);
+  }, [setTitle, song]);
+  
   if(loading) return <> Loading... </>
   if(error) return <> Error... </>
-
-
 
   return (
     <div>
