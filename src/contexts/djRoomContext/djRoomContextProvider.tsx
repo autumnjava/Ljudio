@@ -178,6 +178,18 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
       console.log(response.data)
     }
   }
+
+  const changeStatusDjRoom = async (djRoomId: string, isOnline: boolean) => {
+    const requestBody = {
+      query: `mutation{changeStatusDjRoom(_id:"${djRoomId}", isOnline: ${isOnline})}`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+    }
+  }
   
   const values = {
     deleteDjRoom,
