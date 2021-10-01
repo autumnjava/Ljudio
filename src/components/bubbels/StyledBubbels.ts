@@ -99,7 +99,7 @@ export const StyledWrapper = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   width: 90%;
-  margin: 20px auto;
+  margin: 0 auto;
   height: 75vh;
   @media (min-width: 769px) {
     width: 45%;
@@ -111,7 +111,7 @@ export const StyledHead = styled.div`
   display: grid;
   width: 120%;
   height: 100%;
-  grid-row: 4/6;
+  grid-row: 3/5;
   grid-column: 2/4;
   background: black;
   border-radius: 50%;
@@ -125,7 +125,7 @@ export const StyledHead = styled.div`
 
 export const StyledAvatar1 = styled.div`
   background: black;
-  grid-row: 2;
+  grid-row: 1;
   grid-column: 1;
 `
 
@@ -152,7 +152,7 @@ letter-spacing: 3px;
 
 export const StyledAvatar2 = styled.div`
 background: black;
-  grid-row: 6;
+  grid-row: 5;
   grid-column: 1/2;
 `
 
@@ -171,7 +171,7 @@ export const StyledInner2 = styled.div`
 
 export const StyledAvatar3 = styled.div`
 background: black;
-  grid-row: 2;
+  grid-row: 1;
   grid-column: 5;
 `
 
@@ -188,7 +188,7 @@ export const StyledInner3 = styled.div`
 `
 
 export const StyledAvatar4 = styled.div`
-  grid-row: 7;
+  grid-row: 6;
   grid-column: 4;
 `
 
