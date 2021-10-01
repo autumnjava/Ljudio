@@ -43,9 +43,11 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     }
   }
 
-  const deleteDjRoom = async () => {
+  const deleteDjRoom = async (djRoomId: string) => {
     const requestBody = {
-      query: ``
+      query: `mutation{
+        deleteDjRoom(_id:"${djRoomId}")
+        kickUsers(djRoomId:"${djRoomId}")}`
     }
     const response = await fetcher(requestBody);
     if (!response) {
