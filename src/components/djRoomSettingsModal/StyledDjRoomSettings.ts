@@ -2,20 +2,22 @@ import styled from 'styled-components';
 
 export const StyledTitle = styled.p`
   text-transform: uppercase;
-  color: black;
+  color: white;
   letter-spacing: 3px;
   margin-top: 0;
   font-size: 1.3rem;
 `
 
 export const StyledText = styled.p`
-  color: black;
+  color: white;
   letter-spacing: 2px;
   font-size: 1rem;
   padding: 0.5rem;
 `
 
 export const StyledInput = styled.input`
+  background: black;
+  color: white;
   text-decoration: none;
   outline: none;
   border: none;
