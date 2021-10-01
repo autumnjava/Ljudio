@@ -16,6 +16,29 @@ export const DjRoomContext = createContext<any>(null);
 
 export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   const [errorMsg, setErrorMsg] = useState(false);
+  const [ownersDjRooms, setOwnersDjRooms] = useState([]);
+
+  const getOwnersDjRooms = async (userId: string) => {
+    const requestBody = {
+      query: ` query {
+        getOwnersDjRooms(_id: "${userId}"){
+          _id
+          name
+          description
+          isOnline
+          image
+        }
+      }
+      `
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      setOwnersDjRooms(response.data.getOwnersDjRooms);
+    }
+  }
 
 
   const createDjRoom = async (userId: string, playlistId: string, input: djRoomProps) => {
@@ -44,6 +67,8 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
 
   
   const values = {
+    getOwnersDjRooms,
+    ownersDjRooms,
      createDjRoom
   }
 

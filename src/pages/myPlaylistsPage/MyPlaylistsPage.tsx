@@ -5,7 +5,8 @@ import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import { useState } from "react";
 import PlaylistItem from "../../components/playlistItem/PlaylistItem";
 import MyDjRoomItem from "../../components/myDjRoomItem/MyDjRoomItem";
-import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
+import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
+import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from "react-router";
 import {
@@ -30,7 +31,8 @@ interface List {
 
 const MyPlaylistsPage = () => {
   const history = useHistory();
-  const { playlists, getUserPlaylists, deletePlaylist, createPlaylist} = useContext(PlaylistContext)
+  const { playlists, getUserPlaylists, deletePlaylist, createPlaylist } = useContext(PlaylistContext)
+  const { getOwnersDjRooms, ownersDjRooms } = useContext(DjRoomContext);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [name, setName] = useState('');
@@ -55,12 +57,17 @@ const MyPlaylistsPage = () => {
   useEffect(() => {
     if (userId) {
       myPlaylists();
+      myDjRooms();
     }
   }, [!playlists, userId]);
 
 
   const myPlaylists = async () => {
     await getUserPlaylists(userId);
+  }
+
+  const myDjRooms = async () => {
+    await getOwnersDjRooms(userId);
   }
 
   const removePlaylist = async (playlistId: string) => {
@@ -121,9 +128,11 @@ const MyPlaylistsPage = () => {
             <StyledAddBtn>Create</StyledAddBtn>
             
           </Box>
-        </Popper>
-        
-         <MyDjRoomItem />
+            </Popper>
+            
+             {ownersDjRooms && ownersDjRooms.map((list: List) => {
+          return <MyDjRoomItem key={list._id} data={list} />
+        })}
        
         </StyledGridDiv>
         </div>
