@@ -17,6 +17,28 @@ export const DjRoomContext = createContext<any>(null);
 export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   const [errorMsg, setErrorMsg] = useState(false);
   const [ownersDjRooms, setOwnersDjRooms] = useState([]);
+  const [activeDjRooms, setActiveDjRooms] = useState([]);
+  const [djRoom, setDjRoom] = useState([]);
+
+  const getActiveDjRooms = async () => {
+    const requestBody = {
+      query: `query {
+        getActiveDjRooms(input: true){
+          userCount
+          name
+          _id
+          dj
+        }
+      }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      setActiveDjRooms(response.data.getActiveDjRooms);
+    }
+  }
 
   const getOwnersDjRooms = async (userId: string) => {
     const requestBody = {
@@ -37,6 +59,50 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     } else {
       setErrorMsg(false);
       setOwnersDjRooms(response.data.getOwnersDjRooms);
+    }
+  }
+
+  const getDjRoom = async (djRoomId: string) => {
+    const requestBody = {
+      query: `query {
+        getDjRoom(_id: "${djRoomId}"){
+          _id
+          djRoom {
+            _id
+            name
+            description
+            isOnline
+            image
+          }
+          playlist {
+            _id
+            name
+            songs {
+              _id
+              title
+              image
+              duration
+              videoId
+            }
+          }
+          dj {
+            _id
+            username
+          }
+          visitors {
+            _id
+            username
+          }
+          count
+        }
+      }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      setDjRoom(response.data.getDjRoom);
     }
   }
 
@@ -103,9 +169,13 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   const values = {
     deleteDjRoom,
     joinDjRoom,
+    getDjRoom,
+    djRoom,
+    activeDjRooms,
+    getActiveDjRooms,
     getOwnersDjRooms,
     ownersDjRooms,
-     createDjRoom
+    createDjRoom
   }
 
   return (

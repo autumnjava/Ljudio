@@ -9,8 +9,6 @@ import {
 } from "./StyledMyDjRoomItem"
 
 const MyDjRoomItem = ({ data }: any) => {
-  
-  console.log('what is data in dj room item', data)
 
   const history = useHistory();
 
