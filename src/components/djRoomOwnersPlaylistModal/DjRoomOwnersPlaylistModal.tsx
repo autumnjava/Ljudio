@@ -53,11 +53,19 @@ const DjRoomOwnersPlaylistModal = ({ open, setOpen }: Props) => {
   const playlistSongs = async () => {
     await getSongsFromPlaylist('614dcec7992e5906dc69de1f');
   }
+
+  const printDuration = (millis: number) => {
+    const minutes = Math.floor(millis / 60000);
+    const seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (+seconds < 10 ? '0' : '') + seconds;
+  }
+
  
   const renderSongs = (song: SongProps, key: string) => (
     <StyledSongWrapper key={key} onClick={() => setCurrentSong([song])}>
       <StyledSongImg src={song.image} alt="" />
       <StyledSongs>{song.title}</StyledSongs>
+      <p>{printDuration(song.duration)}</p>
     </StyledSongWrapper>
   )
   
@@ -71,7 +79,15 @@ const DjRoomOwnersPlaylistModal = ({ open, setOpen }: Props) => {
       <Box sx={style}>
         <StyledTitleWrapper>
           <StyledTitle>Playlist name</StyledTitle>
-          <PlaylistPlayIcon onClick={() => setCurrentSong(playlist.songs)} style={{justifySelf: 'end',alignSelf: 'center', fontSize: '2rem', marginRight: '1rem'}}/>
+          <PlaylistPlayIcon
+            onClick={() => setCurrentSong(playlist.songs)}
+            style={{
+              justifySelf: 'end',
+              alignSelf: 'center',
+              fontSize: '2rem',
+              marginRight: '1rem',
+              cursor: 'pointer'
+            }} />
         </StyledTitleWrapper>
         {playlist.songs && playlist.songs.map((song: SongProps) => renderSongs(song, song._id))}
       </Box>

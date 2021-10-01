@@ -16,16 +16,14 @@ export const StyledTitle = styled.p`
 
 export const StyledSongWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1rem 1fr;
+  cursor: pointer;
+  width: 90%;
+  grid-template-columns: 1rem 1fr 1rem;
   @media (min-width: 400px) {
-      grid-template-columns: 3rem 1fr;
+  grid-template-columns: 3rem 1fr 1rem;
   }
   @media (min-width: 769px) {
-  grid-template-columns: 3rem 1fr;
-   &:hover{
-     background:#F5F5F5;
-     cursor: pointer;
-   }
+  grid-template-columns: 3rem 1fr 1rem;
   }
 `
 
