@@ -17,6 +17,27 @@ export const DjRoomContext = createContext<any>(null);
 export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   const [errorMsg, setErrorMsg] = useState(false);
   const [ownersDjRooms, setOwnersDjRooms] = useState([]);
+  const [activeDjRooms, setActiveDjRooms] = useState([]);
+
+  const getActiveDjRooms = async () => {
+    const requestBody = {
+      query: `query {
+        getActiveDjRooms(input: true){
+          userCount
+          name
+          _id
+          dj
+        }
+      }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      setActiveDjRooms(response.data.getActiveDjRooms);
+    }
+  }
 
   const getOwnersDjRooms = async (userId: string) => {
     const requestBody = {
@@ -67,6 +88,8 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
 
   
   const values = {
+    activeDjRooms,
+    getActiveDjRooms,
     getOwnersDjRooms,
     ownersDjRooms,
      createDjRoom

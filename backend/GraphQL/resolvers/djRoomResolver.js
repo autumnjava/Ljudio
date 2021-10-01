@@ -37,10 +37,13 @@ const djRoomResolver = {
       const activeDjRooms = [];
       for (let i = 0; i < djRooms.length; i++) {
         let userCount = await User.find({ inRoomId: djRooms[i]._id }).count();
+        let playlist = await Playlist.findOne({ djRoomId: djRooms[i]._id });
+        let dj = await User.findOne({ myPlaylists: playlist._id });
         activeDjRooms.push({
           userCount: userCount,
           name: djRooms[i].name,
-          _id: djRooms[i]._id
+          _id: djRooms[i]._id,
+          dj: dj.username
         });
       }
       return activeDjRooms;
