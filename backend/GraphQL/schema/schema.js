@@ -96,7 +96,7 @@ const schema = gql`
     createPlaylist(name: String!, userId: String): Playlist!
     removePlaylist(_id: String!, userId: String): Playlist
     addSongToPlaylist(_id: String!, input: SongInput): Playlist
-    removeSongFromPlaylist(songId: String!, playlistId: String!): Playlist
+    removeSongFromPlaylist(index: Int!, playlistId: String!): Playlist 
     changeUsername(_id: String!, newName: String!): User!
     createDjRoom(playlistId: String, userId: String!, input: DjRoomInput): DjRoom!
     joinDjRoom(_id: String!, djRoomId: String!): DjRoom!

@@ -1,12 +1,13 @@
 import { Popper } from "@material-ui/core";
 import { Fade } from "@mui/material";
 import Box from '@mui/material/Box';
-import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import { useState } from "react";
 import PlaylistItem from "../../components/playlistItem/PlaylistItem";
+import MyDjRoomItem from "../../components/myDjRoomItem/MyDjRoomItem";
 import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
 import { useContext, useEffect, useRef } from 'react';
+import { useHistory } from "react-router";
 import {
   StyledTitle,
   StyledAddPlaylistDiv,
@@ -17,7 +18,8 @@ import {
   StyledListTitle,
   StyledInput,
   StyledAddBtn,
-  StyledUndo
+  StyledUndo,
+  StyledContentWrapper
 } from "./StyledMyPlaylistPage";
 
 
@@ -27,6 +29,7 @@ interface List {
 }
 
 const MyPlaylistsPage = () => {
+  const history = useHistory();
   const { playlists, getUserPlaylists, deletePlaylist, createPlaylist} = useContext(PlaylistContext)
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -76,11 +79,9 @@ const MyPlaylistsPage = () => {
   
   return (
     <StyledWrapper>
-      <StyledTitle>MyPlaylist</StyledTitle>
-
-      <StyledGridDiv>
-        
-        
+     <StyledContentWrapper>
+      <StyledTitle>My Playlists</StyledTitle>
+      <StyledGridDiv> 
         <StyledAddPlaylistDiv typeof="button" onClick={handleCreate}>
           <StyledAddItem>
             <StyledAddIcon>+</StyledAddIcon>
@@ -100,7 +101,35 @@ const MyPlaylistsPage = () => {
         {playlists && playlists.map((list: List) => {
           return <PlaylistItem key={list._id} data={[list, removePlaylist]} />
         })}
-      </StyledGridDiv>
+        </StyledGridDiv>
+
+        <div>
+        <StyledTitle>My Dj Rooms</StyledTitle>
+
+        <StyledGridDiv> 
+        <StyledAddPlaylistDiv typeof="button" onClick={() => history.push('/createDjRoom')}>
+          <StyledAddItem>
+            <StyledAddIcon>+</StyledAddIcon>
+          </StyledAddItem>
+          <StyledListTitle>Skapa Dj Room</StyledListTitle>
+        </StyledAddPlaylistDiv>
+        
+        <Popper open={open} anchorEl={anchorEl} >
+          <Box sx={{ p: 1, bgcolor: '#cfcfcf', borderRadius: '5px', display: 'grid', gridTemplateColumns: '1fr', gridTemplateRows: '1fr 1fr 1fr' }}>
+            <StyledUndo onClick={handleCreate}><HighlightOffRoundedIcon/></StyledUndo>
+            <StyledInput onChange={(e) => setName(e.target.value)} type="text" placeholder="Name of playlist..." />
+            <StyledAddBtn>Create</StyledAddBtn>
+            
+          </Box>
+        </Popper>
+        
+         <MyDjRoomItem />
+       
+        </StyledGridDiv>
+        </div>
+        
+      </StyledContentWrapper>
+      
     </StyledWrapper>
       
       

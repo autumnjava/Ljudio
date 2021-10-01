@@ -52,8 +52,6 @@ export const PlaylistProvider = ({ children }: Props) => {
     
   };
   
-
-
   const getUserPlaylists = async (userId: string) => {
     const requestBody = {
       query: `query {
@@ -171,17 +169,14 @@ export const PlaylistProvider = ({ children }: Props) => {
     }
   }
   
-    const removeSongFromPlaylist = async (songId: string, playlistId: string) => {
+    const removeSongFromPlaylist = async (index: number, playlistId: string) => {
       const requestBody = {
-        query: `mutation{
-          removeSongFromPlaylist(
-            songId: "${songId}",
-            playlistId:"${playlistId}"
-          ){
-            _id
-            name
-          }
-        }`
+        query: `mutation{removeSongFromPlaylist(index: ${index}, playlistId:"${playlistId}")
+        {
+          _id
+          name
+        }
+      }`
       }
       
       const response = await fetcher(requestBody);

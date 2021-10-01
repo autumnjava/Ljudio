@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const StyledWrapper = styled.div`
+  display: grid;
+`;
+
 export const StyledItemDiv = styled.div`
   margin: 0;
   cursor: pointer;

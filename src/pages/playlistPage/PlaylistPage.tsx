@@ -41,8 +41,8 @@ const PlaylistPage = () => {
   const handlePrintOutSongs = () => {
     return (
     <>
-      {playlist.songs && playlist.songs.map((song: SongProps) => {
-          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} handlePrintOutSongs={handlePrintOutSongs} />
+      {playlist.songs && playlist.songs.map((song: SongProps, index: number) => {
+          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} index={index} handlePrintOutSongs={handlePrintOutSongs} />
       })}
     </>    
     )
