@@ -20,7 +20,6 @@ interface Props {
     width: '70%',
     bgcolor: 'black',
     color: 'white',
-    border: '2px solid #000',
     boxShadow: 24,
     p: 1,
   };

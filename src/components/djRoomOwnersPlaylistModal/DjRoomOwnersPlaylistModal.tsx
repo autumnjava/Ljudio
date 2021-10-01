@@ -29,7 +29,6 @@ const style = {
   maxHeight: '60vh',
   overflowY: 'scroll' as const,
   bgcolor: 'black',
-  border: '2px solid #000',
   color: 'white',
   boxShadow: 24,
   p: 1,
