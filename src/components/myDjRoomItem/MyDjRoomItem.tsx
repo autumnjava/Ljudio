@@ -8,7 +8,9 @@ import {
   StyledListTitle
 } from "./StyledMyDjRoomItem"
 
-const MyDjRoomItem = () => {
+const MyDjRoomItem = ({ data }: any) => {
+  
+  console.log('what is data in dj room item', data)
 
   const history = useHistory();
 
@@ -16,12 +18,12 @@ const MyDjRoomItem = () => {
     <StyledWrapper>
       <StyledDeleteBtn><HighlightOffIcon/></StyledDeleteBtn>
           
-      <StyledItemDiv onClick={() => history.push("/djroom/" + 5)}>
+      <StyledItemDiv onClick={() => history.push("/djroom/" + data._id)}>
         <div>
           {/* Logik för om rummet ej har bild visa default logo, annars visa bild */}
           <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
         </div>
-        <StyledListTitle>Dj Room Title</StyledListTitle>
+        <StyledListTitle>{data.name}</StyledListTitle>
         </StyledItemDiv>
     </StyledWrapper>
   );
