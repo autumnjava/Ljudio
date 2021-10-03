@@ -1,7 +1,5 @@
-import React  from "react";
-
-import useSongsQuery from './useSongsQuery';
-import useSongSubscription from "./useSongSubscription";
+import React, { useEffect }  from "react";
+import { useQuery, useSubscription, gql } from '@apollo/client';
 
 import ChangeTitle from './ChangeTitle'
 
@@ -11,13 +9,46 @@ type Song = {
   djRoomId: number
 }
 
-const Songs: React.FC = () =>  {
-  useSongSubscription();
-  const { loading, error, data } = useSongsQuery();
-  if (loading) return <> loading... </>
-  if (error) return <> error... </>
+const ALL_SONGS = gql`
+query {
+    songs {
+      songId
+      title
+      djRoomId
+    }
+  }
+`;
 
-  if (!data || !data.songs) return null;
+const NEW_SONGS_SUBSCRIPTION = gql`
+  subscription {
+    songTitleChanged {
+      songId
+      title
+      djRoomId
+    }
+  }
+  `;
+  
+  const Songs: React.FC = () =>  {
+    const { loading, error, data, subscribeToMore } = useQuery(ALL_SONGS);
+
+    subscribeToMore({
+      document: NEW_SONGS_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if(!subscriptionData) return prev;
+        const newSong = subscriptionData.data.songTitleChanged;
+        const updatedSongIndex = prev.songs.findIndex(
+          ({songId}: Song) => songId === newSong.songId
+        );
+
+        const clonedArray = prev.songs.slice() //make a copy of an array
+        clonedArray[updatedSongIndex] = newSong; 
+        
+        return {songs: clonedArray}
+      },
+    });
+    if(loading) return <p>Loading...</p>;
+    if(error) return <p>Error...</p>;
 
   return (
     <>
