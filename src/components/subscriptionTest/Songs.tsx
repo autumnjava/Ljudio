@@ -1,5 +1,5 @@
-import React, { useEffect }  from "react";
-import { useQuery, useSubscription, gql } from '@apollo/client';
+import React from "react";
+import { useQuery, gql } from '@apollo/client';
 
 import ChangeTitle from './ChangeTitle'
 
@@ -31,7 +31,6 @@ const NEW_SONGS_SUBSCRIPTION = gql`
   
   const Songs: React.FC = () =>  {
     const { loading, error, data, subscribeToMore } = useQuery(ALL_SONGS);
-
     subscribeToMore({
       document: NEW_SONGS_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
@@ -46,7 +45,7 @@ const NEW_SONGS_SUBSCRIPTION = gql`
         
         return {songs: clonedArray}
       },
-    });
+    })
     if(loading) return <p>Loading...</p>;
     if(error) return <p>Error...</p>;
 

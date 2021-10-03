@@ -45,8 +45,13 @@ const playlistResolver = {
 
   Mutation: {
     changeSongTitle: (_parent, { input }, __, ___) => {
-      const  {songId, title } = input;
+      const  {songId, title } = input; // args
       const song = songs.find(song => song.songId === songId);
+
+      if(!song)
+      throw new Error('song not found');
+
+      song.title = title; // update in array also
 
       pubsub.publish("SONG_TITLE_CHANGED", {
         songTitleChanged: { ...song, title }
@@ -59,10 +64,7 @@ const playlistResolver = {
 
     },
 
-
-
     createPlaylist: async (_parent, args, __, ___) => {
-    
       const playlist = new Playlist({
         name: args.name,
       })
@@ -84,7 +86,6 @@ const playlistResolver = {
     },
 
     removePlaylist: async (_parent, args, __, ___) => {
-
       const playlist = await Playlist.findOneAndDelete({ _id: args._id });
       
       await User.updateOne({

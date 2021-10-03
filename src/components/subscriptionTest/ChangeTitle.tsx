@@ -25,7 +25,7 @@ const ChangeTitle = (props: SongProps ): JSX.Element => {
     }
   }`;
   
-  const [changeTitle, { data, loading, error }] = useMutation(CHANGE_SONG_TITLE);
+  const [changeTitle, { loading, error }] = useMutation(CHANGE_SONG_TITLE);
 
   const [title, setTitle] = useState(song.title);
   
