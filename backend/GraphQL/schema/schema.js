@@ -79,6 +79,19 @@ const schema = gql`
     visitors: [User]
     count: Int!
   }
+
+  type SongTest {
+    songId: Int!
+    title: String!
+    djRoomId: Int!
+  }
+
+  input ChangeSongInput {
+    songId: Int!
+    title: String!
+  }
+
+
   
   type Query {
     login(email: String!, password: String!): AuthData!
@@ -89,6 +102,8 @@ const schema = gql`
     getVisitorsDjRoom(_id: String!): DjRoom
     getActiveDjRooms(input: Boolean): [ActiveDjRooms]
     getDjRoom(_id: String!): CurrentDjRoom
+
+    songs: [SongTest!]!
   }
 
   type Mutation {
@@ -105,10 +120,14 @@ const schema = gql`
     kickUsers(djRoomId: String!): Boolean
     changeStatusDjRoom(_id: String!, isOnline: Boolean!): Boolean
     changeDjRoomSettings(_id: String!, name: String, description: String, imgUrl: String): Boolean
+
+    changeSongTitle(input: ChangeSongInput!): SongTest!
   }
 
   type Subscription {
     userCreated: User
+
+    songTitleChanged: SongTest!
   }
 `;
   // not sure need this:
