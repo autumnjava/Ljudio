@@ -12,11 +12,14 @@ import {
   StyledInner4,
 } from "./StyledBubbels";
 
-const Bubbels = () => {
+const Bubbels = ({ data }: any) => {
+
+  console.log('what is data', data)
+ 
   return (
   <StyledWrapper>
     <StyledHead>
-        <StyledName1>DJ ALEX</StyledName1>
+        <StyledName1>DJ {data.dj.username}</StyledName1>
     </StyledHead>
 
     <StyledAvatar1>

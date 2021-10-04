@@ -24,18 +24,17 @@ const DjRoomPage = () => {
   }, []);
 
   useEffect(() => {
-    if (userId) {
-      if (userId == djRoom.dj._id) {
-        setIsOwner(true);
-      }
+    if (userId && djRoom) {
+      console.log('what is dj room DJ', djRoom)
+      // if (userId == djRoom.dj._id) {
+      //   setIsOwner(true);
+      // }
     }
-  }, [userId]);
+  }, [userId, djRoom]);
 
   const getCurrentDjRoom = async () => {
     await getDjRoom(id);
   }
-
-  console.log('what is dj room', djRoom);
 
   const handleCopy = () => {
   setOpenSnackBar(true);
@@ -55,7 +54,7 @@ const DjRoomPage = () => {
       <SettingsIcon onClick={() => setOpenModal(true)} style={{ float: 'right', cursor: 'pointer' }} />
         <ShareIcon onClick={handleCopy} style={{ float: 'right', marginRight: '1rem', cursor: 'pointer' }}/>
     </StyledSettingsWrapper>
-    <Bubbels />
+      {djRoom && <Bubbels data={djRoom} />}
     <DjRoomSettingsModal open={openModal} setOpen={setOpenModal} />
     {openSnackBar && <SnackBar
         snackbarContent="Copied!"
