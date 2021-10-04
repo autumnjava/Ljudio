@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+interface TextColor {
+  status: boolean;
+}
 
 export const StyledWrapper = styled.div`
 `;
@@ -62,4 +65,9 @@ export const StyledSpan = styled.span`
   position: relative;
   bottom: 5px;
   font-size: 20px;
+`;
+
+export const StyledStatusText = styled.p<TextColor>`
+  color: ${props => props.status ? 'white' : '#00FF00'};
+  font-size: 17px;
 `;
