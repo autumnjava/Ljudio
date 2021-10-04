@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import QueueMusicRoundedIcon from '@material-ui/icons/QueueMusicRounded';
@@ -6,6 +6,7 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HeadsetRoundedIcon from '@material-ui/icons/HeadsetRounded';
+import { UserContext } from '../../contexts/usersContext/UserContextProvider';
 import { useHistory } from "react-router-dom";
 import { StyledNavWrapper, StyledLabel } from "./StyledNavBar";
 
@@ -14,9 +15,10 @@ const Navbar: React.FC = () => {
 
   const history = useHistory();
   const [value, setValue] = React.useState('');
+  const { inDjRoom } = useContext(UserContext);
   
   return (
-    <StyledNavWrapper>
+    <StyledNavWrapper show={inDjRoom}>
       <BottomNavigation sx={{ width: '100vw', background: "black" }} value={value}>
         <BottomNavigationAction
           label={<StyledLabel>Home</StyledLabel>}
