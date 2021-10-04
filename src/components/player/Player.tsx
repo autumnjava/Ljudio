@@ -15,6 +15,10 @@ import {
 import Sliders from '../slider/Slider'
 import { renderAllIcons, renderTitle } from './Assets'
 
+import {DjRoomContext} from '../../contexts/djRoomContext/djRoomContextProvider'
+
+
+
 interface SongProps {
   title: string,
   videoId: string,
@@ -42,6 +46,8 @@ const MiniPlayer = () => {
   const [snackBarContent, setSnackBarContent] = useState('');
   const [open, setOpen] = useState<boolean>(false);
   const [mute, setMute] = useState<boolean>(false)
+
+  const { updCurrentSong } = useContext(DjRoomContext)
   
   const handleStart = (event: any) => {
     setEventYoutube(event)
@@ -107,6 +113,16 @@ const MiniPlayer = () => {
     setCurrentTime(eventYoutube?.target.getCurrentTime() * 1000);
   }
 
+  const updDataBackend = () => {
+    const currentTime = eventYoutube.target.getCurrentTime();
+    const song = {
+      djRoomId: 'test',
+      currentSong: 'rokamaka',
+      pos: currentTime
+    };
+    updCurrentSong(song)
+  }
+
   const handleState = (event: any) => {
     if (eventYoutube?.target.getPlayerState() === 0) {
       if (songs?.currentSong.length > 1 && currentIndex < songs?.currentSong.length - 1) {
@@ -121,6 +137,7 @@ const MiniPlayer = () => {
           if (eventYoutube?.target.getPlayerState() === 2) {
            clearInterval(intervalId);
           }
+          updDataBackend();
       }, 1000);
     }
   }

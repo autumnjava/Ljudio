@@ -91,6 +91,17 @@ const schema = gql`
     title: String!
   }
 
+  type SongDjRoom {
+    djRoomId: ID!
+    currentSong: String!
+    pos: Float!
+  }
+
+  input ChangeSongDjRoomInput {
+    djRoomId: ID!
+    currentSong: String!
+    pos: Float!
+  }
 
   
   type Query {
@@ -122,6 +133,7 @@ const schema = gql`
     changeDjRoomSettings(_id: String!, name: String, description: String, imgUrl: String): Boolean
 
     changeSongTitle(input: ChangeSongInput!): SongTest!
+    changeDjRoomSongTimePosition(input: ChangeSongDjRoomInput): String!
   }
 
   type Subscription {
@@ -130,6 +142,10 @@ const schema = gql`
     songTitleChanged: SongTest!
   }
 `;
+
+// mutation 
+//    changeSongTitle(input: ChangeSongInput!): SongTest!
+
   // not sure need this:
 // schema {
 //   query: Query

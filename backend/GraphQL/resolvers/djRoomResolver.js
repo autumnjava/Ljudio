@@ -2,6 +2,8 @@ const DjRoom = require('../../models/djRoom');
 const User = require('../../models/user');
 const Playlist = require('../../models/playlist');
 
+let activeDjRooms = [];
+
 // for subscriptions testing
 let songs = [
   {
@@ -118,6 +120,7 @@ const djRoomResolver = {
       };
 
     },
+
   // createDjRoom: async (_parent, { playlistId, userId, input }) => {
   createDjRoom: async (_parent, args, __, ___) => {
     try {
@@ -243,7 +246,27 @@ const djRoomResolver = {
     } catch (error) {
       return error;
       }
-    }
+    },
+    changeDjRoomSongTimePosition: (_parent, { input }, __, ___) => {
+      const  {djRoomId, currentSong, pos } = input; // args
+      console.log(djRoomId, currentSong, pos)
+      // const song = songs.find(song => song.songId === songId);
+
+      // if(!song)
+      // throw new Error('song not found');
+
+      // song.title = title; // update in array also
+
+      // pubsub.publish("SONG_TITLE_CHANGED", {
+      //   songTitleChanged: { ...song, title }
+      // });
+      // //Return the new song title
+      // return {
+      //   ...song,
+      //   title
+      // };
+      return 'success!'
+    },
   },
 
   Subscription: {
