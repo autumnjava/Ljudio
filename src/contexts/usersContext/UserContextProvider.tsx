@@ -19,6 +19,7 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
   const[userId, setUserId] = useState(null);
   const [user, setUser] = useState({});
   const [errorMsg, setErrorMsg] = useState(false);
+  const [inDjRoom, setInDjRoom] = useState(false);
 
   const registerUser = async (user: User) => {
     const requestBody = {
@@ -122,7 +123,9 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
     logout,
     errorMsg,
     userId,
-    user
+    user,
+    inDjRoom,
+    setInDjRoom
   }
 
   return (

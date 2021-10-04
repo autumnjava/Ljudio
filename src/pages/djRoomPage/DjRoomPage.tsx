@@ -8,19 +8,24 @@ import { useState, useContext, useEffect } from 'react';
 import SnackBar from '../../components/snackBar/SnackBar'
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
 import { useParams } from "react-router-dom";
+import { UserContext } from '../../contexts/usersContext/UserContextProvider';
+import { useHistory } from 'react-router';
 
 const DjRoomPage = () => {
   const { id }: any = useParams();
   const [openModal, setOpenModal] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const { djRoom, getDjRoom } = useContext(DjRoomContext);
-  const [userId, setUserId] = useState<string | null>();
-  const [isOwner, setIsOwner] = useState(false);
+  // const [userId, setUserId] = useState<string | null>();
+  // const [isOwner, setIsOwner] = useState(false);
+  const { setInDjRoom } = useContext(UserContext);
+  const history = useHistory();
   
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    setUserId(userId);
+    // const userId = localStorage.getItem('userId');
+    // setUserId(userId);
     getCurrentDjRoom();
+    setInDjRoom(true);
   }, []);
 
   // dont know if needed if subscription listens to new visitors????
@@ -42,11 +47,15 @@ const DjRoomPage = () => {
     document.body.removeChild(el);
   }
   
+  const handleExit = () => {
+    setInDjRoom(false)
+    history.push('/myPlaylist');
+  }
 
   return (
   <StyledWrapper>
     <StyledSettingsWrapper>
-      <ExitToAppIcon style={{cursor: 'pointer' }}/>
+        <ExitToAppIcon onClick={handleExit} style={{cursor: 'pointer' }}/>
       <SettingsIcon onClick={() => setOpenModal(true)} style={{ float: 'right', cursor: 'pointer' }} />
         <ShareIcon onClick={handleCopy} style={{ float: 'right', marginRight: '1rem', cursor: 'pointer' }}/>
     </StyledSettingsWrapper>
