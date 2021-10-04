@@ -17,6 +17,7 @@ import {
   StyledSpan,
   StyledStatusText
 } from "./StyledCreateDjRoom";
+import { useParams } from 'react-router';
 
 const CreateDjRoom = () => {
   const { createDjRoom } = useContext(DjRoomContext)
@@ -27,6 +28,7 @@ const CreateDjRoom = () => {
   const [imgUrl, setImgUrl] = useState('');
   const [description, setDescription] = useState('');
   const [userId, setUserId] = useState<string | null>('');
+  const { id }: any = useParams();
   
   const createnewDjRoom = async (e:any) => {
     e.preventDefault();
@@ -36,13 +38,18 @@ const CreateDjRoom = () => {
       imgUrl: imgUrl,
       isOnline: status
     }
-    await createDjRoom(userId, input);
+    if (id) {
+      await createDjRoom(userId, input, id);
+    } else {
+      await createDjRoom(userId, input);
+    }
   }
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     setUserId(userId);
   }, []);
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);

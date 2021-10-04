@@ -26,6 +26,11 @@ export const StyledListTitle = styled.p`
   padding: 0;
 `;
 
+export const StyledIconWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`
+
 export const StyledDeleteBtn = styled.button`
   display: grid;
   margin: 0;
