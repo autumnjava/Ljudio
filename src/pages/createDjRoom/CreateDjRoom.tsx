@@ -14,9 +14,12 @@ import {
   StyledBotSection,
   StyledSpan
 } from "./StyledCreateDjRoom";
+import { useParams } from 'react-router';
 
 
 const CreateDjRoom = () => {
+
+    const { id }: any = useParams();
 
   
   return (

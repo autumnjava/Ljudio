@@ -19,7 +19,7 @@ const PlaylistItem = ({ data }: any) => {
   const history = useHistory();
 
   const handleDjroom = () => {
-    history.push('/createDjRoom');
+    history.push(`/createDjRoom/${data[0]._id}`);
   }
   
   return (
