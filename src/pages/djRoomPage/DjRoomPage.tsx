@@ -4,13 +4,19 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DjRoomSettingsModal from '../../components/djRoomSettingsModal/DjRoomSettingsModal'
 import ShareIcon from '@material-ui/icons/Share';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../contexts/usersContext/UserContextProvider';
 import SnackBar from '../../components/snackBar/SnackBar'
 
 const DjRoomPage = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
+  const { setInDjRoom } = useContext(UserContext);
+
+  useEffect(() => {
+    setInDjRoom(true);
+  }, [])
 
   const handleCopy = () => {
   setOpenSnackBar(true);
