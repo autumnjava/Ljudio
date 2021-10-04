@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
+interface NavProps {
+  show: boolean
+}
 
-export const StyledNavWrapper = styled.div`  
+export const StyledNavWrapper = styled.div<NavProps>`
+  display: ${props => !props.show ? 'block' : 'none'} ;
   top: auto;
   bottom: 0;
   position: fixed;

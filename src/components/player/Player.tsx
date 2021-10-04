@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
+import { UserContext } from '../../contexts/usersContext/UserContextProvider';
 import DialogModal from '../dialog/DialogModal';
 import SnackBar from '../../components/snackBar/SnackBar'
 import YouTube from 'react-youtube';
@@ -30,6 +31,7 @@ const MiniPlayer = () => {
   
   const [play, setPlay] = useState(true);
   const songs = useContext(PlaylistContext);
+  const { inDjRoom } = useContext(UserContext);
   const [eventYoutube, setEventYoutube] = useState<any>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [expandPlayer, setExpandPlayer] = useState<boolean>(false);
@@ -176,7 +178,7 @@ const MiniPlayer = () => {
 
   return (
     <>
-      <StyledWrapper expand={expandPlayer}>
+      <StyledWrapper expand={expandPlayer} inDjRoom={inDjRoom}>
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length ? renderTitle(songs,
             currentIndex,
