@@ -30,3 +30,19 @@ display: grid;
 grid-template-columns: 1rem 8rem;
 grid-gap: 1rem;
 `
+
+export const StyledModal = styled.div`
+  padding: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  outline: none;
+  transform: translate(-50%, -50%);
+  background: black;
+  border: 1px solid #EF02EB;
+  box-shadow: 24;
+  @media (min-width: 769px) {
+  width: 30%;
+}
+`

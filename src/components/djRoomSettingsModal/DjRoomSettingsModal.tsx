@@ -2,7 +2,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
-import { StyledTitle, StyledText, StyledInput, StyledEditWrapper } from './StyledDjRoomSettings'
+import { StyledTitle, StyledText, StyledInput, StyledEditWrapper, StyledModal } from './StyledDjRoomSettings'
 import Switch from '@mui/material/Switch';
 import { useState } from 'react';
 
@@ -17,8 +17,7 @@ interface Props {
     left: '50%',
     outline: 'none',
     transform: 'translate(-50%, -50%)',
-    width: '70%',
-    bgcolor: 'black',
+    bgcolor: 'red',
     color: 'white',
     boxShadow: 24,
     p: 1,
@@ -44,7 +43,7 @@ const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
   }
 
   const renderContent = () => (
-    <Box sx={style}>
+    <StyledModal>
       <StyledTitle>Edit DJ room</StyledTitle>
       {!editName && <StyledText><EditIcon onClick={() => setEditName(true)} style={{ cursor: 'pointer' }} /> {name}</StyledText>}
       {editName && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditName)} style={{ color: 'white' }} />
@@ -59,7 +58,7 @@ const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
         <StyledInput onChange={e => setDesc(e.target.value)} type="text" /></StyledEditWrapper>}
 
       <StyledText>Online <Switch onChange={e => setChecked(e.target.checked)} defaultChecked /></StyledText>
-    </Box>  
+      </StyledModal>
   )
 
   return (
