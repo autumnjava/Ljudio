@@ -42,8 +42,6 @@ const Login: React.FC = () => {
         if(response){
           setLoginErrorMsg(false);
           history.push('/home');
-          window.location.reload();
-        
         } else {
           setLoginErrorMsg(true);
           return;

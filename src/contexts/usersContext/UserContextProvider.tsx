@@ -61,14 +61,14 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
       if(response.data.login.token){
       localStorage.setItem('JWT_KEY', response.data.login.token);
       localStorage.setItem('userId', response.data.login.userId);
+      setUserId(response.data.login.userId)
       return true; // successfully logged in
       }
     }
     }
 
-    const logout = () => {
-      localStorage.removeItem('JWT_KEY');
-      localStorage.removeItem('userId');
+    const logout = async () => {
+      localStorage.clear();
     }
   
   const getUser = async (userId: string) => {

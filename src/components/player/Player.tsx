@@ -42,6 +42,13 @@ const MiniPlayer = () => {
   const [snackBarContent, setSnackBarContent] = useState('');
   const [open, setOpen] = useState<boolean>(false);
   const [mute, setMute] = useState<boolean>(false)
+
+  const [loggedIn, setLoggedIn] = useState<any | null>(localStorage.getItem('userId'))
+
+  useEffect(() => {
+    setLoggedIn(localStorage.getItem('userId'));
+  },[localStorage.getItem('userId')])
+
   
   const handleStart = (event: any) => {
     setEventYoutube(event)
@@ -178,6 +185,8 @@ const MiniPlayer = () => {
 
   return (
     <>
+    {loggedIn &&
+    <>
       <StyledWrapper expand={expandPlayer} inDjRoom={inDjRoom}>
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length ? renderTitle(songs,
@@ -205,6 +214,8 @@ const MiniPlayer = () => {
         open={openSnackBar}
         setOpen={setOpenSnackBar}
       />}
+      </>
+    }
     </>
   )
 }

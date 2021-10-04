@@ -5,19 +5,13 @@ import Providers from "./components/providers/Providers";
 import { useEffect, useState } from "react";
 
 const App: React.FC = () => {
-
-  const [loggedIn, setLoggedIn] = useState<any | null>(localStorage.getItem('userId'))
-
-  useEffect(() => {
-    setLoggedIn(localStorage.getItem('userId'));
-  },[localStorage.getItem('userId')])
   
   return (
     <div className="App">
       <Providers>
         <AllRoutes >
-          {loggedIn && <Player />}
-         {loggedIn && <Navbar />}
+          <Player />
+         <Navbar />
         </AllRoutes>
       </Providers>
     </div>

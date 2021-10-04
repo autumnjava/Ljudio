@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import QueueMusicRoundedIcon from '@material-ui/icons/QueueMusicRounded';
@@ -16,9 +16,16 @@ const Navbar: React.FC = () => {
   const history = useHistory();
   const [value, setValue] = React.useState('');
   const { inDjRoom } = useContext(UserContext);
-  
+
+  const [loggedIn, setLoggedIn] = useState<any | null>(localStorage.getItem('userId'))
+
+  useEffect(() => {
+    setLoggedIn(localStorage.getItem('userId'));
+  },[localStorage.getItem('userId')])
+
   return (
-    <StyledNavWrapper show={inDjRoom}>
+    <>
+    {loggedIn && <StyledNavWrapper show={inDjRoom}>
       <BottomNavigation sx={{ width: '100vw', background: "black" }} value={value}>
         <BottomNavigationAction
           label={<StyledLabel>Home</StyledLabel>}
@@ -53,6 +60,8 @@ const Navbar: React.FC = () => {
 
         </BottomNavigation>
     </StyledNavWrapper>
+    }
+    </>
   )
 }
 
