@@ -101,7 +101,7 @@ const djRoomResolver = {
         name: args.input.name ? args.input.name : playlistToCopy.name,
         description: args.input.description,
         isOnline: args.input.isOnline,
-        image: args.input.imgUrl
+        image: args.input.image
       });
       await djRoom.save();
   
