@@ -32,8 +32,6 @@ const DjRoomPage = () => {
     await getDjRoom(id);
   }
 
-  console.log('what is dj room', djRoom);
-
   const handleCopy = () => {
   setOpenSnackBar(true);
   const el = document.createElement("input");

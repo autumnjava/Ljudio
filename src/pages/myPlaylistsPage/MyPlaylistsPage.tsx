@@ -124,11 +124,9 @@ const MyPlaylistsPage = () => {
           </StyledAddItem>
           <StyledListTitle>Skapa Dj Room</StyledListTitle>
         </StyledAddPlaylistDiv>
-            
-             {/* {ownersDjRooms && ownersDjRooms.map((list: List, index: number) => {
-          return <MyDjRoomItem key={list._id + index} data={list} /> */}
-        {ownersDjRooms && ownersDjRooms.map((list: List) => {
-          return <MyDjRoomItem key={list._id} data={[list, removeDjRoom]} />
+          
+        {ownersDjRooms && ownersDjRooms.map((list: List, index: number) => {
+          return <MyDjRoomItem key={list._id + index} data={[list, removeDjRoom]} />
         })}
        
         </StyledGridDiv>
