@@ -19,7 +19,14 @@ import { useParams } from 'react-router';
 
 const CreateDjRoom = () => {
 
-    const { id }: any = useParams();
+  const { id }: any = useParams();
+  
+  const handleCreateDjRoom = () => {
+    if (id) {
+      // logic to DB
+    }
+    //else ...
+  }
 
   
   return (
@@ -33,7 +40,7 @@ const CreateDjRoom = () => {
         <InsertPhotoRoundedIcon style={{color: 'purple'}}/><StyledTextInput type="text" placeholder="Image URL" />
         <StyledLabel>Description:</StyledLabel>
         <DescriptionRoundedIcon style={{color: 'purple'}}/><StyledTextBox maxLength={50} placeholder="Description" />
-    <StyledCreateBtn><StyledSpan>Create</StyledSpan><AddRoundedIcon/></StyledCreateBtn>
+          <StyledCreateBtn onClick={handleCreateDjRoom}><StyledSpan>Create</StyledSpan><AddRoundedIcon/></StyledCreateBtn>
           </div>
       </StyledForm>
     </StyledWrapper>
