@@ -98,6 +98,7 @@ const djRoomResolver = {
 
   },
   Mutation: {
+    // changeSongTitle is just for testing.
     changeSongTitle: (_parent, { input }, __, ___) => {
       const  {songId, title } = input; // args
       const song = songs.find(song => song.songId === songId);
@@ -120,7 +121,6 @@ const djRoomResolver = {
   // createDjRoom: async (_parent, { playlistId, userId, input }) => {
   createDjRoom: async (_parent, args, __, ___) => {
     try {
-      
       let playlistToCopy;
   
       if (args.playlistId) {

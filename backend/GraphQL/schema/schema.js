@@ -85,25 +85,25 @@ const schema = gql`
     title: String!
     djRoomId: Int!
   }
+
+  input ChangeSongInput {
+    songId: Int!
+    title: String!
+  }
+
+
   
   type Query {
     login(email: String!, password: String!): AuthData!
     getUser(_id: String!): User!
     getUserPlaylists(_id: String!): User!
     getSongsFromPlaylist(_id: String!): Playlist
-    
-    songs: [SongTest!]!
-  }
-
-
-
-  input ChangeSongInput {
-    songId: Int!
-    title: String!
     getOwnersDjRooms(_id: String!): [DjRoom]!
     getVisitorsDjRoom(_id: String!): DjRoom
     getActiveDjRooms(input: Boolean): [ActiveDjRooms]
     getDjRoom(_id: String!): CurrentDjRoom
+
+    songs: [SongTest!]!
   }
 
   type Mutation {
@@ -113,8 +113,6 @@ const schema = gql`
     addSongToPlaylist(_id: String!, input: SongInput): Playlist
     removeSongFromPlaylist(index: Int!, playlistId: String!): Playlist 
     changeUsername(_id: String!, newName: String!): User!
-
-    changeSongTitle(input: ChangeSongInput!): SongTest!
     createDjRoom(playlistId: String, userId: String!, input: DjRoomInput): DjRoom!
     joinDjRoom(_id: String!, djRoomId: String!): DjRoom!
     disjoinDjRoom(_id: String!): Boolean
@@ -122,6 +120,8 @@ const schema = gql`
     kickUsers(djRoomId: String!): Boolean
     changeStatusDjRoom(_id: String!, isOnline: Boolean!): Boolean
     changeDjRoomSettings(_id: String!, name: String, description: String, imgUrl: String): Boolean
+
+    changeSongTitle(input: ChangeSongInput!): SongTest!
   }
 
   type Subscription {
