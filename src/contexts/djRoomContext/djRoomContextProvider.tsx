@@ -180,8 +180,17 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   }
 
   const changeStatusDjRoom = async (djRoomId: string, isOnline: boolean) => {
-    const requestBody = {
-      query: `mutation{changeStatusDjRoom(_id:"${djRoomId}", isOnline: ${isOnline})}`
+    let requestBody = {};
+    if (!isOnline) {
+      requestBody = {
+        query: `mutation{
+          changeStatusDjRoom(_id:"${djRoomId}", isOnline: ${isOnline})
+          kickUsers(djRoomId:"${djRoomId}")}`
+      }
+    } else {
+      requestBody = {
+        query: `mutation{changeStatusDjRoom(_id:"${djRoomId}", isOnline: ${isOnline})}`
+      }
     }
     const response = await fetcher(requestBody);
     if (!response) {
