@@ -21,7 +21,7 @@ import {
 const CreateDjRoom = () => {
   const { createDjRoom } = useContext(DjRoomContext)
   
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
   const [checked, setChecked] = useState<boolean>(true);
   const [name, setName] = useState('');
   const [imgUrl, setImgUrl] = useState('');
@@ -34,7 +34,7 @@ const CreateDjRoom = () => {
       name: name,
       description: description,
       imgUrl: imgUrl,
-      isOnline: false
+      isOnline: status
     }
     await createDjRoom(userId, input);
   }
@@ -47,7 +47,6 @@ const CreateDjRoom = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setStatus(!status)
-    console.log(status, 'Switch-Status')
   };
   
   return (
@@ -70,7 +69,7 @@ const CreateDjRoom = () => {
               inputProps={{ 'aria-label': 'controlled' }}
               value={status}
             />
-            <span>{status ? 'Offline' : 'Online'}</span>
+            <span>{status ? 'Online' : 'Offline'}</span>
           </div>
         <StyledCreateBtn typeof="button" onClick={(e) => createnewDjRoom(e)}><StyledSpan>Create</StyledSpan><AddRoundedIcon/></StyledCreateBtn>
         </div>

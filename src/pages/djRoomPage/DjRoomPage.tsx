@@ -15,7 +15,6 @@ import DjRoomOwnersPlaylistModal from '../../components/djRoomOwnersPlaylistModa
 
 const DjRoomPage = () => {
   const { id }: any = useParams();
-  const [openModal, setOpenModal] = useState(false);
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
   const [openPlaylistModal, setOpenPlaylistModal] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
