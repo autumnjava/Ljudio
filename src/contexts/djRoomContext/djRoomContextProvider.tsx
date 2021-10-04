@@ -130,41 +130,134 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   }
 
 
-  const createDjRoom = async (userId: string, playlistId: string, input: djRoomProps) => {
+  const createDjRoom = async (userId: string, input: djRoomProps, playlistId: string) => {
     const requestBody = {
       query: `mutation{createDjRoom(
-        userId: "${userId}",
-        playlistId:"${playlistId}"
-      input:{
-        name:"${input.name}",
-        description:"${input.description}",
-        image:"${input.imgUrl}",
-        isOnline: ${input.isOnline}})
-      {
-        _id
-        name
-      }
-    }`
+          userId: "${userId}",
+          playlistId:"${playlistId ? playlistId : ''}"
+        input:{
+          name:"${input.name}",
+          description:"${input.description}",
+          image:"${input.imgUrl}",
+          isOnline: ${input.isOnline}})
+        {
+          _id
+          name
+        }
+      }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+    }
+  }
+
+  const deleteDjRoom = async (djRoomId: string) => {
+    const requestBody = {
+      query: `mutation{
+        deleteDjRoom(_id:"${djRoomId}")
+        kickUsers(djRoomId:"${djRoomId}")}`
     }
     const response = await fetcher(requestBody);
     if (!response) {
       setErrorMsg(true);
     } else {
       console.log(response.data)
+      setErrorMsg(false);
     }
   }
 
+  const joinDjRoom = async (userId: string, djRoomId: string) => {
+    const requestBody = {
+      query: `mutation{joinDjRoom(
+        _id:"${userId}",
+        djRoomId:"${djRoomId}"
+        ){
+          _id
+          name
+        }
+      }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      console.log(response.data)
+      setErrorMsg(false);
+    }
+  }
+
+  const disjoinDjRoom = async (userId: string) => {
+    const requestBody = {
+      quest: `mutation{disjoinDjRoom(_id:"${userId}")}`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      console.log(response.data)
+    }
+  }
+
+  const changeStatusDjRoom = async (djRoomId: string, isOnline: boolean) => {
+    let requestBody = {};
+    if (!isOnline) {
+      requestBody = {
+        query: `mutation{
+          changeStatusDjRoom(_id:"${djRoomId}", isOnline: ${isOnline})
+          kickUsers(djRoomId:"${djRoomId}")}`
+      }
+    } else {
+      requestBody = {
+        query: `mutation{changeStatusDjRoom(_id:"${djRoomId}", isOnline: ${isOnline})}`
+      }
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+    }
+  }
+
+  const changeDjRoomSettings = async (djRoomId: string, input: djRoomProps) => {
+    const requestBody = {
+      query: ` mutation{
+        changeDjRoomSettings
+        (
+          _id:"${djRoomId}", 
+          name:"${input.name ? input.name : ''}",
+          description:"${input.description ? input.description : ''}",
+          imgUrl:"${input.imgUrl ? input.imgUrl : ''}"
+        )
+      }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+    }
+  }
   
   const values = {
     visitorsDjRoom,
     getVisitorsDjRoom,
+    deleteDjRoom,
+    joinDjRoom,
+    disjoinDjRoom,
+    changeStatusDjRoom,
+    changeDjRoomSettings,
     getDjRoom,
     djRoom,
     activeDjRooms,
     getActiveDjRooms,
     getOwnersDjRooms,
     ownersDjRooms,
-     createDjRoom
+    createDjRoom
   }
 
   return (

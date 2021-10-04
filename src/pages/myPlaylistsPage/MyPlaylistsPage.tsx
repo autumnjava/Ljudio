@@ -32,7 +32,7 @@ interface List {
 const MyPlaylistsPage = () => {
   const history = useHistory();
   const { playlists, getUserPlaylists, deletePlaylist, createPlaylist } = useContext(PlaylistContext)
-  const { getOwnersDjRooms, ownersDjRooms } = useContext(DjRoomContext);
+  const { getOwnersDjRooms, ownersDjRooms, deleteDjRoom } = useContext(DjRoomContext);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [name, setName] = useState('');
@@ -72,6 +72,10 @@ const MyPlaylistsPage = () => {
 
   const removePlaylist = async (playlistId: string) => {
     await deletePlaylist(playlistId, userId);
+  }
+
+  const removeDjRoom = async (djRoomId: string) => {
+    await deleteDjRoom(djRoomId);
   }
 
   const addPlaylist = async () => {
@@ -120,18 +124,11 @@ const MyPlaylistsPage = () => {
           </StyledAddItem>
           <StyledListTitle>Skapa Dj Room</StyledListTitle>
         </StyledAddPlaylistDiv>
-        
-        <Popper open={open} anchorEl={anchorEl} >
-          <Box sx={{ p: 1, bgcolor: '#cfcfcf', borderRadius: '5px', display: 'grid', gridTemplateColumns: '1fr', gridTemplateRows: '1fr 1fr 1fr' }}>
-            <StyledUndo onClick={handleCreate}><HighlightOffRoundedIcon/></StyledUndo>
-            <StyledInput onChange={(e) => setName(e.target.value)} type="text" placeholder="Name of playlist..." />
-            <StyledAddBtn>Create</StyledAddBtn>
             
-          </Box>
-            </Popper>
-            
-             {ownersDjRooms && ownersDjRooms.map((list: List, index: number) => {
-          return <MyDjRoomItem key={list._id + index} data={list} />
+             {/* {ownersDjRooms && ownersDjRooms.map((list: List, index: number) => {
+          return <MyDjRoomItem key={list._id + index} data={list} /> */}
+        {ownersDjRooms && ownersDjRooms.map((list: List) => {
+          return <MyDjRoomItem key={list._id} data={[list, removeDjRoom]} />
         })}
        
         </StyledGridDiv>
