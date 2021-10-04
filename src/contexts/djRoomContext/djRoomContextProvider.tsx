@@ -6,6 +6,7 @@ type Props = {
 }
 
 interface djRoomProps{
+  _id: string,
   name: string,
   description: string,
   imgUrl: string,
@@ -19,6 +20,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   const [ownersDjRooms, setOwnersDjRooms] = useState([]);
   const [activeDjRooms, setActiveDjRooms] = useState([]);
   const [djRoom, setDjRoom] = useState([]);
+  const [visitorsDjRoom, setVisitorsDjRoom] = useState<djRoomProps>();
 
   const getActiveDjRooms = async () => {
     const requestBody = {
@@ -106,6 +108,27 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     }
   }
 
+  const getVisitorsDjRoom = async (userId: string) => {
+    const requestBody = {
+      query: `query {
+        getVisitorsDjRoom (_id: "${userId}") {
+        _id
+        name
+        description
+        isOnline
+        image
+      }
+    }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      setVisitorsDjRoom(response.data.getVisitorsDjRoom);
+    }
+  }
+
 
   const createDjRoom = async (userId: string, playlistId: string, input: djRoomProps) => {
     const requestBody = {
@@ -133,6 +156,8 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
 
   
   const values = {
+    visitorsDjRoom,
+    getVisitorsDjRoom,
     getDjRoom,
     djRoom,
     activeDjRooms,

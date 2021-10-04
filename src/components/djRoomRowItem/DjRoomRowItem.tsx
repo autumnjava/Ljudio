@@ -15,8 +15,6 @@ import {
 
 const DjRoomRowItem = ({ data }: any) => {
 
-  console.log('what is data from all dj rooms', data)
-
   const history = useHistory();
 
   return (
