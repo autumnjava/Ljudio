@@ -32,7 +32,7 @@ const DjRoomPage = () => {
   
   const handleExit = () => {
     setInDjRoom(false)
-    history.push('/home');
+    history.push('/myPlaylist');
   }
 
   return (

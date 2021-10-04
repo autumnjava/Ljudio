@@ -12,6 +12,11 @@ interface ExpandPlayer {
   expand: boolean
 }
 
+interface WrapperProps {
+  expand: boolean,
+  inDjRoom: boolean
+}
+
 export const StyledPlayer = styled.div<ExpandPlayer>`
   background: black;
   width: 100vw;
@@ -23,10 +28,10 @@ export const StyledPlayer = styled.div<ExpandPlayer>`
   }
 `
 
-export const StyledWrapper = styled.div<ExpandPlayer>`
+export const StyledWrapper = styled.div<WrapperProps>`
   z-index: 100;
   top: auto;
-  bottom: 3.5rem;
+  bottom: ${props => props.inDjRoom ? '0' : '3.5rem'};
   position: fixed;
   @media (min-width: 769px) {
     bottom: 0;
