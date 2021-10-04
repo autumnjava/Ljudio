@@ -23,14 +23,10 @@ const DjRoomPage = () => {
     getCurrentDjRoom();
   }, []);
 
+  // dont know if needed if subscription listens to new visitors????
   useEffect(() => {
-    if (userId && djRoom) {
-      console.log('what is dj room DJ', djRoom)
-      // if (userId == djRoom.dj._id) {
-      //   setIsOwner(true);
-      // }
-    }
-  }, [userId, djRoom]);
+    console.log('Dj room has been updated');
+  }, [djRoom]);
 
   const getCurrentDjRoom = async () => {
     await getDjRoom(id);
@@ -54,7 +50,7 @@ const DjRoomPage = () => {
       <SettingsIcon onClick={() => setOpenModal(true)} style={{ float: 'right', cursor: 'pointer' }} />
         <ShareIcon onClick={handleCopy} style={{ float: 'right', marginRight: '1rem', cursor: 'pointer' }}/>
     </StyledSettingsWrapper>
-      {djRoom && <Bubbels data={djRoom} />}
+      {Object.prototype.toString.call(djRoom) === '[object Object]' && <Bubbels data={djRoom} />}
     <DjRoomSettingsModal open={openModal} setOpen={setOpenModal} />
     {openSnackBar && <SnackBar
         snackbarContent="Copied!"
