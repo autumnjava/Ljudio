@@ -69,6 +69,7 @@ const schema = gql`
     userCount: Int!
     name: String!
     _id: ID!
+    dj: String!
   }
 
   type CurrentDjRoom {

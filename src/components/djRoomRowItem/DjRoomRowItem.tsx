@@ -13,20 +13,20 @@ import {
   StyledEnterRoom
 } from "./StyledDjRoomRowItem";
 
-const DjRoomRowItem = () => {
+const DjRoomRowItem = ({ data }: any) => {
 
   const history = useHistory();
 
   return (
     <StyledItemWrapper>
 
-      <StyledItemRow>
+      <StyledItemRow onClick={() => history.push("/djroom/" + data._id)}>
         <StyledDjIcon><HeadsetRoundedIcon fontSize="large"/></StyledDjIcon>
         <StyledInfoDiv>
-          <p>Room Title</p>
-          <p><StyledDJSpan>DJ:</StyledDJSpan> Name</p>
+          <p>{data.name}</p>
+          <p><StyledDJSpan>DJ: </StyledDJSpan>{data.dj}</p>
         </StyledInfoDiv>
-        <StyledAudienceIcon><PersonRoundedIcon color="secondary" /><StyledAudience>14</StyledAudience></StyledAudienceIcon>
+        <StyledAudienceIcon><PersonRoundedIcon color="secondary" /><StyledAudience>{data.userCount}</StyledAudience></StyledAudienceIcon>
         <StyledEnterRoom><ExitToAppRoundedIcon/></StyledEnterRoom>
       </StyledItemRow>
     </StyledItemWrapper>
