@@ -79,6 +79,12 @@ const schema = gql`
     visitors: [User]
     count: Int!
   }
+
+  type SongTest {
+    songId: Int!
+    title: String!
+    djRoomId: Int!
+  }
   
   type Query {
     login(email: String!, password: String!): AuthData!
@@ -89,11 +95,7 @@ const schema = gql`
     songs: [SongTest!]!
   }
 
-  type SongTest {
-    songId: Int!
-    title: String!
-    djRoomId: Int!
-  }
+
 
   input ChangeSongInput {
     songId: Int!

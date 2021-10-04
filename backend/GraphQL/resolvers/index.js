@@ -18,7 +18,8 @@ const rootResolver = {
     },
     Subscription: {
         ...userResolver.Subscription,
-        ...playlistResolver.Subscription
+        ...playlistResolver.Subscription,
+        ...djRoomResolver.Subscription,
     }
 }
 
