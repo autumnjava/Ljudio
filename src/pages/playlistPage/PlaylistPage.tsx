@@ -1,12 +1,13 @@
-import { StyledPLTitle } from "./StyledPlaylistPage";
+import { StyledPLTitle,StyledHeadWrapper,StyledButton } from "./StyledPlaylistPage";
 import PlaylistRowItem from "../../components/playlistRowItem/PlaylistRowItem";
 import { useContext, useEffect, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
+import Button from '@mui/material/Button';
 import { useParams } from "react-router-dom";
 
 interface SongProps {
   _id: string,
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   image: string
@@ -15,7 +16,7 @@ interface SongProps {
 const PlaylistPage = () => {
 
   const { id }: any = useParams();
-  const { playlist, getSongsFromPlaylist } = useContext(PlaylistContext);
+  const { playlist, getSongsFromPlaylist, setCurrentSong} = useContext(PlaylistContext);
   const [userId, setUserId] = useState<string | null>();
 
   useEffect(() => {
@@ -27,22 +28,35 @@ const PlaylistPage = () => {
     if (userId) {
       playlistSongs();
     }
-  }, [userId, playlist]);
+  }, [!userId, !playlist]);
   
     const playlistSongs = async () => {
       await getSongsFromPlaylist(id);
     }
   
+  const handlePlayAll = () => {
+    setCurrentSong(playlist.songs)
+  }
+
+  const handlePrintOutSongs = () => {
+    return (
+    <>
+      {playlist.songs && playlist.songs.map((song: SongProps, index: number) => {
+          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} index={index} handlePrintOutSongs={handlePrintOutSongs} />
+      })}
+    </>    
+    )
+  }
+  
 
   return (
     <>
       <div>
-        {playlist ? <div>
+        {playlist ? <StyledHeadWrapper>
           <StyledPLTitle>{playlist.name}</StyledPLTitle>
-        </div> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
-        {playlist.songs && playlist.songs.map((song: SongProps) => {
-          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} />
-        })}
+          <StyledButton onClick={handlePlayAll}>PLAY ALL</StyledButton>
+        </StyledHeadWrapper> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
+        {handlePrintOutSongs()}
       </div>
     </>
   )

@@ -10,7 +10,6 @@ export const StyledWrapper = styled.div`
     margin: 0 auto;
   }
 `
-
 export const StyledSongWrapper = styled.div`
   display: grid;
   grid-template-columns: 5rem 1fr 2rem 2rem;
@@ -40,3 +39,30 @@ export const StyledSongImg = styled.img`
   height: 7vh;
   align-self: center;
 `
+
+export const StyledCategory = styled.p`
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin: 10px;
+`;
+
+export const StyledArtistImg = styled.img`
+  border-radius: 50%;
+`;
+
+export const StyledArtistName = styled.p`
+text-align: center;
+margin: 0;
+`;
+
+export const StyledAvatarDiv = styled.div`
+  float: left;
+  margin-bottom: 20%;
+  cursor: pointer;
+  margin-bottom: 10rem;
+  &:hover{
+    opacity: 85%;
+  }
+`;
+
+

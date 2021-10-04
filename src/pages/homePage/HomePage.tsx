@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <StyledTitle>HOME</StyledTitle>
-        <SearchField handleYoutubeSearch={handleSearch} />
+        <SearchField handleArtistSearch={handleSearch} handleYoutubeSearch={handleSearch} />
       <button onClick={logoutHandler}>Logout</button>
       <Songs />      
     </>

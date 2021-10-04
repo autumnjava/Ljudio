@@ -8,7 +8,7 @@ interface Playlist {
 }
 
 interface SongProps {
-  name: string,
+  title: string,
   videoId: string,
   duration: number,
   imgUrl: string
@@ -31,7 +31,7 @@ const DialogModal = ({open, setOpen, playlists, song, handleAddToPlaylist}: Prop
 
   return (
     <Dialog onClose={() => setOpen(false)} open={open} >
-      <DialogTitle style={{ borderBottom: '1px solid black' }}>Choose a playlists to add {song.name} to:</DialogTitle>
+      <DialogTitle style={{ borderBottom: '1px solid black' }}>Choose a playlists to add {song.title} to:</DialogTitle>
       <StyledList>
         {playlists.map(playlist => (
           <StyledListItem key={playlist._id} onClick={() => handlePlaylist(playlist)}>

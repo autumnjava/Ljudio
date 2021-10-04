@@ -6,7 +6,7 @@ export const StyledTitle = styled.h2`
 `
 
 export const StyledAddItem = styled.div`
-  border: 1px solid purple;
+  border: 1px solid #D96CFB;
   width: 7rem;
   height: 6rem;
   margin: 0.5rem;
@@ -30,7 +30,13 @@ export const StyledGridDiv = styled.div`
   @media (min-width: 769px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
-  
+`;
+
+export const StyledContentWrapper = styled.div`
+  @media (min-width: 769px) {
+    margin: 100px auto;
+    width: 80%;
+  }
 `;
 
 export const StyledWrapper = styled.div`
@@ -75,6 +81,6 @@ export const StyledUndo = styled.span`
   color: grey;
   cursor: pointer;
   &:hover{
-    color: black;
+    color: white;
   }
 `;

@@ -10,11 +10,41 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-import ReplayIcon from '@material-ui/icons/Replay';
 import Switch from '@mui/material/Switch';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import ShareIcon from '@material-ui/icons/Share';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
+interface SongProps {
+  title: string,
+  videoId: string,
+  duration: number,
+  imgUrl: string
+}
+
+interface Playlist{
+  name: string;
+  _id: string;
+}
+
+interface IconProps{
+ expandPlayer: boolean,
+  handlePreviousSong: () => void,
+  play: boolean,
+  handlePlay: () => Promise<void>,
+  handlePaus: () => void,
+  handleNextSong: () => void,
+  setToggleVideo: React.Dispatch<React.SetStateAction<boolean>>,
+  toggleVideo: boolean,
+  mute: boolean,
+  handleMute: () => void,
+  handleVolume: () => void,
+  songs: any,
+  currentIndex: number,
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setSongToAdd: React.Dispatch<React.SetStateAction<SongProps | null | undefined>>,
+}
 
 const handleMinimizePlayer = (setToggleVideo: any, setExpandPlayer: any, eventYoutube: any) => {
   setToggleVideo(false);
@@ -27,116 +57,131 @@ const handleExpandPlayer = (setExpandPlayer: any, eventYoutube: any) => {
   eventYoutube.target.setSize(375, 300);
 }
 
+const handleOpenDialog = (song: SongProps, playlist: Playlist, setOpen: any, setSongToAdd: any) => {
+  setOpen(true)
+  setSongToAdd(song);
+}
+
+const handleCopy = (id: string, setOpen: any, setContent: any) => {
+  setOpen(true);
+  setContent('Copied')
+  const el = document.createElement("input");
+    el.value = `https://www.youtube.com/watch?v=${id}`;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+}
+
+
 export const renderTitle = (
   songs: any,
   currentIndex: number,
   expandPlayer: boolean,
   setToggleVideo: React.Dispatch<React.SetStateAction<boolean>>,
   setExpandPlayer: React.Dispatch<React.SetStateAction<boolean>>,
-  eventYoutube: any
+  eventYoutube: any,
+  setOpenSnackBar: any,
+  setSnackBarContent: any
 ) => (
     <StyledTitleWrapper>
       <StyledSongTitle expand={expandPlayer}>
-        {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].name}
+        {songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].title}
       </StyledSongTitle>
-      {expandPlayer ? <KeyboardArrowDown style={{
+    {expandPlayer ?
+      <div>
+        <ShareIcon onClick={() => handleCopy(songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
+          setOpenSnackBar,
+          setSnackBarContent)} style={{ display: 'inline', cursor: 'pointer' }} />
+        <KeyboardArrowDown style={{
+        display: 'inline',
         paddingTop: '0.5rem',
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
-        color: 'white',
-      }} onClick={() => handleMinimizePlayer(setToggleVideo, setExpandPlayer, eventYoutube)} />
+          color: 'white',
+          marginLeft: '6px',
+        cursor: 'pointer'
+        }} onClick={() => handleMinimizePlayer(setToggleVideo, setExpandPlayer, eventYoutube)} />
+      </div>  
       :
       <KeyboardArrowUp style={{
         alignSelf: !expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
         fontSize: '2rem',
         color: 'white',
+        cursor: 'pointer'
       }} onClick={() => handleExpandPlayer(setExpandPlayer, eventYoutube)} />
       }
     </StyledTitleWrapper>  
   )
 
 
-export const renderExpanedPlayerIcons = (
-  setToggleVideo: React.Dispatch<React.SetStateAction<boolean>>,
-  toggleVideo: boolean,
-  mute: boolean,
-  handleMute: () => void,
-  handleVolume: () => void
-) => (
+export const renderAllIcons = (props: IconProps) => {
+  
+  const renderExpanedPlayerIcons = () => (
     <>
       <FormControlLabel
-        onClick={() => setToggleVideo(!toggleVideo)}
+        onClick={() => props.setToggleVideo(!props.toggleVideo)}
         style={{color: 'white'}}
         label='Audio'
         labelPlacement="start"
         control={<Switch style={{ alignSelf: 'start', gridColumn: '1/3' }} />}
       />
-      {!mute ? <VolumeOffIcon style={{
+      {!props.mute ? <VolumeOffIcon style={{
         alignSelf: 'center',
         justifySelf: 'center',
         color: 'white'
-      }} onClick={handleMute}/>
+      }} onClick={props.handleMute}/>
           :
           <VolumeUpIcon style={{
           alignSelf: 'center',
           justifySelf: 'center',
           color: 'white'
-        }} onClick={handleVolume}/> 
+        }} onClick={props.handleVolume}/> 
       }
-      <ReplayIcon style={{
-          alignSelf: 'center',
-          justifySelf: 'start',
-          color: 'white',
-          paddingLeft: '1rem'
-      }} />
+    <PlaylistAddIcon style={{
+      alignSelf: 'center',
+      justifySelf: 'start',
+      color: 'white',
+      paddingLeft: '1rem'
+      }} onClick={() => handleOpenDialog(
+        props.songs?.currentSong[props.songs?.currentSong.length === 1 ? 0 : props.currentIndex],
+        props.songs?.playlists,
+        props.setOpen,
+        props.setSongToAdd)} />
     </>
   )
-
-export const renderIcons = (
-  expandPlayer: boolean,
-  handlePreviousSong: () => void,
-  play: boolean,
-  handlePlay: () => Promise<void>,
-  handlePaus: () => void,
-  handleNextSong: () => void,
-  setToggleVideo: React.Dispatch<React.SetStateAction<boolean>>,
-  toggleVideo: boolean,
-  mute: boolean,
-  handleMute: () => void,
-  handleVolume: () => void
-  ) => (
-      <StyledPlayerWrapper expanded={expandPlayer ? true : false}>
-      {expandPlayer && renderExpanedPlayerIcons(setToggleVideo, toggleVideo, mute, handleMute, handleVolume)}
+  return (
+    <StyledPlayerWrapper expanded={props.expandPlayer ? true : false}>
+      {props.expandPlayer && renderExpanedPlayerIcons()}
       <SkipPreviousIcon style={{
-        alignSelf: !expandPlayer ? 'center' : 'start',
+        alignSelf: !props.expandPlayer ? 'center' : 'start',
         justifySelf: 'end',
-        fontSize: !expandPlayer ? '2.5rem' : '4.5rem',
+        fontSize: !props.expandPlayer ? '2.5rem' : '4.5rem',
         color: 'white'
-      }} onClick={handlePreviousSong}/>
-     {play ? <PlayArrowIcon style={{
-        alignSelf: !expandPlayer ? 'center' : 'start',
+      }} onClick={props.handlePreviousSong}/>
+     {props.play ? <PlayArrowIcon style={{
+        alignSelf: !props.expandPlayer ? 'center' : 'start',
         justifySelf: 'center',
-        fontSize: !expandPlayer ? '3.5rem' : '4.5rem',
+        fontSize: !props.expandPlayer ? '3.5rem' : '4.5rem',
         color: 'white'
       }}
-      onClick={handlePlay}/>
+      onClick={props.handlePlay}/>
       :
         <PauseIcon style={{
-          alignSelf: !expandPlayer ? 'center' : 'start',
+          alignSelf: !props.expandPlayer ? 'center' : 'start',
           justifySelf: 'center',
-          fontSize: !expandPlayer ? '3.5rem' : '4.5rem',
+          fontSize: !props.expandPlayer ? '3.5rem' : '4.5rem',
           color: 'white'
         }}
-          onClick={handlePaus}/>}
+          onClick={props.handlePaus}/>}
       <SkipNextIcon style={{
-        alignSelf: !expandPlayer ? 'center' : 'start',
+        alignSelf: !props.expandPlayer ? 'center' : 'start',
         justifySelf: 'start',
-        fontSize: !expandPlayer ? '2.5rem' : '4.5rem',
+        fontSize: !props.expandPlayer ? '2.5rem' : '4.5rem',
         color: 'white'
-      }} onClick={handleNextSong} />
+      }} onClick={props.handleNextSong} />
     </StyledPlayerWrapper>
-)
-
-
+  )
+}  
