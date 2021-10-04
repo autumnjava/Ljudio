@@ -18,7 +18,6 @@ import { renderAllIcons, renderTitle } from './Assets'
 import {DjRoomContext} from '../../contexts/djRoomContext/djRoomContextProvider'
 
 
-
 interface SongProps {
   title: string,
   videoId: string,
@@ -45,9 +44,9 @@ const MiniPlayer = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarContent, setSnackBarContent] = useState('');
   const [open, setOpen] = useState<boolean>(false);
-  const [mute, setMute] = useState<boolean>(false)
+  const [mute, setMute] = useState<boolean>(false);
 
-  const { updCurrentSong } = useContext(DjRoomContext)
+  const { updCurrentSong } = useContext(DjRoomContext);
   
   const handleStart = (event: any) => {
     setEventYoutube(event)
@@ -116,12 +115,26 @@ const MiniPlayer = () => {
   const updDataBackend = () => {
     const currentTime = eventYoutube.target.getCurrentTime();
     const song = {
-      djRoomId: 'test',
-      currentSong: 'rokamaka',
+      djRoomId: 'hard-coded-dj-room-id',
+      currentSong: songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
       pos: currentTime
     };
     updCurrentSong(song)
   }
+
+  // const updDataBackend = (currentTime: number) => {
+  //   const mutation = gql`
+  //   mutation ChangeDjRoomSongTimePosition($input:ChangeSongDjRoomInput!) {
+  //     changeDjRoomSongTimePosition(
+  //       input: $input
+  //     )
+  //   }
+  //   `;
+
+  //   const [changeTitle, { loading, error }] = useMutation(mutation);
+  //   changeTitle({
+  //     variables: {input: {djRoomId: 'hard coded', currentSong: 'asda', pos: currentTime}} })
+  // }
 
   const handleState = (event: any) => {
     if (eventYoutube?.target.getPlayerState() === 0) {
