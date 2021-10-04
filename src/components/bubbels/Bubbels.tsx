@@ -25,7 +25,7 @@ const Bubbels = ({ data }: any) => {
         return (
           <StyledAvatar1>
               <StyledInner1>
-                <StyledName1>
+                <StyledName1 key={index + 'a'}>
                   {visitor.username}
                 </StyledName1>
               </StyledInner1>
@@ -37,7 +37,7 @@ const Bubbels = ({ data }: any) => {
         return (
           <StyledAvatar2>
             <StyledInner2>
-              <StyledName1>
+              <StyledName1 key={index + 'b'}>
                 {visitor.username}
               </StyledName1>
             </StyledInner2>
@@ -49,7 +49,7 @@ const Bubbels = ({ data }: any) => {
         return (
           <StyledAvatar3>
             <StyledInner3>
-              <StyledName1>
+              <StyledName1 key={index + 'c'}>
                 {visitor.username}
               </StyledName1>
             </StyledInner3>
@@ -61,7 +61,7 @@ const Bubbels = ({ data }: any) => {
         return (
           <StyledAvatar4>
             <StyledInner4>
-              <StyledName1>
+              <StyledName1 key={index + 'd'}>
                {visitor.username}
               </StyledName1>
             </StyledInner4>
