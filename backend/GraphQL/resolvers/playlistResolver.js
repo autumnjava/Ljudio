@@ -99,7 +99,10 @@ const playlistResolver = {
       }
     }
   },
- 
+
+  Subscription: {
+    
+  }
 };
 
 module.exports = playlistResolver;

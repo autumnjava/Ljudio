@@ -2,8 +2,30 @@ const DjRoom = require('../../models/djRoom');
 const User = require('../../models/user');
 const Playlist = require('../../models/playlist');
 
+// for subscriptions testing
+let songs = [
+  {
+    songId: 1,
+    title: "Without me",
+    djRoomId: 1,
+  },
+  {
+    songId: 2,
+    title: "Freestyler",
+    djRoomId: 1,
+  },
+  {
+    songId: 3,
+    title: "Rock the mic",
+    djRoomId: 2,
+  },
+]
+
 const djRoomResolver = {
   Query: {
+  songs: () => {
+    return songs;
+  },
   getOwnersDjRooms: async (_parent, args, __, ___) => {
     try {
       const user = await User.findOne({ _id: args._id }).populate('myPlaylists').exec();
@@ -75,16 +97,33 @@ const djRoomResolver = {
     } catch (error) {
       return error;
     }
-    
   },
-    
 
   },
   Mutation: {
+    // changeSongTitle is just for testing.
+    changeSongTitle: (_parent, { input }, __, ___) => {
+      const  {songId, title } = input; // args
+      const song = songs.find(song => song.songId === songId);
+
+      if(!song)
+      throw new Error('song not found');
+
+      song.title = title; // update in array also
+
+      pubsub.publish("SONG_TITLE_CHANGED", {
+        songTitleChanged: { ...song, title }
+      });
+      //Return the new song title
+      return {
+        ...song,
+        title
+      };
+
+    },
   // createDjRoom: async (_parent, { playlistId, userId, input }) => {
   createDjRoom: async (_parent, args, __, ___) => {
     try {
-      
       let playlistToCopy;
   
       if (args.playlistId) {
@@ -207,6 +246,12 @@ const djRoomResolver = {
     } catch (error) {
       return error;
       }
+    }
+  },
+
+  Subscription: {
+    songTitleChanged: {
+      subscribe: () => pubsub.asyncIterator(["SONG_TITLE_CHANGED"])
     }
   }
 }

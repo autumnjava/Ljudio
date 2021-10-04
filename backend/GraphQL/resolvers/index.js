@@ -17,7 +17,9 @@ const rootResolver = {
         ...djRoomResolver.Mutation
     },
     Subscription: {
-        ...userResolver.Subscription
+        ...userResolver.Subscription,
+        ...playlistResolver.Subscription,
+        ...djRoomResolver.Subscription,
     }
 }
 
