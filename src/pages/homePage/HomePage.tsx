@@ -4,7 +4,6 @@ import { StyledTitle } from "./StyledHomePage"
 import { useHistory } from "react-router";
 import SearchField from '../../components/searchField/SearchField';
 import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
-import Songs from "../../components/subscriptionTest/Songs";
 
 const HomePage: React.FC = () => {
   const { logout } = useContext(UserContext);
@@ -21,8 +20,7 @@ const HomePage: React.FC = () => {
     <>
       <StyledTitle>HOME</StyledTitle>
         <SearchField handleArtistSearch={handleSearch} handleYoutubeSearch={handleSearch} />
-      <button onClick={logoutHandler}>Logout</button>
-      <Songs />      
+  
     </>
   )
 }
