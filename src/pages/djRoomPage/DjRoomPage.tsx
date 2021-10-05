@@ -18,15 +18,15 @@ const DjRoomPage = () => {
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
   const [openPlaylistModal, setOpenPlaylistModal] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
-  const { djRoom, getDjRoom } = useContext(DjRoomContext);
-  // const [userId, setUserId] = useState<string | null>();
+  const { djRoom, getDjRoom, disjoinDjRoom } = useContext(DjRoomContext);
+  const [userId, setUserId] = useState<string | null>();
   // const [isOwner, setIsOwner] = useState(false);
   const { setInDjRoom } = useContext(UserContext);
   const history = useHistory();
   
   useEffect(() => {
-    // const userId = localStorage.getItem('userId');
-    // setUserId(userId);
+    const userId = localStorage.getItem('userId');
+    setUserId(userId);
     getCurrentDjRoom();
     setInDjRoom(true);
   }, []);
@@ -50,8 +50,9 @@ const DjRoomPage = () => {
     document.body.removeChild(el);
   }
 
-    const handleExit = () => {
-    setInDjRoom(false)
+  const handleExit = async () => {
+    await disjoinDjRoom(userId);
+    setInDjRoom(false);
     history.push('/myPlaylist');
   }
   

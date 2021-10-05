@@ -191,7 +191,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
 
   const disjoinDjRoom = async (userId: string) => {
     const requestBody = {
-      quest: `mutation{disjoinDjRoom(_id:"${userId}")}`
+      query: `mutation{disjoinDjRoom(_id: "${userId}")}`
     }
     const response = await fetcher(requestBody);
     if (!response) {
