@@ -29,6 +29,7 @@ export const PlaylistProvider = ({ children }: Props) => {
   const [playlist, setPlaylist] = useState([]);
   const [content, setContent] = useState<any>('');
   const [artistContent, setArtistContent] = useState<any>('');
+  const [allUserPlaylists, setAllUserPlaylists] = useState([]);
 
   const handleSearch = (searchWord: string) => { 
     fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
@@ -69,6 +70,27 @@ export const PlaylistProvider = ({ children }: Props) => {
       setErrorMsg(true);
     } else {
       setPlaylists(response.data.getUserPlaylists.myPlaylists);
+      setErrorMsg(false);
+    }
+  }
+
+  const getAllUserPlaylists = async (userId: string) => {
+    const requestBody = {
+      query: `query {
+        getAllUserPlaylists(_id: "${userId}"){
+          myPlaylists {
+            _id
+            name
+          }
+        }
+      }
+    `
+    }
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      setAllUserPlaylists(response.data.getAllUserPlaylists.myPlaylists);
       setErrorMsg(false);
     }
   }
@@ -188,6 +210,8 @@ export const PlaylistProvider = ({ children }: Props) => {
     }
   
   const values = {
+      allUserPlaylists,
+      getAllUserPlaylists,
       handleSearch,
       handleArtistSearch,
       content,

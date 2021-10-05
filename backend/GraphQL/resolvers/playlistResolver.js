@@ -6,6 +6,22 @@ const playlistResolver = {
   Query: {
     getUserPlaylists: async (_parent, args, __, ___) => {
       try {
+        const user = await User.findOne({ _id: args._id }).populate('myPlaylists').exec();
+        const filteredPlaylists = [];
+        for (playlist of user.myPlaylists) {
+          if (!playlist.djRoomId) {
+            filteredPlaylists.push(playlist);
+          }
+        }
+        return {
+          myPlaylists: filteredPlaylists
+        };
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    getAllUserPlaylists: async (_parent, args, __, ___) => {
+      try {
         const myPlaylists = await User.findOne({ _id: args._id }).populate('myPlaylists').exec();
         return myPlaylists;
       } catch (error) {
