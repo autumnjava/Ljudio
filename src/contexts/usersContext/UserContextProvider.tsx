@@ -20,6 +20,7 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
   const [user, setUser] = useState({});
   const [errorMsg, setErrorMsg] = useState(false);
   const [inDjRoom, setInDjRoom] = useState(false);
+  const [iAm, setIAm] = useState(null);
 
   const registerUser = async (user: User) => {
     const requestBody = {
@@ -114,9 +115,26 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
     }
   }
 
+  const whatAmI = async (userId: string) => {
+    const requestBody = {
+      query: `query {
+        whatAmI(_id: "${userId}")
+      }`
+    }
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      setErrorMsg(false);
+      setIAm(response.data.whatAmI);
+    }
+  }
+
   
 
   const values = {
+    iAm,
+    whatAmI,
     getUser,
     changeUsername,
     registerUser,
