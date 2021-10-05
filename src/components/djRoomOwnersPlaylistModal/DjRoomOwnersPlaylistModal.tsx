@@ -8,7 +8,7 @@ import {StyledTitleWrapper ,StyledTitle, StyledSongWrapper, StyledSongImg, Style
 interface Props {
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  djRoomId: string
+  playListId: string
 }
 
 interface SongProps {
@@ -35,7 +35,7 @@ const style = {
   p: 1,
 };
 
-const DjRoomOwnersPlaylistModal = ({ open, setOpen, djRoomId }: Props) => {
+const DjRoomOwnersPlaylistModal = ({ open, setOpen, playListId }: Props) => {
 
   const { playlist, getSongsFromPlaylist, setCurrentSong } = useContext(PlaylistContext);
   const [userId, setUserId] = useState<string | null>();
@@ -45,14 +45,23 @@ const DjRoomOwnersPlaylistModal = ({ open, setOpen, djRoomId }: Props) => {
     setUserId(localStorage.getItem('userId'));
   }, [])
 
-  useEffect(() => {
-    if (userId) {
-      playlistSongs();
-    }
-  }, [!userId, !playlist]);
+  // useEffect(() => {
+  //   if(playListId){
+  //     console.log('playlist id updated', playListId)
+  //   }
+  // }, [playListId])
 
-  const playlistSongs = async () => {
-    await getSongsFromPlaylist('614dcec7992e5906dc69de1f');
+  useEffect(() => {
+    if (userId && playListId) {
+      console.log('playlistId updated')
+      playlistSongs(playListId);
+    }
+  }, [!userId, !playlist, playListId]);
+
+
+
+  const playlistSongs = async (id: string) => {
+    await getSongsFromPlaylist(id);
   }
 
   const printDuration = (millis: number) => {
