@@ -66,10 +66,10 @@ const DjRoomPage = () => {
   const renderIcons = () => (
     <StyledHeaderWrapper>
       <ExitToAppIcon onClick={handleExit} style={{ cursor: 'pointer' }} />
-      {currentSong[currentSongIndex] ? <StyledSongTitle>{currentSong[currentSongIndex].title}</StyledSongTitle> : <p></p>}
-      <SettingsIcon onClick={() => setOpenSettingsModal(true)} style={{ justifySelf: 'end', alignSelf: 'center', cursor: 'pointer' }} />
-      <ShareIcon onClick={handleCopy} style={{ justifySelf: 'end', alignSelf: 'center', cursor: 'pointer' }} />
-      <QueueMusicIcon onClick={() => setOpenPlaylistModal(true)} style={{ justifySelf: 'end', alignSelf: 'center', cursor: 'pointer' }}/>
+      {currentSong[currentSongIndex] && !iAm ? <StyledSongTitle>{currentSong[currentSongIndex].title}</StyledSongTitle> : <p></p>}
+      <SettingsIcon onClick={() => setOpenSettingsModal(true)} style={{ justifySelf: 'end', cursor: 'pointer' }} />
+      <ShareIcon onClick={handleCopy} style={{ justifySelf: 'end', cursor: 'pointer' }} />
+      <QueueMusicIcon onClick={() => setOpenPlaylistModal(true)} style={{ justifySelf: 'end', cursor: 'pointer' }}/>
     </StyledHeaderWrapper>
   )
 
