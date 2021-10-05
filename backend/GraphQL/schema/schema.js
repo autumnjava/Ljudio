@@ -103,7 +103,7 @@ const schema = gql`
     getVisitorsDjRoom(_id: String!): DjRoom
     getActiveDjRooms(input: Boolean): [ActiveDjRooms]
     getDjRoom(_id: String!): CurrentDjRoom
-
+    whatAmI(_id: String!): Boolean!
     songs: [SongTest!]!
   }
 
