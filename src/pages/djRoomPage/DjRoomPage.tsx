@@ -67,9 +67,9 @@ const DjRoomPage = () => {
     <StyledHeaderWrapper>
       <ExitToAppIcon onClick={handleExit} style={{ cursor: 'pointer' }} />
       {currentSong[currentSongIndex] && !iAm ? <StyledSongTitle>{currentSong[currentSongIndex].title}</StyledSongTitle> : <p></p>}
-      {iAm && <SettingsIcon onClick={() => setOpenSettingsModal(true)} style={{ justifySelf: 'end', cursor: 'pointer' }} />}
+      {iAm ? <SettingsIcon onClick={() => setOpenSettingsModal(true)} style={{ justifySelf: 'end', cursor: 'pointer' }} /> : <p></p>}
+      {iAm ? <QueueMusicIcon onClick={() => setOpenPlaylistModal(true)} style={{ justifySelf: 'end', cursor: 'pointer' }} /> : <p></p>}
       <ShareIcon onClick={handleCopy} style={{ justifySelf: 'end', cursor: 'pointer' }} />
-      {iAm && <QueueMusicIcon onClick={() => setOpenPlaylistModal(true)} style={{ justifySelf: 'end', cursor: 'pointer' }} />}
     </StyledHeaderWrapper>
   )
 
