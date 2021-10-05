@@ -19,7 +19,7 @@ export const StyledSongWrapper = styled.div`
   @media (min-width: 769px) {
   grid-template-columns: 7rem 1fr 2rem 2rem;
    &:hover{
-     background:#F5F5F5;
+     background:#191919;
      cursor: pointer;
    }
   }
