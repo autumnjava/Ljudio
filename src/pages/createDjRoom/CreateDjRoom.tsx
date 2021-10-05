@@ -5,6 +5,8 @@ import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
 import Switch from '@mui/material/Switch';
+import { useHistory } from 'react-router';
+import Snackbar from '../../components/snackBar/SnackBar'
 
 import {
   StyledWrapper,
@@ -20,7 +22,7 @@ import {
 import { useParams } from 'react-router';
 
 const CreateDjRoom = () => {
-  const { createDjRoom } = useContext(DjRoomContext)
+  const { createDjRoom, setOpenSnackbar } = useContext(DjRoomContext)
   
   const [status, setStatus] = useState(true);
   const [checked, setChecked] = useState<boolean>(true);
@@ -29,8 +31,10 @@ const CreateDjRoom = () => {
   const [description, setDescription] = useState('');
   const [userId, setUserId] = useState<string | null>('');
   const { id }: any = useParams();
+  const history = useHistory();
   
-  const createnewDjRoom = async (e:any) => {
+  const createnewDjRoom = async (e: any) => {
+    await setOpenSnackbar(true);
     e.preventDefault();
     const input = {
       name: name,
@@ -43,6 +47,7 @@ const CreateDjRoom = () => {
     } else {
       await createDjRoom(userId, input);
     }
+    history.push('/myPlaylist')
   }
 
   useEffect(() => {
@@ -68,8 +73,8 @@ const CreateDjRoom = () => {
           <StyledLabel>Description:</StyledLabel>
           <DescriptionRoundedIcon style={{ color: 'purple' }} /><StyledTextBox maxLength={50} placeholder="Description" onChange={(e) => setDescription(e.target.value)}/>
           <div>
-            {!status ? <StyledStatusText status={status}>The room is currenlty available for anyone.</StyledStatusText> 
-            : <StyledStatusText status={status}>The room is currently only available for you.</StyledStatusText>}
+            {!status ? <StyledStatusText status={status}>The room is currently only available for you.</StyledStatusText> 
+              : <StyledStatusText status={status}>The room is currenlty available for anyone.</StyledStatusText>}
           <Switch
             checked={checked}
             onChange={handleChange}

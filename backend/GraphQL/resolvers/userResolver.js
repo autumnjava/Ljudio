@@ -1,5 +1,6 @@
 const User = require('../../models/user')
 const Playlist = require('../../models/playlist');
+const DjRoom = require('../../models/djRoom');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -33,6 +34,31 @@ const userResolver = {
       } catch (error) { throw new Error(error); }
     },
 
+    whatAmI: async (_parent, args, __, ___) => {
+      const user = await User.findOne({ _id: args._id }).populate('myPlaylists').exec();
+      const djRoomsFromPlaylist = [];
+      user.myPlaylists.map(playlist => {
+        if (!playlist.djRoomId) {
+          return;
+        }
+        djRoomsFromPlaylist.push(playlist.djRoomId);
+      });
+      const isOnline = [];
+      for (djRoomId of djRoomsFromPlaylist) {
+        isOnline.push(await DjRoom.findOne({
+          $and: [
+            { _id: djRoomId },
+            { isOnline: true }
+          ]
+        }));
+      }
+        if(user.inRoomId){
+          return false;
+        } else if (isOnline.length) {
+          return true;
+        }
+      return null;
+    }
   },
 
   Mutation: {

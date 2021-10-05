@@ -38,7 +38,7 @@ interface Playlist{
 const ArtistPage = () => {
 
   const { id }: any = useParams();
-  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content, handleArtistSearch, artistContent } = useContext(PlaylistContext);
+  const { currentSong, setCurrentSong, addSongToPlaylist, getAllUserPlaylists, allUserPlaylists, handleSearch, content, handleArtistSearch, artistContent } = useContext(PlaylistContext);
   const [open, setOpen] = useState(false);
   const [songToAdd, setSongToAdd] = useState<SongProps | null>();
   const [showMore, setShowMore] = useState(false);
@@ -107,7 +107,7 @@ const ArtistPage = () => {
             {index && song.videoId !== undefined ? <StyledSongWrapper>
               <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
               <StyledSongs onClick={() => handleSong(song)}>{song.title}</StyledSongs>
-              <PlaylistAddIcon onClick={() => handleOpenDialog(song, playlists)} style={{ alignSelf: 'center' }} />
+              <PlaylistAddIcon onClick={() => handleOpenDialog(song, allUserPlaylists)} style={{ alignSelf: 'center' }} />
               <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
             </StyledSongWrapper> : ''}
           </StyledTest>
@@ -115,7 +115,7 @@ const ArtistPage = () => {
         {songToAdd && <DialogModal
         open={open}
         setOpen={setOpen}
-        playlists={playlists}
+        playlists={allUserPlaylists}
         song={songToAdd}
         handleAddToPlaylist={handleAddToPlaylist}
       />}
