@@ -24,6 +24,7 @@ export const PlaylistContext = createContext<any | null>(null);
 
 export const PlaylistProvider = ({ children }: Props) => {
   const [currentSong, setCurrentSong] = useState<SongProps[]>([]);
+  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
   const [playlists, setPlaylists] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
   const [playlist, setPlaylist] = useState([]);
@@ -228,6 +229,8 @@ export const PlaylistProvider = ({ children }: Props) => {
       playlists,
       playlist,
       errorMsg,
+      currentSongIndex,
+      setCurrentSongIndex
   }
   
   return (
