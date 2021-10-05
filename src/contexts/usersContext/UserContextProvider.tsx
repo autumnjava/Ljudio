@@ -36,9 +36,10 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
   const response = await fetcher(requestBody);
   if (!response.data) {
     setErrorMsg(true);
+    return false;
   } else {
-    if(response.data.createUser) { console.log('successfully registered'); }
-
+    if (response.data.createUser) { console.log('successfully registered'); }
+    return true;
   }
   }
 
