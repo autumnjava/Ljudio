@@ -3,7 +3,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CheckIcon from '@material-ui/icons/Check';
 import { UserContext } from '../../contexts/usersContext/UserContextProvider';
- 
+import { useHistory } from "react-router";
 import {
   StyledWrapper,
   StyledName,
@@ -11,15 +11,18 @@ import {
   StyledTitleDiv,
   StyledNameSpan,
   StyledNameInput,
-  StyledEditDiv
+  StyledEditDiv,
+  StyledBtn
 } from "./StyledProfilePage";
 
 
+
 const ProfilePage: React.FC = () => {
-  const { user, getUser, changeUsername } = useContext(UserContext);
+  const { user, getUser, changeUsername, logout } = useContext(UserContext);
   const [userId, setUserId] = useState<string | null>();
   const [editName, setEditName] = useState(false);
   const newName: any = useRef();
+  const history = useHistory();
   const editHandler = () => {
       setEditName(!editName);
   }
@@ -46,6 +49,11 @@ const ProfilePage: React.FC = () => {
     setEditName(!editName);
     await changeUsername(userId, ref.current.value);
   }
+   const logoutHandler = async () => {
+    logout();
+    history.push('/');
+    window.location.reload();
+  }
 
 
   return (
@@ -58,7 +66,7 @@ const ProfilePage: React.FC = () => {
        
       </StyledNameDiv> : <StyledEditDiv><CheckIcon onClick={() => saveEditName(newName, setEditName)} fontSize="small" /><StyledNameInput ref={newName} placeholder={user?.username} type="text" /></StyledEditDiv>}
 
-
+              <StyledBtn onClick={logoutHandler}>Logout</StyledBtn>
     </StyledWrapper>
 
   );

@@ -27,28 +27,18 @@ interface List {
 
 
 const HomePage: React.FC = () => {
-  const { logout, user, getUser } = useContext(UserContext);
+  const { user, getUser } = useContext(UserContext);
   const { handleSearch, handleArtistSearch } = useContext(PlaylistContext);
-  const history = useHistory();
   const { playlists, getUserPlaylists } = useContext(PlaylistContext);
   const [userId, setUserId] = useState<string | null>('');
   const { activeDjRooms, getActiveDjRooms, joinDjRoom, getOwnersDjRooms, ownersDjRooms } = useContext(DjRoomContext);
   const [nrOfRooms, setNrOfRooms] = useState(2);
-  const logoutHandler = async () => {
-    logout();
-    history.push('/');
-    window.location.reload();
-  }
-
-
+ 
     useEffect(() => {
       const userId = localStorage.getItem('userId');
       setUserId(userId);
   }, []);
 
-  const getUsername = async () => {
-    const testar = await getUser(userId);
-  }
 
   useEffect(() => {
     if (userId) {
