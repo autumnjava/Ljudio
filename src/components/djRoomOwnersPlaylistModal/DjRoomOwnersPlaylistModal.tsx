@@ -7,7 +7,8 @@ import {StyledTitleWrapper ,StyledTitle, StyledSongWrapper, StyledSongImg, Style
 
 interface Props {
   open: boolean,
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  djRoomId: string
 }
 
 interface SongProps {
@@ -34,12 +35,13 @@ const style = {
   p: 1,
 };
 
-const DjRoomOwnersPlaylistModal = ({ open, setOpen }: Props) => {
+const DjRoomOwnersPlaylistModal = ({ open, setOpen, djRoomId }: Props) => {
 
   const { playlist, getSongsFromPlaylist, setCurrentSong } = useContext(PlaylistContext);
   const [userId, setUserId] = useState<string | null>();
   
   useEffect(() => {
+
     setUserId(localStorage.getItem('userId'));
   }, [])
 

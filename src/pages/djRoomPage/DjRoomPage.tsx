@@ -69,7 +69,7 @@ const DjRoomPage = () => {
     <StyledSettingsWrapper>{renderIcons()}</StyledSettingsWrapper>
     {Object.prototype.toString.call(djRoom) === '[object Object]' && <Bubbels data={djRoom} />}
       <DjRoomSettingsModal open={openSettingsModal} setOpen={setOpenSettingsModal} />
-      <DjRoomOwnersPlaylistModal open={openPlaylistModal} setOpen={setOpenPlaylistModal}/>
+      <DjRoomOwnersPlaylistModal open={openPlaylistModal} setOpen={setOpenPlaylistModal} djRoomId={id}/>
     {openSnackBar && <SnackBar
         snackbarContent="Copied!"
         open={openSnackBar}
