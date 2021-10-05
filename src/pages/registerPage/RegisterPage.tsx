@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from '../../contexts/usersContext/UserContextProvider'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from "react-router";
 
 import {
@@ -48,6 +49,7 @@ const RegisterPage: React.FC = () => {
 
   return (
     <StyledWrapper>
+      <ArrowBackIcon onClick={() => history.push('/')} style={{padding: '1rem', cursor: 'pointer'}}/>
       <StyledForm onSubmit={ (e) => createNewUser(e)}>
     
         <StyledTitle>REGISTER</StyledTitle>
