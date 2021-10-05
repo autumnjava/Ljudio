@@ -14,9 +14,9 @@ export const StyledTitle = styled.p`
 
 export const StyledForm = styled.form`
 text-align: center;
-margin-top: 5rem;
+margin-top: 3rem;
  @media (min-width: 769px) {
-    margin-top: 10rem;
+    margin-top: 6rem;
   }
 `;
 
