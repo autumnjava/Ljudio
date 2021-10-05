@@ -3,7 +3,6 @@ import {UserContext} from '../../contexts/usersContext/UserContextProvider'
 import { useHistory } from "react-router";
 import SearchField from '../../components/searchField/SearchField';
 import logo from "../landingPage/videos/logo.png"
-import MyDjRoomItem from "../../components/myDjRoomItem/MyDjRoomItem";
 import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
 import HomePlaylistItem from "../../components/homePlaylistItem/HomePlaylistItem";
@@ -25,7 +24,7 @@ interface List {
 
 const HomePage: React.FC = () => {
   const { logout } = useContext(UserContext);
-  const { handleSearch } = useContext(PlaylistContext);
+  const { handleSearch, handleArtistSearch } = useContext(PlaylistContext);
   const history = useHistory();
   const { playlists, getUserPlaylists } = useContext(PlaylistContext);
   const [userId, setUserId] = useState<string | null>('');
@@ -77,16 +76,14 @@ const HomePage: React.FC = () => {
       <StyledLogoImg src={logo}/>
       </StyledImgDiv>
 
-        <SearchField handleArtistSearch={handleSearch} handleYoutubeSearch={handleSearch} />
-      <div style={{width: '80%', margin: '0 auto',   fontFamily: "YouTube Sans, Roboto, Noto Naskh Arabic UI, Arial, sans-serif"}}>
-
-      
+        <SearchField handleArtistSearch={handleArtistSearch} handleYoutubeSearch={handleSearch} />
+      <div style={{ width: '80%', margin: '0 auto', fontFamily: "YouTube Sans, Roboto, Noto Naskh Arabic UI, Arial, sans-serif" }}>
+        
       <h1>Your Playlists:</h1>
-      <StyledGridDiv>
-   
-      {playlists && playlists.map((list: List) => {
-        return <HomePlaylistItem key={list._id} data={[list]}  />
-      })}
+        <StyledGridDiv>
+            {playlists && playlists.map((list: List) => {
+              return <HomePlaylistItem key={list._id} data={[list]} />
+            })}
         </StyledGridDiv>
 
       <h1>Your Dj Rooms:</h1>
