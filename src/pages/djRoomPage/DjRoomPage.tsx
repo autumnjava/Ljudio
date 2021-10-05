@@ -1,4 +1,4 @@
-import {StyledWrapper, StyledSettingsWrapper} from './StyledDjRoomPage'
+import {StyledWrapper, StyledSettingsWrapper, StyledHeaderWrapper, StyledSongTitle} from './StyledDjRoomPage'
 import Bubbels from '../../components/bubbels/Bubbels'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -8,6 +8,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import { useState, useContext, useEffect } from 'react';
 import SnackBar from '../../components/snackBar/SnackBar'
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
+import {PlaylistContext} from '../../contexts/playlistsContext/PlaylistContextProvider'
 import { useParams } from "react-router-dom";
 import { UserContext } from '../../contexts/usersContext/UserContextProvider';
 import { useHistory } from 'react-router';
@@ -19,9 +20,10 @@ const DjRoomPage = () => {
   const [openPlaylistModal, setOpenPlaylistModal] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const { djRoom, getDjRoom, disjoinDjRoom } = useContext(DjRoomContext);
+  const {currentSong, currentSongIndex} = useContext(PlaylistContext)
   const [userId, setUserId] = useState<string | null>();
   // const [isOwner, setIsOwner] = useState(false);
-  const { setInDjRoom } = useContext(UserContext);
+  const { setInDjRoom, whatAmI, iAm } = useContext(UserContext);
   const history = useHistory();
 
   const [ playListId, setPlaylistId ] = useState('');
@@ -30,7 +32,7 @@ const DjRoomPage = () => {
     const userId = localStorage.getItem('userId');
     setUserId(userId);
     getCurrentDjRoom();
-
+    whatAmI(userId);
     setInDjRoom(true);
   }, []);
 
@@ -62,16 +64,17 @@ const DjRoomPage = () => {
   }
 
   const renderIcons = () => (
-    <>
-      <ExitToAppIcon onClick={handleExit} style={{cursor: 'pointer' }}/>
-      <SettingsIcon onClick={() => setOpenSettingsModal(true)} style={{ float: 'right', cursor: 'pointer' }} />
-      <ShareIcon onClick={handleCopy} style={{ float: 'right', marginRight: '1rem', cursor: 'pointer' }} />
-      <QueueMusicIcon onClick={() => setOpenPlaylistModal(true)} style={{ float: 'right', marginRight: '1rem', cursor: 'pointer' }}/>
-    </>
+    <StyledHeaderWrapper>
+      <ExitToAppIcon onClick={handleExit} style={{ cursor: 'pointer' }} />
+      {currentSong[currentSongIndex] ? <StyledSongTitle>{currentSong[currentSongIndex].title}</StyledSongTitle> : <p></p>}
+      <SettingsIcon onClick={() => setOpenSettingsModal(true)} style={{ justifySelf: 'end', alignSelf: 'center', cursor: 'pointer' }} />
+      <ShareIcon onClick={handleCopy} style={{ justifySelf: 'end', alignSelf: 'center', cursor: 'pointer' }} />
+      <QueueMusicIcon onClick={() => setOpenPlaylistModal(true)} style={{ justifySelf: 'end', alignSelf: 'center', cursor: 'pointer' }}/>
+    </StyledHeaderWrapper>
   )
 
   return (
-  <StyledWrapper>
+    <StyledWrapper>
     <StyledSettingsWrapper>{renderIcons()}</StyledSettingsWrapper>
     {Object.prototype.toString.call(djRoom) === '[object Object]' && <Bubbels data={djRoom} />}
       <DjRoomSettingsModal open={openSettingsModal} setOpen={setOpenSettingsModal} />

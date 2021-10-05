@@ -31,7 +31,7 @@ const MiniPlayer = () => {
   
   const [play, setPlay] = useState(true);
   const songs = useContext(PlaylistContext);
-  const { inDjRoom } = useContext(UserContext);
+  const { inDjRoom, iAm } = useContext(UserContext);
   const [eventYoutube, setEventYoutube] = useState<any>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [expandPlayer, setExpandPlayer] = useState<boolean>(false);
@@ -64,13 +64,15 @@ const MiniPlayer = () => {
   const handleNextSong = () => {
     if (currentIndex !== songs?.currentSong.length - 1) {
       setCurrentIndex(currentIndex + 1)
+      songs.setCurrentSongIndex(currentIndex + 1)
     }
     return;
   }
 
   const handlePreviousSong = () => {
      if (currentIndex !== 0) {
-      setCurrentIndex(currentIndex - 1) 
+       setCurrentIndex(currentIndex - 1)
+       songs.setCurrentSongIndex(currentIndex - 1) 
     }
     return;
   }
@@ -111,6 +113,7 @@ const MiniPlayer = () => {
     if (eventYoutube?.target.getPlayerState() === 0) {
       if (songs?.currentSong.length > 1 && currentIndex < songs?.currentSong.length - 1) {
         setCurrentIndex(currentIndex + 1)
+        songs.setCurrentSongIndex(currentIndex + 1)
       }
     }
     if (eventYoutube?.target.getPlayerState() === -1) {handlePlay()}
@@ -178,7 +181,7 @@ const MiniPlayer = () => {
 
   return (
     <>
-      <StyledWrapper expand={expandPlayer} inDjRoom={inDjRoom}>
+      <StyledWrapper expand={expandPlayer} inDjRoom={inDjRoom} iAm={iAm}>
         <StyledPlayer expand={expandPlayer}>
           {songs?.currentSong.length ? renderTitle(songs,
             currentIndex,
