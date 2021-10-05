@@ -112,28 +112,14 @@ const MiniPlayer = () => {
     setCurrentTime(eventYoutube?.target.getCurrentTime() * 1000);
   }
 
-  const updDataBackend = () => {
-    const currentTime = eventYoutube.target.getCurrentTime();
-    const song = {
-      djRoomId: 'hard-coded-dj-room-id',
-      currentSong: songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
-      pos: currentTime
-    };
-    updCurrentSong(song)
-  }
-
-  // const updDataBackend = (currentTime: number) => {
-  //   const mutation = gql`
-  //   mutation ChangeDjRoomSongTimePosition($input:ChangeSongDjRoomInput!) {
-  //     changeDjRoomSongTimePosition(
-  //       input: $input
-  //     )
-  //   }
-  //   `;
-
-  //   const [changeTitle, { loading, error }] = useMutation(mutation);
-  //   changeTitle({
-  //     variables: {input: {djRoomId: 'hard coded', currentSong: 'asda', pos: currentTime}} })
+  // const updDataBackend = () => {
+  //   const currentTime = eventYoutube.target.getCurrentTime();
+  //   const song = {
+  //     djRoomId: 'hard-coded-dj-room-id',
+  //     currentSong: songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
+  //     pos: currentTime
+  //   };
+  //   updCurrentSong(song)
   // }
 
   const handleState = (event: any) => {
@@ -150,7 +136,6 @@ const MiniPlayer = () => {
           if (eventYoutube?.target.getPlayerState() === 2) {
            clearInterval(intervalId);
           }
-          updDataBackend();
       }, 1000);
     }
   }
