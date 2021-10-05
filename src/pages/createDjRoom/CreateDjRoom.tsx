@@ -68,8 +68,8 @@ const CreateDjRoom = () => {
           <StyledLabel>Description:</StyledLabel>
           <DescriptionRoundedIcon style={{ color: 'purple' }} /><StyledTextBox maxLength={50} placeholder="Description" onChange={(e) => setDescription(e.target.value)}/>
           <div>
-            {!status ? <StyledStatusText status={status}>The room is currenlty available for anyone.</StyledStatusText> 
-            : <StyledStatusText status={status}>The room is currently only available for you.</StyledStatusText>}
+            {!status ? <StyledStatusText status={status}>The room is currently only available for you.</StyledStatusText> 
+              : <StyledStatusText status={status}>The room is currenlty available for anyone.</StyledStatusText>}
           <Switch
             checked={checked}
             onChange={handleChange}
