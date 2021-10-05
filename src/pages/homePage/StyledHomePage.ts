@@ -19,3 +19,14 @@ export const StyledWrapper = styled.div`
 export const StyledImgDiv = styled.div`
   margin: 0 auto;
 `;
+
+export const StyledGridDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0.3rem;
+  justify-items: center;
+
+  @media (min-width: 769px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+`;
