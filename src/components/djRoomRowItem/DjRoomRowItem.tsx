@@ -17,14 +17,19 @@ const DjRoomRowItem = ({ data }: any) => {
 
   const history = useHistory();
 
+  const handleEnterRoom = () => {
+    history.push("/djroom/" + data[0]._id)
+    data[1](data[0]._id)
+  }
+
   return (
     <StyledItemWrapper>
 
-      <StyledItemRow onClick={() => history.push("/djroom/" + data._id)}>
+      <StyledItemRow onClick={handleEnterRoom}>
         <StyledDjIcon><HeadsetRoundedIcon fontSize="large"/></StyledDjIcon>
         <StyledInfoDiv>
-          <p>{data.name}</p>
-          <p><StyledDJSpan>DJ: </StyledDJSpan>{data.dj}</p>
+          <p>{data[0].name}</p>
+          <p><StyledDJSpan>DJ: </StyledDJSpan>{data[0].dj}</p>
         </StyledInfoDiv>
         <StyledAudienceIcon><PersonRoundedIcon color="secondary" /><StyledAudience>{data.userCount}</StyledAudience></StyledAudienceIcon>
         <StyledEnterRoom><ExitToAppRoundedIcon/></StyledEnterRoom>
