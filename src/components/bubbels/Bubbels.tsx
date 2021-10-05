@@ -74,7 +74,7 @@ const Bubbels = ({ data }: any) => {
   return (
   <StyledWrapper>
     <StyledHead>
-        <StyledName1>DJ {data.dj.username}</StyledName1>
+        <StyledName1 key={data.dj._id}>DJ {data.dj.username}</StyledName1>
       </StyledHead>
       {data.visitors.length > 0 && getBubbles()}
   </StyledWrapper>
