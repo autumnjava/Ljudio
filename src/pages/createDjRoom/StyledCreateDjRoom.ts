@@ -13,10 +13,12 @@ export const StyledTitle = styled.p`
 `;
 
 export const StyledForm = styled.form`
+min-height: 100vh;
 text-align: center;
-margin-top: 5rem;
+margin-top: 3rem;
  @media (min-width: 769px) {
-    margin-top: 10rem;
+    margin-top: 6rem;
+    min-height: 80vh;
   }
 `;
 
@@ -68,6 +70,6 @@ export const StyledSpan = styled.span`
 `;
 
 export const StyledStatusText = styled.p<TextColor>`
-  color: ${props => props.status ? 'white' : '#00FF00'};
+  color: ${props => props.status ? '#00FF00' : 'white'};
   font-size: 17px;
 `;
