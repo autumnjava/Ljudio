@@ -15,6 +15,8 @@ import {
 } from "./StyledHomePage"
 import HomeDjRoomItem from "../../components/homeDjRoomItem/HomeDjRoomItem";
 
+import DjRoomRowItem from "../../components/djRoomRowItem/DjRoomRowItem"
+
 interface List {
   name: string;
   _id: string;
@@ -28,7 +30,8 @@ const HomePage: React.FC = () => {
   const { playlists, getUserPlaylists } = useContext(PlaylistContext);
   const { getOwnersDjRooms, ownersDjRooms,  } = useContext(DjRoomContext);
   const [userId, setUserId] = useState<string | null>('');
-
+  const { activeDjRooms, getActiveDjRooms } = useContext(DjRoomContext);
+  const [nrOfRooms, setNrOfRooms] = useState(2);
   const logoutHandler = async () => {
     logout();
     history.push('/');
@@ -56,6 +59,16 @@ const HomePage: React.FC = () => {
   const myPlaylists = async () => {
     await getUserPlaylists(userId);
   }
+
+  useEffect(() => {
+    getAllDjRooms()
+  }, []);
+
+  const getAllDjRooms = async () => {
+    await getActiveDjRooms();
+  }
+
+ 
   
   return (
     <StyledWrapper>
@@ -64,7 +77,7 @@ const HomePage: React.FC = () => {
       </StyledImgDiv>
 
         <SearchField handleArtistSearch={handleSearch} handleYoutubeSearch={handleSearch} />
-  
+      
       <h2>Your Playlists:</h2>
       <StyledGridDiv>
    
@@ -79,6 +92,13 @@ const HomePage: React.FC = () => {
           return <HomeDjRoomItem key={list._id + index} data={[list]} />
         })}
       </StyledGridDiv>
+
+       <h2>Recommended Dj Rooms:</h2>
+      {activeDjRooms && activeDjRooms.map((room: any, index: number) =>
+        <div key={index}>
+          {index <= nrOfRooms && <DjRoomRowItem key={room._id} data={room} />}
+        </div>
+      )}
     </StyledWrapper>
   )
 }

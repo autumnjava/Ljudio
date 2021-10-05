@@ -14,7 +14,7 @@ export const StyledLogoImg = styled.img`
 `;
 
 export const StyledWrapper = styled.div`
-
+  margin-bottom: 10%;
 `;
 export const StyledImgDiv = styled.div`
   margin: 0 auto;

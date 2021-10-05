@@ -23,8 +23,6 @@ const HomePlaylistItem = ({ data }: any) => {
   return (
     <>
       <StyledPlaylistWrapper>
-        <StyledIconWrapper>
-        </StyledIconWrapper>
         <StyledItemDiv onClick={() => history.push("/playlist/" + data[0]._id)}>
         <div>
           <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
