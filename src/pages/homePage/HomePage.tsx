@@ -28,9 +28,8 @@ const HomePage: React.FC = () => {
   const { handleSearch } = useContext(PlaylistContext);
   const history = useHistory();
   const { playlists, getUserPlaylists } = useContext(PlaylistContext);
-  const { getOwnersDjRooms, ownersDjRooms,  } = useContext(DjRoomContext);
   const [userId, setUserId] = useState<string | null>('');
-  const { activeDjRooms, getActiveDjRooms } = useContext(DjRoomContext);
+  const { activeDjRooms, getActiveDjRooms, joinDjRoom, getOwnersDjRooms, ownersDjRooms } = useContext(DjRoomContext);
   const [nrOfRooms, setNrOfRooms] = useState(2);
   const logoutHandler = async () => {
     logout();
@@ -68,7 +67,9 @@ const HomePage: React.FC = () => {
     await getActiveDjRooms();
   }
 
- 
+   const handleJoinDjRoom = async (djRoomId: string) => {
+    await joinDjRoom(userId, djRoomId);
+  }
   
   return (
     <StyledWrapper>
@@ -77,6 +78,8 @@ const HomePage: React.FC = () => {
       </StyledImgDiv>
 
         <SearchField handleArtistSearch={handleSearch} handleYoutubeSearch={handleSearch} />
+      <div style={{width: '80%', margin: '0 auto',   fontFamily: "YouTube Sans, Roboto, Noto Naskh Arabic UI, Arial, sans-serif"}}>
+
       
       <h1>Your Playlists:</h1>
       <StyledGridDiv>
@@ -96,9 +99,10 @@ const HomePage: React.FC = () => {
        <h1>Recommended Dj Rooms:</h1>
       {activeDjRooms && activeDjRooms.map((room: any, index: number) =>
         <div key={index}>
-          {index <= nrOfRooms && <DjRoomRowItem key={room._id} data={room} />}
+          {index <= nrOfRooms && <DjRoomRowItem key={room._id} data={[room, handleJoinDjRoom]} />}
         </div>
-      )}
+        )}
+        </div>
     </StyledWrapper>
   )
 }
