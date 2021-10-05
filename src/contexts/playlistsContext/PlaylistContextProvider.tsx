@@ -185,6 +185,7 @@ export const PlaylistProvider = ({ children }: Props) => {
         setErrorMsg(true)
       } else {
         setErrorMsg(false)
+        return response;
       }
     }
   
