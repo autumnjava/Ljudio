@@ -8,6 +8,7 @@ import MyDjRoomItem from "../../components/myDjRoomItem/MyDjRoomItem";
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
 import { useContext, useEffect, useRef } from 'react';
+import Snackbar from '../../components/snackBar/SnackBar'
 import { useHistory } from "react-router";
 import {
   StyledTitle,
@@ -32,7 +33,7 @@ interface List {
 const MyPlaylistsPage = () => {
   const history = useHistory();
   const { playlists, getUserPlaylists, deletePlaylist, createPlaylist } = useContext(PlaylistContext)
-  const { getOwnersDjRooms, ownersDjRooms, deleteDjRoom } = useContext(DjRoomContext);
+  const { getOwnersDjRooms, ownersDjRooms, deleteDjRoom, setOpenSnackbar, openSnackbar } = useContext(DjRoomContext);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [name, setName] = useState('');
@@ -133,7 +134,7 @@ const MyPlaylistsPage = () => {
         </div>
         
       </StyledContentWrapper>
-      
+      <Snackbar open={openSnackbar} setOpen={setOpenSnackbar} snackbarContent="Dj room added!"/>
     </StyledWrapper>
       
       
