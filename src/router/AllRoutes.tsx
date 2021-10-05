@@ -11,6 +11,7 @@ import PlaylistPage from "../pages/playlistPage/PlaylistPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
 import SearchPage from "../pages/searchPage/SearchPage";
+import {Redirect} from 'react-router-dom'
 
 
 interface Props {
@@ -23,7 +24,9 @@ const AllRoutes: React.FC<Props> = ({children}: Props) => {
     <Router>
       {children}
       <Switch>
-        <Route path="/" exact={true} component={LandingPage} />
+        <Route path="/" exact={true} component={LandingPage}>
+          {localStorage.getItem('userId') && <Redirect to="/home" />}
+        </Route>
         <Route path="/home" exact={true} component={HomePage} />
         <Route path="/register" exact={true} component={RegisterPage} />
         <Route path="/myPlaylist" exact={true} component={MyPlaylistsPage} />

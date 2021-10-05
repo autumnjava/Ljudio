@@ -8,11 +8,11 @@ export const StyledTitle = styled.h2`
 export const StyledWrapper = styled.div`
 `;
 
-export const ErrorMessage = styled.span`
-  display: flex;
-  justify-content: center;
-  background: red;
-  color: white;
+export const ErrorMessage = styled.p`
+  color: red;
+  width: 15rem;
+  padding: 0.5rem;
+  margin: 10px auto;
   `
 
 

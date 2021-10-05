@@ -23,17 +23,22 @@ const DjRoomPage = () => {
   // const [isOwner, setIsOwner] = useState(false);
   const { setInDjRoom } = useContext(UserContext);
   const history = useHistory();
+
+  const [ playListId, setPlaylistId ] = useState('');
   
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     setUserId(userId);
     getCurrentDjRoom();
+
     setInDjRoom(true);
   }, []);
 
   // dont know if needed if subscription listens to new visitors????
   useEffect(() => {
     console.log('Dj room has been updated');
+    if(djRoom.playlist)
+    setPlaylistId(djRoom.playlist._id);
   }, [djRoom]);
 
   const getCurrentDjRoom = async () => {
@@ -55,7 +60,7 @@ const DjRoomPage = () => {
     setInDjRoom(false);
     history.push('/myPlaylist');
   }
-  
+
   const renderIcons = () => (
     <>
       <ExitToAppIcon onClick={handleExit} style={{cursor: 'pointer' }}/>
@@ -70,7 +75,7 @@ const DjRoomPage = () => {
     <StyledSettingsWrapper>{renderIcons()}</StyledSettingsWrapper>
     {Object.prototype.toString.call(djRoom) === '[object Object]' && <Bubbels data={djRoom} />}
       <DjRoomSettingsModal open={openSettingsModal} setOpen={setOpenSettingsModal} />
-      <DjRoomOwnersPlaylistModal open={openPlaylistModal} setOpen={setOpenPlaylistModal}/>
+      <DjRoomOwnersPlaylistModal open={openPlaylistModal} setOpen={setOpenPlaylistModal} playListId={playListId}/>
     {openSnackBar && <SnackBar
         snackbarContent="Copied!"
         open={openSnackBar}
