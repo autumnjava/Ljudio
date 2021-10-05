@@ -66,6 +66,7 @@ const userResolver = {
           email: args.input.email,
           password: hashedPassword,
           username: args.input.username,
+          inRoomId: null
         });
 
         pubsub.publish('USER_CREATED', {userCreated: user});
