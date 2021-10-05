@@ -33,6 +33,16 @@ const userResolver = {
       } catch (error) { throw new Error(error); }
     },
 
+    whatAmI: async (_parent, args, __, ___) => {
+      const user = await User.findOne({ _id: args.id }).populate('myPlaylists');
+      const playlistsAsDjRooms = user.myPlaylists.map(playlist => playlist.djRoomId)
+      console.log('what are my playlists as dj rooms', playlistsAsDjRooms);
+        if(user.inRoomId){
+          return false;
+        }
+      
+    }
+
   },
 
   Mutation: {
