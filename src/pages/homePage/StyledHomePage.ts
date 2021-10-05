@@ -14,8 +14,12 @@ export const StyledLogoImg = styled.img`
 `;
 
 export const StyledWrapper = styled.div`
-  margin-bottom: 10%;
+  margin-bottom: 30%;
+ @media (min-width: 769px) {
+    margin-bottom: 10%;
+  }
 `;
+
 export const StyledImgDiv = styled.div`
   margin: 0 auto;
 `;

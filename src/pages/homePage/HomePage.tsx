@@ -78,7 +78,7 @@ const HomePage: React.FC = () => {
 
         <SearchField handleArtistSearch={handleSearch} handleYoutubeSearch={handleSearch} />
       
-      <h2>Your Playlists:</h2>
+      <h1>Your Playlists:</h1>
       <StyledGridDiv>
    
       {playlists && playlists.map((list: List) => {
@@ -86,14 +86,14 @@ const HomePage: React.FC = () => {
       })}
         </StyledGridDiv>
 
-      <h2>Your Dj Rooms:</h2>
+      <h1>Your Dj Rooms:</h1>
       <StyledGridDiv>
                 {ownersDjRooms && ownersDjRooms.map((list: List, index: number) => {
           return <HomeDjRoomItem key={list._id + index} data={[list]} />
         })}
       </StyledGridDiv>
 
-       <h2>Recommended Dj Rooms:</h2>
+       <h1>Recommended Dj Rooms:</h1>
       {activeDjRooms && activeDjRooms.map((room: any, index: number) =>
         <div key={index}>
           {index <= nrOfRooms && <DjRoomRowItem key={room._id} data={room} />}
