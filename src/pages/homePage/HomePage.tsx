@@ -10,7 +10,11 @@ import {
   StyledLogoImg,
   StyledWrapper,
   StyledImgDiv,
-  StyledGridDiv
+  StyledGridDiv,
+  StyledWelcomeMsg,
+  StyledSpan,
+  StyledCategory,
+  StyledContentDiv
 } from "./StyledHomePage"
 import HomeDjRoomItem from "../../components/homeDjRoomItem/HomeDjRoomItem";
 
@@ -23,7 +27,7 @@ interface List {
 
 
 const HomePage: React.FC = () => {
-  const { logout } = useContext(UserContext);
+  const { logout, user, getUser } = useContext(UserContext);
   const { handleSearch, handleArtistSearch } = useContext(PlaylistContext);
   const history = useHistory();
   const { playlists, getUserPlaylists } = useContext(PlaylistContext);
@@ -38,14 +42,19 @@ const HomePage: React.FC = () => {
 
 
     useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    setUserId(userId);
+      const userId = localStorage.getItem('userId');
+      setUserId(userId);
   }, []);
+
+  const getUsername = async () => {
+    const testar = await getUser(userId);
+  }
 
   useEffect(() => {
     if (userId) {
       myPlaylists();
       myDjRooms();
+      getUser(userId)
     }
   }, [!playlists, userId]);
 
@@ -72,34 +81,35 @@ const HomePage: React.FC = () => {
   
   return (
     <StyledWrapper>
-      <StyledImgDiv style={{margin: '0 auto'}}>
-      <StyledLogoImg src={logo}/>
+      <StyledImgDiv>
+        <StyledLogoImg src={logo} />
+        {user.username && <StyledWelcomeMsg>Welcome back <StyledSpan>{user.username.toUpperCase()}</StyledSpan></StyledWelcomeMsg>}
       </StyledImgDiv>
 
         <SearchField handleArtistSearch={handleArtistSearch} handleYoutubeSearch={handleSearch} />
-      <div style={{ width: '80%', margin: '0 auto', fontFamily: "YouTube Sans, Roboto, Noto Naskh Arabic UI, Arial, sans-serif" }}>
+      <StyledContentDiv>
         
-      <h1>Your Playlists:</h1>
+      <StyledCategory>Your Playlists:</StyledCategory>
         <StyledGridDiv>
             {playlists && playlists.map((list: List) => {
               return <HomePlaylistItem key={list._id} data={[list]} />
             })}
         </StyledGridDiv>
 
-      <h1>Your Dj Rooms:</h1>
+      <StyledCategory>Your Dj Rooms:</StyledCategory>
       <StyledGridDiv>
                 {ownersDjRooms && ownersDjRooms.map((list: List, index: number) => {
           return <HomeDjRoomItem key={list._id + index} data={[list]} />
         })}
       </StyledGridDiv>
 
-       <h1>Recommended Dj Rooms:</h1>
+       <StyledCategory>Recommended Dj Rooms:</StyledCategory>
       {activeDjRooms && activeDjRooms.map((room: any, index: number) =>
         <div key={index}>
           {index <= nrOfRooms && <DjRoomRowItem key={room._id} data={[room, handleJoinDjRoom]} />}
         </div>
         )}
-        </div>
+        </StyledContentDiv>
     </StyledWrapper>
   )
 }

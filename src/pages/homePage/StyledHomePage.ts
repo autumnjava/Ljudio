@@ -34,3 +34,26 @@ export const StyledGridDiv = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 `;
+
+export const StyledWelcomeMsg = styled.p`
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 18px;
+`;
+export const StyledSpan = styled.span`
+  color: purple;
+  font-weight: bolder;
+`;
+
+export const StyledCategory = styled.p`
+  font-size: 25px;
+  letter-spacing: 3px;
+`;
+
+export const StyledContentDiv = styled.div`
+  width: 95%;
+  margin: 0 auto;
+    @media (min-width: 769px) {
+    width: 80%;
+  }
+`;
