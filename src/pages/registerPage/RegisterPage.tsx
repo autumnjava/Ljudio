@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
-import {UserContext} from '../../contexts/usersContext/UserContextProvider'
+import { UserContext } from '../../contexts/usersContext/UserContextProvider'
+import { useHistory } from "react-router";
 
 import {
   StyledTitle,
@@ -22,6 +23,8 @@ const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(false);
+  const history = useHistory();
 
   async function createNewUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,7 +40,9 @@ const RegisterPage: React.FC = () => {
         password: password
       }
 
-    await registerUser(newUser);
+    const response = await registerUser(newUser);
+    response && history.push('/');
+    !response && setError(true);
   }
 
 
@@ -64,7 +69,7 @@ const RegisterPage: React.FC = () => {
           <StyledInput type="password"  required value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}/>
 
-          {errorMsg && <ErrorMessage>Choose another email/username.</ErrorMessage>}
+          {error && <ErrorMessage>Choose another email/username.</ErrorMessage>}
 
         </StyledInputWrapper>
 
