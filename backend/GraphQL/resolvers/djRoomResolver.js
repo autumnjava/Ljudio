@@ -131,7 +131,7 @@ const djRoomResolver = {
       }
   
       const playlist = await new Playlist({
-        name: `(Dj list) ${(args.input.name ? args.input.name : playlistToCopy.name)}`,
+        name: `(Dj room) ${(args.input.name ? args.input.name : playlistToCopy.name)}`,
         songs: !playlistToCopy ? [] : playlistToCopy.songs
       });
       await playlist.save();

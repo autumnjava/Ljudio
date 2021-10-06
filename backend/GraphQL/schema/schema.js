@@ -98,6 +98,7 @@ const schema = gql`
     login(email: String!, password: String!): AuthData!
     getUser(_id: String!): User!
     getUserPlaylists(_id: String!): User!
+    getAllUserPlaylists(_id: String!): User!
     getSongsFromPlaylist(_id: String!): Playlist
     getOwnersDjRooms(_id: String!): [DjRoom]!
     getVisitorsDjRoom(_id: String!): DjRoom

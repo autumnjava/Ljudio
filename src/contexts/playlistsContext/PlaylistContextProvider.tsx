@@ -24,11 +24,13 @@ export const PlaylistContext = createContext<any | null>(null);
 
 export const PlaylistProvider = ({ children }: Props) => {
   const [currentSong, setCurrentSong] = useState<SongProps[]>([]);
+  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
   const [playlists, setPlaylists] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
   const [playlist, setPlaylist] = useState([]);
   const [content, setContent] = useState<any>('');
   const [artistContent, setArtistContent] = useState<any>('');
+  const [allUserPlaylists, setAllUserPlaylists] = useState([]);
 
   const handleSearch = (searchWord: string) => { 
     fetch('https://yt-music-api.herokuapp.com/api/yt/videos/' + searchWord)
@@ -69,6 +71,27 @@ export const PlaylistProvider = ({ children }: Props) => {
       setErrorMsg(true);
     } else {
       setPlaylists(response.data.getUserPlaylists.myPlaylists);
+      setErrorMsg(false);
+    }
+  }
+
+  const getAllUserPlaylists = async (userId: string) => {
+    const requestBody = {
+      query: `query {
+        getAllUserPlaylists(_id: "${userId}"){
+          myPlaylists {
+            _id
+            name
+          }
+        }
+      }
+    `
+    }
+    const response = await fetcher(requestBody);
+    if (!response.data) {
+      setErrorMsg(true);
+    } else {
+      setAllUserPlaylists(response.data.getAllUserPlaylists.myPlaylists);
       setErrorMsg(false);
     }
   }
@@ -184,10 +207,13 @@ export const PlaylistProvider = ({ children }: Props) => {
         setErrorMsg(true)
       } else {
         setErrorMsg(false)
+        return response;
       }
     }
   
   const values = {
+      allUserPlaylists,
+      getAllUserPlaylists,
       handleSearch,
       handleArtistSearch,
       content,
@@ -203,6 +229,8 @@ export const PlaylistProvider = ({ children }: Props) => {
       playlists,
       playlist,
       errorMsg,
+      currentSongIndex,
+      setCurrentSongIndex
   }
   
   return (

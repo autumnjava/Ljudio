@@ -38,7 +38,7 @@ const SearchPage = () => {
   const history = useHistory();
   const [amountOfSearchResult, setAmountOfSearchResult] = useState(2);
   const [showMore, setShowMore] = useState(false);
-  const { currentSong, setCurrentSong, addSongToPlaylist, getUserPlaylists, playlists, handleSearch, content, handleArtistSearch, artistContent } = useContext(PlaylistContext);
+  const { currentSong, setCurrentSong, addSongToPlaylist, getAllUserPlaylists, allUserPlaylists, handleSearch, content, handleArtistSearch, artistContent } = useContext(PlaylistContext);
   const [open, setOpen] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [userId, setUserId] = useState<string | null>('');
@@ -53,10 +53,10 @@ const SearchPage = () => {
     if (userId) {
       myPlaylists();
     }
-  }, [!playlists, userId]);
+  }, [!allUserPlaylists, userId]);
 
   const myPlaylists = async () => {
-    await getUserPlaylists(userId);
+    await getAllUserPlaylists(userId);
   }
 
   const handleSearchResult = () => {
@@ -113,7 +113,7 @@ const SearchPage = () => {
           {index <= amountOfSearchResult && song.videoId !== undefined && <StyledSongWrapper>
             <StyledSongImg onClick={() => handleSong(song)} src={song.imgUrl} alt="" />
             <StyledSongs onClick={() => handleSong(song)}>{song.title}</StyledSongs>
-            <PlaylistAddIcon onClick={() => handleOpenDialog(song, playlists)} style={{ alignSelf: 'center' }} />
+            <PlaylistAddIcon onClick={() => handleOpenDialog(song, allUserPlaylists)} style={{ alignSelf: 'center' }} />
             <PlaylistPlayIcon onClick={() => handleQue(song)} style={{ alignSelf: 'center' }} />
           </StyledSongWrapper>}
         </div>  
@@ -121,7 +121,7 @@ const SearchPage = () => {
       {songToAdd && <DialogModal
         open={open}
         setOpen={setOpen}
-        playlists={playlists}
+        playlists={allUserPlaylists}
         song={songToAdd}
         handleAddToPlaylist={handleAddToPlaylist}
       />}

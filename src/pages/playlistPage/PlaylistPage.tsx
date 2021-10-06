@@ -29,7 +29,7 @@ const PlaylistPage = () => {
       playlistSongs();
     }
   }, [!userId, !playlist]);
-  
+
     const playlistSongs = async () => {
       await getSongsFromPlaylist(id);
     }
@@ -42,7 +42,7 @@ const PlaylistPage = () => {
     return (
     <>
       {playlist.songs && playlist.songs.map((song: SongProps, index: number) => {
-          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} index={index} handlePrintOutSongs={handlePrintOutSongs} />
+          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} index={index} playlistSongs={playlistSongs} />
       })}
     </>    
     )
