@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 export const StyledItemWrapper = styled.div`
-  
+  &:last-child {
+      margin-bottom: 4rem;
+    }
+     @media (min-width: 769px) {
+       margin-bottom: 0;
+     }
 `;
 
 
