@@ -40,11 +40,9 @@ const PlaylistPage = () => {
   ];
   
   const { id }: any = useParams();
-  const { playlist, getSongsFromPlaylist, setCurrentSong} = useContext(PlaylistContext);
+  const { playlist, getSongsFromPlaylist, setCurrentSong, updatePlaylist } = useContext(PlaylistContext);
   const [userId, setUserId] = useState<string | null>();
-  const [songs, setSongs] = useState(playlist.songs);
-
-
+  const [songs, setSongs] = useState<SongProps[]>([]);
 
 
   useEffect(() => {
@@ -56,9 +54,16 @@ const PlaylistPage = () => {
     if (userId) {
       playlistSongs();
     }
-  }, [!userId, !playlist]);
+  }, [!userId]);
 
-    const playlistSongs = async () => {
+  useEffect(() => {
+    if (!songs || !songs.length) {
+      setSongs(playlist.songs);
+    }
+  }, [playlist]);
+
+  const playlistSongs = async () => {
+      setSongs([]);
       await getSongsFromPlaylist(id);
     }
   
@@ -75,13 +80,14 @@ const PlaylistPage = () => {
     </>    
     )
   }
-  const HandleOnDragEnd = (result: any) => {
+  const HandleOnDragEnd = async (result: any) => {
     if (!result.destination) return;
     const items = Array.from(songs);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-    console.log(result);
+    // Don't have await before updatePlaylist, because we dont use the response AND because it makes the list glitch
     setSongs(items);
+    await updatePlaylist(id, items);
 }
   
   
@@ -115,7 +121,7 @@ const PlaylistPage = () => {
           <Droppable droppableId="songs">
             {(provided: any, snapshot: any) => (
               <ul {...provided.droppableProps} ref={provided.innerRef} style={{padding: '4px',userSelect: 'none', background: 'grey'}}>
-          {playlist.songs && playlist.songs.map((song: SongProps, index: number) => {
+          {songs && songs.map((song: SongProps, index: number) => {
             return (
               <Draggable key={song._id} draggableId={song._id + ''} index={index}>
                 {(provided: any, snapshot: any) => (
