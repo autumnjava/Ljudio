@@ -13,7 +13,6 @@ import { useParams } from "react-router-dom";
 import { UserContext } from '../../contexts/usersContext/UserContextProvider';
 import { useHistory } from 'react-router';
 import DjRoomOwnersPlaylistModal from '../../components/djRoomOwnersPlaylistModal/DjRoomOwnersPlaylistModal'
-import { useSubscription, gql } from '@apollo/client';
 
 
 const DjRoomPage = () => {
@@ -37,14 +36,10 @@ const DjRoomPage = () => {
     getCurrentDjRoom();
     whatAmI(userId);
     setInDjRoom(true);
-  }, []);
-
-  // dont know if needed if subscription listens to new visitors????
-  useEffect(() => {
-    console.log('Dj room has been updated/ use effect2');
     if(djRoom.playlist)
     setPlaylistId(djRoom.playlist._id);
-  }, [djRoom]);
+  }, []);
+
 
   const getCurrentDjRoom = async () => {
     console.log('get current djroom')
@@ -67,25 +62,6 @@ const DjRoomPage = () => {
     history.push('/myPlaylist');
   }
 
-  const USER_JOINED_SUBSCRIPTION = gql`
-  subscription {
-    userJoinedDjRoom {
-      _id
-      email
-      username
-    }
-  }
-`;
-
-const newUser = () => {
-  const { data, loading } = useSubscription(
-    USER_JOINED_SUBSCRIPTION,
-  );
-
-  if(data) console.log(data.userJoinedDjRoom, 'user joined to dj room')
-}
-
-newUser();
 console.log('outside useeffects djroompage')
 
   const renderIcons = () => (
