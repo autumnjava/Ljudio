@@ -2,6 +2,14 @@ import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
   display: grid;
+      &:last-child {
+       margin-bottom: 4rem;
+      }
+       @media (min-width: 769px) {
+       &:last-child {
+        margin-bottom: 0;
+      }
+    }
 `;
 
 export const StyledItemDiv = styled.div`
