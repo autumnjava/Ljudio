@@ -43,5 +43,19 @@ export const StyledEditDiv = styled.div`
     align-items: center;
     flex-wrap: wrap;
     margin: 2rem;
-    
+`;
+
+export const StyledBtn = styled.button`
+  text-decoration: none;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-radius: 3px;
+  background: #fff;
+  margin-left: 30px;
+  cursor: pointer;
+  &:hover{
+    background: #f50057;
+  }
 `;
