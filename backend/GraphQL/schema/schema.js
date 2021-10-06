@@ -130,6 +130,7 @@ const schema = gql`
     userCreated: User
 
     songTitleChanged: SongTest!
+    userJoinedDjRoom: User!
   }
 `;
   // not sure need this:

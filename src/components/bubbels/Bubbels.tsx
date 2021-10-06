@@ -12,6 +12,9 @@ import {
   StyledInner4,
 } from "./StyledBubbels";
 
+import { useSubscription, gql } from '@apollo/client';
+
+
 interface VisitorProps {
   username: string,
   _id: string
@@ -19,13 +22,33 @@ interface VisitorProps {
 
 const Bubbels = ({ data }: any) => {
 
+  const USER_JOINED_SUBSCRIPTION = gql`
+  subscription {
+    userJoinedDjRoom {
+      _id
+      email
+      username
+    }
+  }
+`;
+
+const newUser = () => {
+  const { data, loading } = useSubscription(
+    USER_JOINED_SUBSCRIPTION,
+  );
+
+  if(data) console.log(data.userJoinedDjRoom, 'user joined to dj room')
+}
+
+newUser();
+
   const getBubbles = () => {
     return data.visitors.map((visitor: VisitorProps, index: number) => {
       if (index == data.visitors.length - 1) {
         return (
-          <StyledAvatar1>
+          <StyledAvatar1 key={index + 'a'}>
               <StyledInner1>
-                <StyledName1 key={index + 'a'}>
+                <StyledName1>
                   {visitor.username}
                 </StyledName1>
               </StyledInner1>
@@ -35,9 +58,9 @@ const Bubbels = ({ data }: any) => {
 
       if (index == data.visitors.length - 2) {
         return (
-          <StyledAvatar2>
+          <StyledAvatar2 key={index + 'b'}>
             <StyledInner2>
-              <StyledName1 key={index + 'b'}>
+              <StyledName1>
                 {visitor.username}
               </StyledName1>
             </StyledInner2>
@@ -47,9 +70,9 @@ const Bubbels = ({ data }: any) => {
 
       if (index == data.visitors.length - 3) {
         return (
-          <StyledAvatar3>
+          <StyledAvatar3  key={index + 'c'}>
             <StyledInner3>
-              <StyledName1 key={index + 'c'}>
+              <StyledName1>
                 {visitor.username}
               </StyledName1>
             </StyledInner3>
@@ -59,9 +82,9 @@ const Bubbels = ({ data }: any) => {
 
       if (index == data.visitors.length - 4) {
         return (
-          <StyledAvatar4>
+          <StyledAvatar4  key={index + 'd'}>
             <StyledInner4>
-              <StyledName1 key={index + 'd'}>
+              <StyledName1>
                {visitor.username}
               </StyledName1>
             </StyledInner4>

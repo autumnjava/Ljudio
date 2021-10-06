@@ -165,13 +165,19 @@ const djRoomResolver = {
   },
   joinDjRoom: async (_parent, args, __, ___) => {
     try {
-      await User.findOneAndUpdate({ _id: args._id }, {
+      const user = await User.findOneAndUpdate({ _id: args._id }, {
         $set: {
           inRoomId: args.djRoomId
         }
       });
      
       const djRoom = await DjRoom.findOne({ _id: args.djRoomId });
+
+      user.password = null;
+      pubsub.publish("USER_JOINED_DJROOM", {
+        userJoinedDjRoom: user
+      });
+
       return djRoom;
     } catch (error) {
       return error;
@@ -252,6 +258,9 @@ const djRoomResolver = {
   Subscription: {
     songTitleChanged: {
       subscribe: () => pubsub.asyncIterator(["SONG_TITLE_CHANGED"])
+    },
+    userJoinedDjRoom: {
+      subscribe: () => pubsub.asyncIterator(["USER_JOINED_DJROOM"])
     }
   }
 }

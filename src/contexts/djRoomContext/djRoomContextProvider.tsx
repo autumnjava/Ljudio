@@ -165,7 +165,6 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     if (!response) {
       setErrorMsg(true);
     } else {
-      console.log(response.data)
       setErrorMsg(false);
     }
   }
@@ -185,7 +184,6 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     if (!response) {
       setErrorMsg(true);
     } else {
-      console.log(response.data)
       setErrorMsg(false);
     }
   }
@@ -199,7 +197,6 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
       setErrorMsg(true);
     } else {
       setErrorMsg(false);
-      console.log(response.data)
     }
   }
 
