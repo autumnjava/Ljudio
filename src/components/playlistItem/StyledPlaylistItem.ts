@@ -9,7 +9,7 @@ export const StyledItemDiv = styled.div`
 `;
 
 export const StyledImg = styled.img`
-  width: 7rem;
+  width: 4rem;
   /* border: 1px solid purple; */
   border-radius: 0.3rem;
   padding: 0.2rem;
@@ -45,4 +45,11 @@ export const StyledDeleteBtn = styled.button`
   &:hover{
     color: white;
   }
+`;
+
+export const StyledGallery = styled.div`
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
 `;
