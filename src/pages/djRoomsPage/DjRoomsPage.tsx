@@ -1,7 +1,8 @@
 import DjRoomRowItem from "../../components/djRoomRowItem/DjRoomRowItem";
 import {
   StyledWrapper,
-  StyledPageTitle
+  StyledPageTitle,
+  StyledItem
 } from "./StyledDjRoomPage";
 import banner from "./images/banner.png"
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
@@ -32,7 +33,7 @@ const DjRoomsPage = () => {
   return (
     <StyledWrapper>
       <StyledPageTitle>JOIN THE DJ ROOMS AND LISSTEN MUSIC TOGETHER!</StyledPageTitle>
-      {activeDjRooms && activeDjRooms.map((room: any) => <DjRoomRowItem key={room._id} data={[room, handleJoinDjRoom]} />)}
+      {activeDjRooms && activeDjRooms.map((room: any) => <StyledItem key={room._id}><DjRoomRowItem data={[room, handleJoinDjRoom]} /></StyledItem>)}
     </StyledWrapper>
   );
 }

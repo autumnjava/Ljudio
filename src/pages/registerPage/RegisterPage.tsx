@@ -25,13 +25,14 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState(false);
   const history = useHistory();
 
   async function createNewUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
      if(password!== confirmPassword) { 
-      console.log('passwords shall match');
+      setPasswordCheck(true)
       return;
     }
 
@@ -72,7 +73,7 @@ const RegisterPage: React.FC = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}/>
 
           {error && <ErrorMessage>Choose another email/username.</ErrorMessage>}
-
+          {passwordCheck && <ErrorMessage>The password must match.</ErrorMessage>}
         </StyledInputWrapper>
 
         <StyledButton type="submit">CREATE ACCOUNT</StyledButton>
