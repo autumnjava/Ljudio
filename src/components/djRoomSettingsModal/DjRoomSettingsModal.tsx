@@ -1,5 +1,4 @@
 import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import { StyledTitle, StyledText, StyledInput, StyledEditWrapper, StyledModal } from './StyledDjRoomSettings'
