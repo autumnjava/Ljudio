@@ -14,7 +14,8 @@ interface ExpandPlayer {
 
 interface WrapperProps {
   expand: boolean,
-  inDjRoom: boolean
+  inDjRoom: boolean,
+  iAm: boolean | null
 }
 
 export const StyledPlayer = styled.div<ExpandPlayer>`
@@ -29,6 +30,7 @@ export const StyledPlayer = styled.div<ExpandPlayer>`
 `
 
 export const StyledWrapper = styled.div<WrapperProps>`
+  display: ${props => !props.iAm && 'none'};
   z-index: 100;
   top: auto;
   bottom: ${props => props.inDjRoom ? '0' : '3.5rem'};
