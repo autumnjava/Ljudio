@@ -41,12 +41,13 @@ const DjRoomPage = () => {
 
   // dont know if needed if subscription listens to new visitors????
   useEffect(() => {
-    console.log('Dj room has been updated');
+    console.log('Dj room has been updated/ use effect2');
     if(djRoom.playlist)
     setPlaylistId(djRoom.playlist._id);
   }, [djRoom]);
 
   const getCurrentDjRoom = async () => {
+    console.log('get current djroom')
     await getDjRoom(id);
   }
 
@@ -85,8 +86,7 @@ const newUser = () => {
 }
 
 newUser();
-
-  console.log('outside useeffects djroompage')
+console.log('outside useeffects djroompage')
 
   const renderIcons = () => (
     <StyledHeaderWrapper>
