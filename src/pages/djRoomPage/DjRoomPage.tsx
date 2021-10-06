@@ -102,7 +102,7 @@ console.log('outside useeffects djroompage')
     <StyledWrapper>
     <StyledSettingsWrapper>{renderIcons()}</StyledSettingsWrapper>
     {Object.prototype.toString.call(djRoom) === '[object Object]' && <Bubbels data={djRoom} />}
-      <DjRoomSettingsModal open={openSettingsModal} setOpen={setOpenSettingsModal} />
+      <DjRoomSettingsModal open={openSettingsModal} setOpen={setOpenSettingsModal} data={djRoom} />
       <DjRoomOwnersPlaylistModal open={openPlaylistModal} setOpen={setOpenPlaylistModal} playListId={playListId}/>
     {openSnackBar && <SnackBar
         snackbarContent="Copied!"

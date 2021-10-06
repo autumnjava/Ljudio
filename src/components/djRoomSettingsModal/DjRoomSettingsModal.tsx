@@ -4,26 +4,30 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import { StyledTitle, StyledText, StyledInput, StyledEditWrapper, StyledModal } from './StyledDjRoomSettings'
 import Switch from '@mui/material/Switch';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
 
 interface Props {
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  data: any
 }
 
-  const style = {
-    position: 'absolute' as const,
-    top: '50%',
-    left: '50%',
-    outline: 'none',
-    transform: 'translate(-50%, -50%)',
-    bgcolor: 'red',
-    color: 'white',
-    boxShadow: 24,
-    p: 1,
-  };
+const style = {
+  position: 'absolute' as const,
+  top: '50%',
+  left: '50%',
+  outline: 'none',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'red',
+  color: 'white',
+  boxShadow: 24,
+  p: 1,
+};
 
-const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
+const DjRoomSettingsModal = ({ open, setOpen, data }: Props) => {
+
+  const { changeStatusDjRoom, changeDjRoomSettings } = useContext(DjRoomContext);
   
   const [editName, setEditName] = useState(false);
   const [name, setName] = useState('Room name');
@@ -33,17 +37,37 @@ const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
   const [desc, setDesc] = useState('Description');
   const [checked, setChecked] = useState(true);
 
+  useEffect(() => {
+    if (data.djRoom) {
+      setName(data.djRoom.name);
+      setImg(data.djRoom.image);
+      setDesc(data.djRoom.description);
+      setChecked(data.djRoom.isOnline);
+    }
+  },[data.djRoom])
+
   const handleClose = () => {
     setOpen(false);
   }
 
-  const handleEdit = (edit: React.Dispatch<React.SetStateAction<boolean>>) => {
-    // functionality
+  const handleEdit = async (edit: React.Dispatch<React.SetStateAction<boolean>>) => {
+    const settingInputs = {
+      name: data.djRoom.name == name ? data.djRoom.name : name,
+      description: data.djRoom.description == desc ? data.djRoom.description : desc,
+      imgUrl: data.djRoom.image == img ? data.djRoom.image : img
+    }
+    await changeDjRoomSettings(data.djRoom._id, settingInputs);
     edit(false);
+  }
+  
+  const handleToggle = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
+    await changeStatusDjRoom(data.djRoom._id, e.target.checked);
   }
 
   const renderContent = () => (
-    <StyledModal>
+    <>
+    {data.djRoom && <StyledModal>
       <StyledTitle>Edit DJ room</StyledTitle>
       {!editName && <StyledText><EditIcon onClick={() => setEditName(true)} style={{ cursor: 'pointer' }} /> {name}</StyledText>}
       {editName && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditName)} style={{ color: 'white' }} />
@@ -57,8 +81,9 @@ const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
       {editDesc && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditDesc)} style={{ color: 'white' }} />
         <StyledInput onChange={e => setDesc(e.target.value)} type="text" /></StyledEditWrapper>}
 
-      <StyledText>Online <Switch onChange={e => setChecked(e.target.checked)} defaultChecked /></StyledText>
-      </StyledModal>
+      <StyledText>Online <Switch onChange={(e) => handleToggle(e)} checked={checked} /></StyledText>
+      </StyledModal>}
+    </>
   )
 
   return (
