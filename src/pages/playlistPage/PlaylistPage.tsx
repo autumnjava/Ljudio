@@ -85,9 +85,8 @@ const PlaylistPage = () => {
     const items = Array.from(songs);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-    // Don't have await before updatePlaylist, because we dont use the response AND because it makes the list glitch
     setSongs(items);
-    await updatePlaylist(id, items);
+    updatePlaylist(id, items);
 }
   
   
