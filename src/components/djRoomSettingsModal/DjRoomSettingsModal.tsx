@@ -46,6 +46,7 @@ const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
       setName(djRoom.djRoom.name);
       setImg(djRoom.djRoom.image);
       setDesc(djRoom.djRoom.description);
+      setChecked(djRoom.djRoom.isOnline);
     }
   },[!djRoom.djRoom])
 
@@ -61,6 +62,11 @@ const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
     }
     await changeDjRoomSettings(djRoom.djRoom._id, settingInputs);
     edit(false);
+  }
+  
+  const handleToggle = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
+    await changeStatusDjRoom(djRoom.djRoom._id, e.target.checked);
   }
 
   const renderContent = () => (
@@ -79,7 +85,7 @@ const DjRoomSettingsModal = ({ open, setOpen }: Props) => {
       {editDesc && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditDesc)} style={{ color: 'white' }} />
         <StyledInput onChange={e => setDesc(e.target.value)} type="text" /></StyledEditWrapper>}
 
-      <StyledText>Online <Switch onChange={e => setChecked(e.target.checked)} defaultChecked /></StyledText>
+      <StyledText>Online <Switch onChange={(e) => handleToggle(e)} checked={checked} /></StyledText>
       </StyledModal>}
     </>
   )
