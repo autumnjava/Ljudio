@@ -22,7 +22,6 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   const [djRoom, setDjRoom] = useState([]);
   const [visitorsDjRoom, setVisitorsDjRoom] = useState<djRoomProps>();
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [name, setName] = useState('');
 
   const getActiveDjRooms = async () => {
     const requestBody = {
@@ -107,9 +106,6 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     } else {
       setErrorMsg(false);
       setDjRoom(response.data.getDjRoom);
-      console.log(response.data.getDjRoom.djRoom.name)
-      setName(response.data.getDjRoom.djRoom.name)
-      console.log(name, 'namnet');
     }
   }
 
