@@ -14,10 +14,12 @@ const LeaveRoomModal = ({ open, setOpen }: Props) => {
 
   const { id }: any = useParams();
   const history = useHistory();
-  const { iAm } = useContext(UserContext);
+  const { iAm, setIAm, setInDjRoom } = useContext(UserContext);
   const { changeStatusDjRoom, disjoinDjRoom } = useContext(DjRoomContext);
 
   const handleLeaveRoom = () => {
+    setIAm(null);
+    setInDjRoom(false);
     if (iAm) {
       changeStatusDjRoom(id, false)
       disjoinDjRoom(localStorage.getItem('userId'))
