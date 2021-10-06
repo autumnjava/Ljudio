@@ -42,7 +42,7 @@ const DjRoomSettingsModal = ({ open, setOpen, data }: Props) => {
       setName(data.djRoom.name);
       setImg(data.djRoom.image);
       setDesc(data.djRoom.description);
-      Object.keys(data.playlist.songs).length == 0 ? setChecked(false) : setChecked(true);
+      Object.keys(data.playlist.songs).length == 0 ? setChecked(false) : setChecked(data.djRoom.isOnline);
     }
   },[data.djRoom])
 
@@ -61,11 +61,11 @@ const DjRoomSettingsModal = ({ open, setOpen, data }: Props) => {
   }
   
   const handleToggle = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-    if (!Object.keys(data.playlist.songs).length) {
-      setChecked(false);
+    if (Object.keys(data.playlist.songs).length) {
+      setChecked(e.target.checked);
+      await changeStatusDjRoom(data.djRoom._id, e.target.checked);
     }
-    await changeStatusDjRoom(data.djRoom._id, checked);
+    
   }
 
   const renderContent = () => (
