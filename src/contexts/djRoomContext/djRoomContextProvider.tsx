@@ -68,6 +68,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   }
 
   const getDjRoom = async (djRoomId: string) => {
+    console.log('inside here also?')
     const requestBody = {
       query: `query {
         getDjRoom(_id: "${djRoomId}"){
@@ -244,6 +245,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   }
 
     const newUserSubscription = () => {
+      console.log('we get in here')
       const USER_JOINED_SUBSCRIPTION = gql`
       subscription {
         userJoinedDjRoom {
@@ -259,11 +261,11 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     
       if(data) {
         console.log(data.userJoinedDjRoom, 'user joined to dj room');
-        djRoom && getDjRoom(djRoom._id);
+        // djRoom && getDjRoom(djRoom._id);
       }
     }
 
-
+    newUserSubscription();
 
   
   const values = {
