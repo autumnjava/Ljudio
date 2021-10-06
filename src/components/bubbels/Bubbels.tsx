@@ -12,8 +12,6 @@ import {
   StyledInner4,
 } from "./StyledBubbels";
 
-import { useSubscription, gql } from '@apollo/client';
-
 
 interface VisitorProps {
   username: string,
@@ -21,27 +19,6 @@ interface VisitorProps {
 }
 
 const Bubbels = ({ data }: any) => {
-
-  const USER_JOINED_SUBSCRIPTION = gql`
-  subscription {
-    userJoinedDjRoom {
-      _id
-      email
-      username
-    }
-  }
-`;
-
-const newUser = () => {
-  const { data, loading } = useSubscription(
-    USER_JOINED_SUBSCRIPTION,
-  );
-
-  if(data) console.log(data.userJoinedDjRoom, 'user joined to dj room')
-}
-
-newUser();
-
   const getBubbles = () => {
     return data.visitors.map((visitor: VisitorProps, index: number) => {
       if (index == data.visitors.length - 1) {

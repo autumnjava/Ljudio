@@ -13,6 +13,8 @@ import { useParams } from "react-router-dom";
 import { UserContext } from '../../contexts/usersContext/UserContextProvider';
 import { useHistory } from 'react-router';
 import DjRoomOwnersPlaylistModal from '../../components/djRoomOwnersPlaylistModal/DjRoomOwnersPlaylistModal'
+import { useSubscription, gql } from '@apollo/client';
+
 
 const DjRoomPage = () => {
   const { id }: any = useParams();
@@ -29,6 +31,7 @@ const DjRoomPage = () => {
   const [ playListId, setPlaylistId ] = useState('');
   
   useEffect(() => {
+    console.log('use effect1')
     const userId = localStorage.getItem('userId');
     setUserId(userId);
     getCurrentDjRoom();
@@ -62,6 +65,28 @@ const DjRoomPage = () => {
     setInDjRoom(false);
     history.push('/myPlaylist');
   }
+
+  const USER_JOINED_SUBSCRIPTION = gql`
+  subscription {
+    userJoinedDjRoom {
+      _id
+      email
+      username
+    }
+  }
+`;
+
+const newUser = () => {
+  const { data, loading } = useSubscription(
+    USER_JOINED_SUBSCRIPTION,
+  );
+
+  if(data) console.log(data.userJoinedDjRoom, 'user joined to dj room')
+}
+
+newUser();
+
+  console.log('outside useeffects djroompage')
 
   const renderIcons = () => (
     <StyledHeaderWrapper>
