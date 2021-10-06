@@ -30,7 +30,7 @@ export const StyledPlayer = styled.div<ExpandPlayer>`
 `
 
 export const StyledWrapper = styled.div<WrapperProps>`
-  display: ${props => !props.iAm && 'none'};
+  display: ${props => props.iAm === false && 'none'};
   z-index: 100;
   top: auto;
   bottom: ${props => props.inDjRoom ? '0' : '3.5rem'};
