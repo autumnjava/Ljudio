@@ -31,7 +31,8 @@ const LeaveRoomModal = ({ open, setOpen }: Props) => {
 
   const renderContent = () => (
     <StyledModal>
-      <StyledHeader>Are you sure you want to leave the room?</StyledHeader>
+      {iAm ?<StyledHeader>If you leave the room, then the visitors will be kicked out from the room</StyledHeader> :
+      <StyledHeader>Are you sure you want to leave the room?</StyledHeader>}
       <StyledButtonWrapper>
         <StyledButton onClick={() => handleLeaveRoom()}>Yes</StyledButton>
         <StyledButton onClick={() => setOpen(false)}>No</StyledButton>

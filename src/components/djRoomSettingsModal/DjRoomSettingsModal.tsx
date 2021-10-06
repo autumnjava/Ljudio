@@ -1,7 +1,7 @@
 import Modal from '@mui/material/Modal';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
-import { StyledTitle, StyledText, StyledInput, StyledEditWrapper, StyledModal } from './StyledDjRoomSettings'
+import { StyledTitle, StyledText, StyledInput, StyledEditWrapper, StyledModal, StyledWarrningText } from './StyledDjRoomSettings'
 import Switch from '@mui/material/Switch';
 import { useContext, useEffect, useState } from 'react';
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
@@ -80,7 +80,8 @@ const DjRoomSettingsModal = ({ open, setOpen, data }: Props) => {
       {editDesc && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditDesc)} style={{ color: 'white' }} />
         <StyledInput onChange={e => setDesc(e.target.value)} type="text" /></StyledEditWrapper>}
 
-      <StyledText>Online <Switch onChange={(e) => handleToggle(e)} checked={checked} /></StyledText>
+        <StyledText style={{marginBottom: '0'}}>Online <Switch onChange={(e) => handleToggle(e)} checked={checked} /></StyledText>
+        {checked && <StyledWarrningText>If you switch to offline, then the visitors will be kicked out from the room</StyledWarrningText>}
       </StyledModal>}
     </>
   )
