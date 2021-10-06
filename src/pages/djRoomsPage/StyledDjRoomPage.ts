@@ -13,6 +13,19 @@ text-align: center;
  }
 `;
 
+export const StyledItem = styled.div`
+ &:last-child {
+      margin-bottom: 4rem;
+    }
+     @media (min-width: 769px) {
+        &:last-child {
+      margin-bottom: 1rem;
+    }
+     }
+`;
+
+
+
 
 
 
