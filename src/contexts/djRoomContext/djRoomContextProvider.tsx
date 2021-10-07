@@ -152,6 +152,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
       setErrorMsg(true);
     } else {
       setErrorMsg(false);
+      return response.data.createDjRoom._id
     }
   }
 
