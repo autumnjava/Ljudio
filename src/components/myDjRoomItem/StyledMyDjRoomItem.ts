@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
   display: grid;
+  max-height: 120px;
       &:last-child {
-       margin-bottom: 9rem;
+       margin-bottom: 10rem;
       }
        @media (min-width: 769px) {
        &:last-child {

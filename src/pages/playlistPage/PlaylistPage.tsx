@@ -81,7 +81,7 @@ const PlaylistPage = () => {
                       color: 'White',
                       ...provided.draggableProps.style
                     }}>
-                    <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} 
+                    <PlaylistRowItem key={song._id} index={index} playlistSongs={playlistSongs} song={song} playlistId={playlist._id} 
                     />
                     </div >
                 )}

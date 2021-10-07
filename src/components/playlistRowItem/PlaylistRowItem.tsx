@@ -32,6 +32,7 @@ import playlistLogo from "../../pages/landingPage/videos/logo-playlist.png"
         const response = await removeSongFromPlaylist(index, playlistId);
         if(response){
           playlistSongs(id);
+          
         }
       }
 
