@@ -10,7 +10,8 @@ import {
   StyledKeyUpIcon,
   StyledVolumeOffIcon,
   StyledVolumeUpIcon,
-  StyledAddIcon
+  StyledAddIcon,
+  StyledShareIcon
 } from './StyledPlayer'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -90,9 +91,9 @@ export const renderTitle = (
       </StyledSongTitle>
     {expandPlayer ?
       <div>
-        <ShareIcon onClick={() => handleCopy(songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
+        <StyledShareIcon onClick={() => handleCopy(songs?.currentSong[songs?.currentSong.length === 1 ? 0 : currentIndex].videoId,
           setOpenSnackBar,
-          setSnackBarContent)} style={{ display: 'inline', cursor: 'pointer' }} />
+          setSnackBarContent)}/>
         <StyledKeyDownIcon expandPlayer={expandPlayer} onClick={() => handleMinimizePlayer(setToggleVideo, setExpandPlayer, eventYoutube)} />
       </div>  
       :
@@ -113,7 +114,7 @@ export const renderAllIcons = (props: IconProps) => {
         labelPlacement="start"
         control={<Switch style={{ alignSelf: 'start', gridColumn: '1/3' }} />}
       />
-      {!props.mute ? <StyledVolumeOffIcon onClick={props.handleMute}/> : <StyledVolumeUpIcon onClick={props.handleVolume}/> }
+      {props.mute ? <StyledVolumeOffIcon onClick={props.handleVolume}/> : <StyledVolumeUpIcon onClick={props.handleMute}/> }
     <StyledAddIcon onClick={() => handleOpenDialog(
         props.songs?.currentSong[props.songs?.currentSong.length === 1 ? 0 : props.currentIndex],
         props.songs?.playlists,

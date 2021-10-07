@@ -50,8 +50,6 @@ export const PlaylistProvider = ({ children }: Props) => {
       .then(response => response.json())
       .then(data => setArtistContent(data.content[0]) 
     )
-    console.log(artistContent?.name , 'wtf?')
-    
   };
   
   const getUserPlaylists = async (userId: string) => {

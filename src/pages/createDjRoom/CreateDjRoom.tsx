@@ -62,7 +62,6 @@ const CreateDjRoom = () => {
 
   useEffect(() => {
     if (id) {
-      console.log(Object.keys(playlist.songs).length)
       Object.keys(playlist.songs).length == 0 ? setChecked(false) : setChecked(true);
       checked ? setStatus(false) : setStatus(true);
     }

@@ -52,7 +52,6 @@ const ArtistPage = () => {
       handleArtistSearch(id);
       handleSearch(id);
     }
-    console.log(content , 'låtar?')
   }, []);
   
    const handleSong = (song: SongProps) => {

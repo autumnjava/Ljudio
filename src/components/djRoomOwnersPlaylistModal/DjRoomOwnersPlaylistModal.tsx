@@ -45,15 +45,8 @@ const DjRoomOwnersPlaylistModal = ({ open, setOpen, playListId }: Props) => {
     setUserId(localStorage.getItem('userId'));
   }, [])
 
-  // useEffect(() => {
-  //   if(playListId){
-  //     console.log('playlist id updated', playListId)
-  //   }
-  // }, [playListId])
-
   useEffect(() => {
     if (userId && playListId) {
-      console.log('playlistId updated')
       playlistSongs(playListId);
     }
   }, [!userId, !playlist, playListId]);

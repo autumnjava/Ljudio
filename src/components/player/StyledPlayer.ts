@@ -8,6 +8,7 @@ import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import ShareIcon from '@material-ui/icons/Share';
 
 interface PlayerProps {
   expanded: boolean
@@ -166,6 +167,7 @@ export const StyledVolumeOffIcon = styled(VolumeOffIcon)`
   justify-self: center;
   color: white;
   cursor: pointer;
+  color: rgb(245, 0, 87)
 `
 
 export const StyledVolumeUpIcon = styled(VolumeUpIcon)`
@@ -181,4 +183,12 @@ export const StyledAddIcon = styled(PlaylistAddIcon)`
   color: white;
   padding-left: 1rem;
   cursor: pointer;
+`
+
+export const StyledShareIcon = styled(ShareIcon)`
+  display: inline;
+  cursor: pointer;
+  &:hover{
+    color:green;    
+  }
 `

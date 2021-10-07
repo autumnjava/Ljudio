@@ -165,7 +165,6 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     if (!response) {
       setErrorMsg(true);
     } else {
-      console.log(response.data)
       setErrorMsg(false);
     }
   }

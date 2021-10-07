@@ -40,7 +40,6 @@ const DjRoomPage = () => {
 
   // dont know if needed if subscription listens to new visitors????
   useEffect(() => {
-    console.log('Dj room has been updated');
     if(djRoom.playlist)
     setPlaylistId(djRoom.playlist._id);
   }, [djRoom]);
