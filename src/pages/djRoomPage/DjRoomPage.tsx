@@ -13,6 +13,8 @@ import { useParams } from "react-router-dom";
 import { UserContext } from '../../contexts/usersContext/UserContextProvider';
 import { useHistory } from 'react-router';
 import DjRoomOwnersPlaylistModal from '../../components/djRoomOwnersPlaylistModal/DjRoomOwnersPlaylistModal'
+import { useSubscription, gql } from '@apollo/client';
+
 import LeaveRoomModal from '../../components/leaveRoomModal/LeaveRoomModal'
 
 const DjRoomPage = () => {
@@ -30,19 +32,26 @@ const DjRoomPage = () => {
 
   const [ playListId, setPlaylistId ] = useState('');
   
+  const USER_CHANGE_SUBSCRIPTION = gql`
+  subscription {
+    userChangeDjRoom {
+      _id
+      email
+      username
+    }
+  }
+`;
+  
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     setUserId(userId);
     getCurrentDjRoom();
     whatAmI(userId);
     setInDjRoom(true);
-  }, []);
-
-  // dont know if needed if subscription listens to new visitors????
-  useEffect(() => {
     if(djRoom.playlist)
     setPlaylistId(djRoom.playlist._id);
-  }, [djRoom]);
+  }, []);
+
 
   const getCurrentDjRoom = async () => {
     await getDjRoom(id);
@@ -67,6 +76,21 @@ const DjRoomPage = () => {
     // history.push('/myPlaylist');
   }
 
+    const { data, loading } = useSubscription(
+      USER_CHANGE_SUBSCRIPTION,
+    );
+  
+    useEffect( () => {
+      if(!loading && data){
+        getCurrentDjRoom();
+
+        if(iAm) {
+          console.log('only for dj room owner')
+          console.log(data.userChangeDjRoom, 'user left/joined to dj room');
+        }
+      }
+    }, [data, loading]) 
+
   const renderIcons = () => (
     <StyledHeaderWrapper>
       <ExitToAppIcon onClick={handleExit} style={{ cursor: 'pointer' }} />
@@ -77,7 +101,7 @@ const DjRoomPage = () => {
     </StyledHeaderWrapper>
   )
 
-  return (
+  return  (
     <StyledWrapper>
     <StyledSettingsWrapper>{renderIcons()}</StyledSettingsWrapper>
     {Object.prototype.toString.call(djRoom) === '[object Object]' && <Bubbels data={djRoom} />}

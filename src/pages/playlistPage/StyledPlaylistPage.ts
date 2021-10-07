@@ -41,5 +41,9 @@ export const StyledHeadWrapper = styled.div`
   padding: 5px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: 1rem;
+  width: 90%;
+  margin: 0 auto;
+    @media (min-width: 769px) {
+    width: 80%;
+  }
 `

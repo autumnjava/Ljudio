@@ -4,7 +4,6 @@ import InsertPhotoRoundedIcon from '@material-ui/icons/InsertPhotoRounded';
 import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
-import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
 import Switch from '@mui/material/Switch';
 import { useHistory } from 'react-router';
 import Snackbar from '../../components/snackBar/SnackBar'
@@ -22,12 +21,11 @@ import {
 } from "./StyledCreateDjRoom";
 import { useParams } from 'react-router';
 
-const CreateDjRoom = () => {
+const CreateDjRoom:React.FC = () => {
   const { createDjRoom, setOpenSnackbar } = useContext(DjRoomContext)
-  const { getSongsFromPlaylist, playlist } = useContext(PlaylistContext)
   
-  const [status, setStatus] = useState(false);
-  const [checked, setChecked] = useState<boolean>(false);
+  const [status, setStatus] = useState(true);
+  const [checked, setChecked] = useState<boolean>(true);
   const [name, setName] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const [description, setDescription] = useState('');
@@ -35,29 +33,34 @@ const CreateDjRoom = () => {
   const { id }: any = useParams();
   const history = useHistory();
   
-  const createnewDjRoom = async (e: any) => {
+  const createnewDjRoom = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     await setOpenSnackbar(true);
-    e.preventDefault();
+    event.preventDefault();
+    
+    let response;
     const input = {
       name: name,
       description: description,
       imgUrl: imgUrl,
-      isOnline: checked
+      isOnline: status
     }
+
     if (id) {
-      await createDjRoom(userId, input, id);
+      response = await createDjRoom(userId, input, id);
     } else {
-      await createDjRoom(userId, input);
+      response = await createDjRoom(userId, input);
     }
-    history.push('/myPlaylist')
+
+    if (status) {
+      history.push("/djroom/" + response)
+    } else {
+      history.push('/myPlaylist')
+    }
   }
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     setUserId(userId);
-    if (id) {
-      getSongsFromPlaylist(id);
-    }
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

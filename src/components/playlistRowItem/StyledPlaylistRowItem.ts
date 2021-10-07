@@ -1,16 +1,15 @@
 import styled from "styled-components";
 
 export const StyledRowWrapper = styled.div`
- &:last-child{
-    margin-bottom: 140px;
-  }
+
+padding: 0;
+width: 100%;
+margin: 0 auto;
   @media (min-width: 769px) {
+    width: 80%;
     &:hover{
       cursor: pointer;
       background: #141414;
-    }
-    &:last-child{
-    margin-bottom: 80px;
     }
   }
 `;

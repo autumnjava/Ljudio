@@ -1,6 +1,7 @@
 const Playlist = require('../../models/playlist');
 const User = require('../../models/user');
 const Song = require('../../models/song');
+const mongoose = require('mongoose');
 
 const playlistResolver = {
   Query: {
@@ -112,6 +113,19 @@ const playlistResolver = {
         return playlist
       } catch (error) {
         throw new Error(error)
+      }
+    },
+    updatePlaylist: async (_parent, args, __, ___) => {
+      const newSongOrder = args.songs.map(song => mongoose.Types.ObjectId(song));
+      try {
+        await Playlist.findOneAndUpdate({ _id: args._id }, {
+          $set: {
+            songs: newSongOrder
+          }
+        });
+        return true;
+      } catch (error) {
+        throw new Error(error);
       }
     }
   },

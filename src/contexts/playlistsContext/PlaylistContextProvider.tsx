@@ -19,6 +19,14 @@ interface SongProps {
   duration: number,
   imgUrl: string
 }
+
+interface SongPropsId {
+  _id: string,
+  title: string,
+  videoId: string,
+  duration: number,
+  imgUrl: string
+}
   
 export const PlaylistContext = createContext<any | null>(null);
 
@@ -159,7 +167,8 @@ export const PlaylistProvider = ({ children }: Props) => {
     if (!response) {
       setErrorMsg(true);
     } else {
-      setPlaylist(response.data.getSongsFromPlaylist)
+      setPlaylist(response.data.getSongsFromPlaylist);
+      setErrorMsg(false);
     }
   }
 
@@ -209,26 +218,46 @@ export const PlaylistProvider = ({ children }: Props) => {
       }
     }
   
+  const updatePlaylist = async (playlistId: string, songs: Array<SongPropsId>) => {
+    const songsIds = songs.map(song => song._id);
+    // Using JSON.stringify to convert single quotes to double qoutes, needed for query in db
+    const requestBody = {
+      query: ` mutation {
+        updatePlaylist(_id: "${playlistId}", songs: ${JSON.stringify(songsIds)})
+      }
+     `
+    }
+      
+    const response = await fetcher(requestBody);
+    if (!response) {
+      setErrorMsg(true);
+    } else {
+      getSongsFromPlaylist(playlistId);
+      setErrorMsg(false);
+    }
+  }
+  
   const values = {
-      allUserPlaylists,
-      getAllUserPlaylists,
-      handleSearch,
-      handleArtistSearch,
-      content,
-      artistContent,
-      createPlaylist,
-      deletePlaylist,
-      currentSong,
-      setCurrentSong,
-      getUserPlaylists,
-      getSongsFromPlaylist,
-      addSongToPlaylist,
-      removeSongFromPlaylist,
-      playlists,
-      playlist,
-      errorMsg,
-      currentSongIndex,
-      setCurrentSongIndex
+    updatePlaylist,
+    getAllUserPlaylists,
+    allUserPlaylists,
+    handleSearch,
+    handleArtistSearch,
+    content,
+    artistContent,
+    createPlaylist,
+    deletePlaylist,
+    currentSong,
+    setCurrentSong,
+    getUserPlaylists,
+    getSongsFromPlaylist,
+    addSongToPlaylist,
+    removeSongFromPlaylist,
+    playlists,
+    playlist,
+    errorMsg,
+    currentSongIndex,
+    setCurrentSongIndex
   }
   
   return (

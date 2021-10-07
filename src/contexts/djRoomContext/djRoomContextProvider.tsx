@@ -1,5 +1,6 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import fetcher from '../fetcher';
+
 
 type Props = {
   children?: JSX.Element
@@ -19,7 +20,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   const [errorMsg, setErrorMsg] = useState(false);
   const [ownersDjRooms, setOwnersDjRooms] = useState([]);
   const [activeDjRooms, setActiveDjRooms] = useState([]);
-  const [djRoom, setDjRoom] = useState([]);
+  const [djRoom, setDjRoom] = useState<any>([]);
   const [visitorsDjRoom, setVisitorsDjRoom] = useState<djRoomProps>();
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -152,6 +153,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
       setErrorMsg(true);
     } else {
       setErrorMsg(false);
+      return response.data.createDjRoom._id
     }
   }
 
@@ -240,6 +242,9 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
       setErrorMsg(false);
     }
   }
+
+
+
   
   const values = {
     visitorsDjRoom,
@@ -257,7 +262,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     ownersDjRooms,
     createDjRoom,
     setOpenSnackbar,
-    openSnackbar
+    openSnackbar,
   }
 
   return (
