@@ -114,9 +114,13 @@ const MiniPlayer = () => {
       if (songs?.currentSong.length > 1 && currentIndex < songs?.currentSong.length - 1) {
         setCurrentIndex(currentIndex + 1)
         songs.setCurrentSongIndex(currentIndex + 1)
+      } else {
+         handlePlay()
       }
     }
-    if (eventYoutube?.target.getPlayerState() === -1) {handlePlay()}
+
+    if (eventYoutube?.target.getPlayerState() === -1) { handlePlay() }
+    
     if(eventYoutube?.target.getPlayerState() === 1) {
       setCurrentTime(eventYoutube.target.getCurrentTime() * 1000)
       const intervalId = window.setInterval(() => {

@@ -1,9 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router";
-
 import SearchField from "../../components/searchField/SearchField";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
@@ -18,7 +15,9 @@ import {
   StyledCategory,
   StyledArtistImg,
   StyledArtistName,
-  StyledAvatarDiv
+  StyledAvatarDiv,
+  StyledExpandIcon,
+  StyledExpandLessIcon
 } from './StyledSearchPage'
 
 interface SongProps {
@@ -125,8 +124,8 @@ const SearchPage = () => {
         song={songToAdd}
         handleAddToPlaylist={handleAddToPlaylist}
       />}
-      {!showMore ? <ExpandMoreIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />
-        : <ExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />}
+      {!showMore ? <StyledExpandIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />
+        : <StyledExpandLessIcon onClick={handleSearchResult} fontSize="large" style={{ display: 'block', margin: '1rem auto' }} />}
     </StyledWrapper>
   )
 

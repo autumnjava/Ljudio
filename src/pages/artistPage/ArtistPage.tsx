@@ -1,11 +1,10 @@
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import { useState, useContext, useEffect } from "react";
 import { PlaylistContext } from "../../contexts/playlistsContext/PlaylistContextProvider";
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import DialogModal from '../../components/dialog/DialogModal';
-import ShareIcon from '@material-ui/icons/Share';
 import SnackBar from '../../components/snackBar/SnackBar'
 
 import {
@@ -20,7 +19,9 @@ import {
   StyledCategory,
   StyledTest,
   StyledImg,
-  StyledAllContent
+  StyledAllContent,
+  StyledShareIcon,
+  StyledBackIcon
 } from "./StyledArtistPage";
 
 interface SongProps {
@@ -43,6 +44,7 @@ const ArtistPage = () => {
   const [songToAdd, setSongToAdd] = useState<SongProps | null>();
   const [showMore, setShowMore] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
+  const history = useHistory();
   
 
   useEffect(() => {
@@ -94,7 +96,8 @@ const ArtistPage = () => {
           fontSize='small'
           style={{color: 'white', position: 'relative', top: '3px', marginLeft: '3px'}}
           />
-            <ShareIcon onClick={() => handleCopy(artistContent.browseId)} style={{color: 'white', marginRight: '3px', float: 'right', cursor: 'pointer'}}/>
+            <StyledShareIcon onClick={() => handleCopy(artistContent.browseId)}/>
+            <StyledBackIcon onClick={() => history.push('/search')}/>
           </StyledTitle>
         <StyledName>{artistContent && artistContent.name.toUpperCase()}</StyledName>
           {artistContent && <StyledImg src={artistContent.thumbnails[1].url} />}
