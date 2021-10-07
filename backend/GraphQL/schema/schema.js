@@ -52,6 +52,14 @@ const schema = gql`
     videoId: String
   }
 
+  input UpdateSongInput {
+    _id: ID!
+    title: String
+    image: String
+    duration: Int
+    videoId: String!
+  }
+
   type AuthData {
     userId: ID!
     token: String!
@@ -122,7 +130,7 @@ const schema = gql`
     kickUsers(djRoomId: String!): Boolean
     changeStatusDjRoom(_id: String!, isOnline: Boolean!): Boolean
     changeDjRoomSettings(_id: String!, name: String, description: String, imgUrl: String): Boolean
-
+    updatePlaylist(_id: String!, songs: [String]): Boolean!
     changeSongTitle(input: ChangeSongInput!): SongTest!
   }
 

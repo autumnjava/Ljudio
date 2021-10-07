@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledPLTitle = styled.p`
   font-size: 1.5rem;
-  font-weight: bold;
+  letter-spacing: 2px;
   font-family: Arial, Helvetica, sans-serif;
   width: 100%;
   @media (min-width: 769px) {
@@ -31,4 +31,9 @@ export const StyledHeadWrapper = styled.div`
   padding: 5px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  width: 90%;
+  margin: 0 auto;
+    @media (min-width: 769px) {
+    width: 80%;
+  }
 `
