@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledWrapper = styled.div`
   display: grid;
       &:last-child {
-       margin-bottom: 4rem;
+       margin-bottom: 9rem;
       }
        @media (min-width: 769px) {
        &:last-child {

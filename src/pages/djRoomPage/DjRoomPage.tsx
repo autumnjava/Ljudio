@@ -15,11 +15,13 @@ import { useHistory } from 'react-router';
 import DjRoomOwnersPlaylistModal from '../../components/djRoomOwnersPlaylistModal/DjRoomOwnersPlaylistModal'
 import { useSubscription, gql } from '@apollo/client';
 
+import LeaveRoomModal from '../../components/leaveRoomModal/LeaveRoomModal'
 
 const DjRoomPage = () => {
   const { id }: any = useParams();
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
   const [openPlaylistModal, setOpenPlaylistModal] = useState(false);
+  const [openLeaveRoomModal, setOpenLeaveRoomModal] = useState(false);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const { djRoom, getDjRoom, disjoinDjRoom } = useContext(DjRoomContext);
   const {currentSong, currentSongIndex} = useContext(PlaylistContext)
@@ -68,9 +70,12 @@ const DjRoomPage = () => {
   }
 
   const handleExit = async () => {
-    await disjoinDjRoom(userId);
-    setInDjRoom(false);
-    history.push('/myPlaylist');
+
+    setOpenLeaveRoomModal(true)
+
+    // await disjoinDjRoom(userId);
+    // setInDjRoom(false);
+    // history.push('/myPlaylist');
   }
 
 
@@ -101,7 +106,8 @@ const DjRoomPage = () => {
     <StyledSettingsWrapper>{renderIcons()}</StyledSettingsWrapper>
     {Object.prototype.toString.call(djRoom) === '[object Object]' && <Bubbels data={djRoom} />}
       <DjRoomSettingsModal open={openSettingsModal} setOpen={setOpenSettingsModal} data={djRoom} />
-      <DjRoomOwnersPlaylistModal open={openPlaylistModal} setOpen={setOpenPlaylistModal} playListId={playListId}/>
+      <DjRoomOwnersPlaylistModal open={openPlaylistModal} setOpen={setOpenPlaylistModal} playListId={playListId} />
+      <LeaveRoomModal open={openLeaveRoomModal} setOpen={setOpenLeaveRoomModal} />
     {openSnackBar && <SnackBar
         snackbarContent="Copied!"
         open={openSnackBar}

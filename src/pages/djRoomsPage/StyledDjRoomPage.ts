@@ -15,11 +15,11 @@ text-align: center;
 
 export const StyledItem = styled.div`
  &:last-child {
-      margin-bottom: 4rem;
+      margin-bottom: 8.5rem;
     }
      @media (min-width: 769px) {
         &:last-child {
-      margin-bottom: 1rem;
+      margin-bottom: 5.5rem;
     }
      }
 `;

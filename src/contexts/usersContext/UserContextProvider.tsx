@@ -134,6 +134,7 @@ export const UserProvider: React.FC<Props> = ({ children }: Props) => {
 
   const values = {
     iAm,
+    setIAm,
     whatAmI,
     getUser,
     changeUsername,

@@ -1,8 +1,7 @@
 import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
-import { StyledTitle, StyledText, StyledInput, StyledEditWrapper, StyledModal } from './StyledDjRoomSettings'
+import { StyledTitle, StyledText, StyledInput, StyledEditWrapper, StyledModal, StyledWarrningText } from './StyledDjRoomSettings'
 import Switch from '@mui/material/Switch';
 import { useContext, useEffect, useState } from 'react';
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
@@ -42,7 +41,7 @@ const DjRoomSettingsModal = ({ open, setOpen, data }: Props) => {
       setName(data.djRoom.name);
       setImg(data.djRoom.image);
       setDesc(data.djRoom.description);
-      setChecked(data.djRoom.isOnline);
+      Object.keys(data.playlist.songs).length == 0 ? setChecked(false) : setChecked(data.djRoom.isOnline);
     }
   },[data.djRoom])
 
@@ -61,8 +60,11 @@ const DjRoomSettingsModal = ({ open, setOpen, data }: Props) => {
   }
   
   const handleToggle = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-    await changeStatusDjRoom(data.djRoom._id, e.target.checked);
+    if (Object.keys(data.playlist.songs).length) {
+      setChecked(e.target.checked);
+      await changeStatusDjRoom(data.djRoom._id, e.target.checked);
+    }
+    
   }
 
   const renderContent = () => (
@@ -81,7 +83,8 @@ const DjRoomSettingsModal = ({ open, setOpen, data }: Props) => {
       {editDesc && <StyledEditWrapper><CheckIcon onClick={() => handleEdit(setEditDesc)} style={{ color: 'white' }} />
         <StyledInput onChange={e => setDesc(e.target.value)} type="text" /></StyledEditWrapper>}
 
-      <StyledText>Online <Switch onChange={(e) => handleToggle(e)} checked={checked} /></StyledText>
+        <StyledText style={{marginBottom: '0'}}>Online <Switch onChange={(e) => handleToggle(e)} checked={checked} /></StyledText>
+        {checked && <StyledWarrningText>If you switch to offline, then the visitors will be kicked out from the room</StyledWarrningText>}
       </StyledModal>}
     </>
   )
