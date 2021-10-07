@@ -46,16 +46,6 @@ const PlaylistPage = () => {
   const handlePlayAll = () => {
     setCurrentSong(playlist.songs)
   }
-
-  const handlePrintOutSongs = () => {
-    return (
-    <>
-      {playlist.songs && playlist.songs.map((song: SongProps, index: number) => {
-          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} index={index} playlistSongs={playlistSongs} />
-      })}
-    </>    
-    )
-  }
  
       const HandleOnDragEnd = async (result: any) => {
     if (!result.destination) return;

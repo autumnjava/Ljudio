@@ -16,6 +16,7 @@ export const StyledTitle = styled.p`
 
 export const StyledSongWrapper = styled.div`
   display: grid;
+
   cursor: pointer;
   width: 90%;
   grid-template-columns: 1rem 1fr 1rem;
