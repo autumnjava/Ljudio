@@ -7,7 +7,7 @@ export const StyledRowWrapper = styled.div`
   @media (min-width: 769px) {
     &:hover{
       cursor: pointer;
-      background: #ECECEC;
+      background: #141414;
     }
     &:last-child{
     margin-bottom: 80px;
@@ -27,19 +27,22 @@ export const StyledRow = styled.div`
 
 export const StyledDuration = styled.p`
   margin: 0;
-  padding-top: 2.5rem;
+align-self: center;
+justify-self: center;
 `;
 
 
 export const StyledSongTitle = styled.p`
 margin: 0;
-  padding-top: 1.1rem;
+align-self: center;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const StyledRemoveWrapper = styled.span`
   margin: 0;
-  padding-top: 2.3rem;
   padding-left: 1rem;
+  align-self: center;
   color: grey;
   &:hover{
     color: black;
