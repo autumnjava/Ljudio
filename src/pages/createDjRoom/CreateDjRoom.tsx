@@ -35,26 +35,27 @@ const CreateDjRoom:React.FC = () => {
   
   const createnewDjRoom = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     await setOpenSnackbar(true);
-    let response;
     event.preventDefault();
+    
+    let response;
     const input = {
       name: name,
       description: description,
       imgUrl: imgUrl,
       isOnline: status
     }
+
     if (id) {
       response = await createDjRoom(userId, input, id);
-      if (status) {
-        history.push("/djroom/" + response)
-      } else {
-        history.push('/myPlaylist')
-      }
     } else {
-      await createDjRoom(userId, input);
+      response = await createDjRoom(userId, input);
+    }
+
+    if (status) {
+      history.push("/djroom/" + response)
+    } else {
       history.push('/myPlaylist')
     }
-    
   }
 
   useEffect(() => {
