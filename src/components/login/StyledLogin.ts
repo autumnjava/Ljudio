@@ -59,7 +59,7 @@ export const StyledInput = styled.input`
 
 export const RestorePassword = styled.p`
   color: #FFFFFF;
-
+  cursor: pointer;
 `;
 
 export const StyledLabel = styled.p`
