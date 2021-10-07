@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledItemWrapper = styled.div`
-  
+ 
 `;
 
 

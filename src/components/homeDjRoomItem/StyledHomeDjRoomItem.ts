@@ -2,14 +2,6 @@ import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
   display: grid;
-      &:last-child {
-       margin-bottom: 9rem;
-      }
-       @media (min-width: 769px) {
-       &:last-child {
-        margin-bottom: 0;
-      }
-    }
 `;
 
 export const StyledItemDiv = styled.div`
@@ -36,20 +28,4 @@ export const StyledListTitle = styled.p`
   text-align: center;
   margin: 0;
   padding: 0;
-`;
-
-export const StyledDeleteBtn = styled.button`
-  display: grid;
-  margin: 0;
-  padding: 0;
-  border: none;
-  text-decoration: none;
-  cursor: pointer;
-  max-width: 1.5rem;
-  background: transparent;
-  justify-self: end;
-  color: grey;
-  &:hover{
-    color: white;
-  }
 `;

@@ -46,3 +46,12 @@ export const StyledModal = styled.div`
   width: 30%;
 }
 `
+
+export const StyledWarrningText = styled.p`
+  margin-top: 0;
+  padding-top: 0;
+  color: red;
+  letter-spacing: 2px;
+  font-size: 1rem;
+  padding: 0.5rem;
+`
