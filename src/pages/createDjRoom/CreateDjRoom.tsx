@@ -63,7 +63,6 @@ const CreateDjRoom:React.FC = () => {
     setUserId(userId);
   }, []);
 
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setStatus(!status)
