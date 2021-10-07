@@ -2,7 +2,6 @@ import { StyledPLTitle,StyledHeadWrapper,StyledButton } from "./StyledPlaylistPa
 import PlaylistRowItem from "../../components/playlistRowItem/PlaylistRowItem";
 import { useContext, useEffect, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
-import Button from '@mui/material/Button';
 import { useParams } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -57,7 +56,8 @@ const PlaylistPage = () => {
     </>    
     )
   }
-  const HandleOnDragEnd = async (result: any) => {
+ 
+      const HandleOnDragEnd = async (result: any) => {
     if (!result.destination) return;
     const items = Array.from(songs);
     const [reorderedItem] = items.splice(result.source.index, 1);
@@ -75,22 +75,6 @@ const PlaylistPage = () => {
           <StyledPLTitle>{playlist.name}</StyledPLTitle>
           <StyledButton onClick={handlePlayAll}>PLAY ALL</StyledButton>
           </StyledHeadWrapper> : <p style={{ marginTop: "55px" }}>NAME NOT FOUND...</p>}
-          
-        
-        
-        {/* <div>
-           <Droppable>
-          <div>
-
-        {playlist.songs && playlist.songs.map((song: SongProps, index: number) => {
-          return <PlaylistRowItem key={song._id} song={song} playlistId={playlist._id} index={index} />
-        })}
-         </div>
-          
-            </Droppable>
-        </div> */}
-        
-
 
       <div style={{ marginBottom: '3rem' }}>
        
