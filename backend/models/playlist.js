@@ -8,11 +8,9 @@ const playlistSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Song'
     }],
-
-    // maybe need this later, maybe not, but keep it so far
-    creator: {
+    djRoomId: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'DjRoom'
     }
 });
 

@@ -1,39 +1,86 @@
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core');
+
+// to enable subscriptions: 
+const { createServer } = require('http');
+const { execute, subscribe } = require('graphql');
+const { SubscriptionServer } = require('subscriptions-transport-ws');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+
 // import mongoose module
 const mongoose = require('mongoose');
-const express = require('express');
-const app = express();
+
 require('dotenv').config();
-const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
-const gql = require('graphql-tag');
 
+const typeDefs = require('./GraphQL/schema/schema');
+const resolvers = require('./graphql/resolvers/index');
 
-// Construct a schema, using GraphQL schema language
-// Maybe in a schema file under models??? 
+async function startServer(typeDefs, resolvers){
+  const app = express();
 
-// var schema = buildSchema(`
-//   type Query {
-//     hello: String
-//   }
-// `);
+  const httpServer = createServer(app);
 
-// The root provides a resolver function for each API endpoint
+  const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-// var root = {
-//   hello: () => {
-//     return 'Hello world!';
-//   },
-// };
+const server = new ApolloServer({
+  schema,
+  plugins: [
+    ApolloServerPluginLandingPageGraphQLPlayground({}),
+    {
+    async serverWillStart() {
+      return {
+        async drainServer() {
+          subscriptionServer.close();
+        }
+      };
+    }
+  }
+]
+});
 
-app.use('/graphql', graphqlHTTP({
-  // schema: schema,
-  // rootValue: root,
-  graphiql: true,
-}));
+const subscriptionServer = SubscriptionServer.create({
+  // This is the `schema` we just created.
+  schema,
+  // These are imported from `graphql`.
+  execute,
+  subscribe,
+}, {
+  // This is the `httpServer` we created in a previous step.
+  server: httpServer,
+  // This `server` is the instance returned from `new ApolloServer`.
+  path: server.graphqlPath,
+});
 
-mongoose.connect(process.env.DB_URI, {
+await server.start();
+
+server.applyMiddleware({app});
+
+await mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}).then(() => console.log('Database connected!'));
+}).then(() => console.log('Mongoose connected!'));
 
-app.listen(4000);
+const PORT = 4000;
+
+httpServer.listen(PORT, () => {
+  console.log('Server started and running on port ' + PORT)
+});
+}
+
+// finally start server
+startServer(typeDefs, resolvers);
+
+// NOT SURE WE NEED ALL THIS:
+
+//   // we need this to allow requests from another server (in this case localhost:3000)
+//   app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+//     if(req.method === 'OPTIONS') {
+//       return res.sendStatus(200);
+//     }
+//     next();
+// })
