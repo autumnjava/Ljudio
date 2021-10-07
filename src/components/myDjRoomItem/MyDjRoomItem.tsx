@@ -8,6 +8,9 @@ import {
   StyledListTitle
 } from "./StyledMyDjRoomItem"
 
+import logo from "../../pages/landingPage/videos/playlist-logo.png"
+
+
 const MyDjRoomItem = ({ data }: any) => {
 
   const history = useHistory();
@@ -19,7 +22,7 @@ const MyDjRoomItem = ({ data }: any) => {
       <StyledItemDiv onClick={() => history.push("/djroom/" + data[0]._id)}>
         <div>
           {/* Logik för om rummet ej har bild visa default logo, annars visa bild */}
-          <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
+          <StyledImg src={logo} alt="" />
         </div>
         <StyledListTitle>{data[0].name}</StyledListTitle>
         </StyledItemDiv>
