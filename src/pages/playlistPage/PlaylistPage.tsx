@@ -1,4 +1,4 @@
-import { StyledPLTitle,StyledHeadWrapper,StyledButton } from "./StyledPlaylistPage";
+import { StyledPLTitle,StyledHeadWrapper,StyledButton, StyledWrapper } from "./StyledPlaylistPage";
 import PlaylistRowItem from "../../components/playlistRowItem/PlaylistRowItem";
 import { useContext, useEffect, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';

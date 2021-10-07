@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 export const StyledWrapper = styled.div`
    padding: 0.5rem;
@@ -10,6 +12,21 @@ export const StyledWrapper = styled.div`
     margin: 0 auto;
   }
 `
+
+export const StyledExpandIcon = styled(ExpandMoreIcon)`
+  cursor: pointer;
+    &:hover{
+    color: #f50057;
+  }
+`
+
+export const StyledExpandLessIcon = styled(ExpandLessIcon)`
+  cursor: pointer;
+    &:hover{
+    color: #f50057;
+  }
+`
+
 export const StyledSongWrapper = styled.div`
   display: grid;
   grid-template-columns: 5rem 1fr 2rem 2rem;

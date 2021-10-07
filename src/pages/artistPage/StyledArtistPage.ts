@@ -1,4 +1,26 @@
 import styled from "styled-components";
+import ShareIcon from '@material-ui/icons/Share';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+export const StyledShareIcon = styled(ShareIcon)`
+  color: white;
+  margin-right: 3px;
+  float: right;
+  cursor: pointer;
+       &:hover{
+     color: green;
+   }
+`
+
+export const StyledBackIcon = styled(ArrowBackIcon)`
+  color: white;
+  margin-right: 10px;
+  float: right;
+  cursor: pointer;
+     &:hover{
+     color: #f50057
+   }
+`
 
 export const StyledWrapper = styled.div`
 width: 100%;

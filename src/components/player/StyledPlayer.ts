@@ -1,4 +1,14 @@
 import styled from 'styled-components'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import ShareIcon from '@material-ui/icons/Share';
 
 interface PlayerProps {
   expanded: boolean
@@ -16,6 +26,10 @@ interface WrapperProps {
   expand: boolean,
   inDjRoom: boolean,
   iAm: boolean | null
+}
+
+interface IconProps {
+  expandPlayer: boolean
 }
 
 export const StyledPlayer = styled.div<ExpandPlayer>`
@@ -97,4 +111,84 @@ export const StyledControllerWrapper = styled.div<ExpandPlayer>`
 
 export const StyledSliderWrapper = styled.div`
   justify-self: center;
+`
+
+export const StyledPlayIcon = styled(PlayArrowIcon)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: center;
+  font-size: ${props => !props.expandPlayer ? '3.5rem' : '4.5rem'} !important;
+  color: white;
+  cursor: pointer;
+`
+
+export const StyledPausIcon = styled(PauseIcon)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: center;
+  font-size: ${props => !props.expandPlayer ? '3.5rem' : '4.5rem'} !important;
+  color: 'white';
+  cursor: pointer;
+`
+
+export const StyledNextIcon = styled(SkipNextIcon)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: start;
+  font-size: ${props => !props.expandPlayer ? '2.5rem' : '4.5rem'} !important;
+  color: white;
+  cursor: pointer;
+`
+
+export const StyledPreviousIcon = styled(SkipPreviousIcon)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: end;
+  font-size: ${props => !props.expandPlayer ? '2.5rem' : '4.5rem'} !important;
+  color: white;
+  cursor: pointer;
+`
+
+export const StyledKeyDownIcon = styled(KeyboardArrowDown)<IconProps>`
+  display: inline;
+  padding-top: 0.5rem;
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'}; 
+  justify-self: end;
+  font-size: 2rem !important;
+  color: white;
+  margin-left: 6px;
+  cursor: pointer;
+`
+export const StyledKeyUpIcon = styled(KeyboardArrowUp)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: end;
+  font-size: 2rem !important;
+  color: white;
+  cursor: pointer;
+`
+export const StyledVolumeOffIcon = styled(VolumeOffIcon)`
+  align-self: center;
+  justify-self: center;
+  color: white;
+  cursor: pointer;
+  color: rgb(245, 0, 87)
+`
+
+export const StyledVolumeUpIcon = styled(VolumeUpIcon)`
+  align-self: center;
+  justify-self: center;
+  color: white;
+  cursor: pointer;
+`
+
+export const StyledAddIcon = styled(PlaylistAddIcon)`
+  align-self: center;
+  justify-self: start;
+  color: white;
+  padding-left: 1rem;
+  cursor: pointer;
+`
+
+export const StyledShareIcon = styled(ShareIcon)`
+  display: inline;
+  cursor: pointer;
+  &:hover{
+    color:green;    
+  }
 `
