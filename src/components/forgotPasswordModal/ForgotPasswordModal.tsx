@@ -50,7 +50,7 @@ const ForgotPasswordModal = (props: ModalProps): JSX.Element => {
           <Typography align='center' id="modal-modal-title" variant="h6" component="h2">
             Forgot your password?
           </Typography>
-          <Typography align='center' id="modal-modal-description" sx={{ mt: 2 }}>
+        <Typography style={{color: 'black'}} align='center' id="modal-modal-description" sx={{ mt: 2 }}>
             Don&apos;t worry, happens to the best of us.
           </Typography>
 
