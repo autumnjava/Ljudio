@@ -13,6 +13,10 @@ export const StyledLogoImg = styled.img`
    }
 `;
 
+export const StyledDjRoomsWrapper = styled.div`
+  width: 100%;
+`
+
 export const StyledWrapper = styled.div`
   margin-bottom: 33%;
  @media (min-width: 769px) {
@@ -37,17 +41,19 @@ export const StyledGridDiv = styled.div`
 
 export const StyledWelcomeMsg = styled.p`
   text-align: center;
-  letter-spacing: 2px;
-  font-size: 18px;
+  letter-spacing: 3px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 `;
 export const StyledSpan = styled.span`
-  color: purple;
+  color: #f50057;
   font-weight: bolder;
 `;
 
 export const StyledCategory = styled.p`
-  font-size: 25px;
+  font-size: 1.2rem;
   letter-spacing: 3px;
+  text-transform: uppercase;
 `;
 
 export const StyledContentDiv = styled.div`

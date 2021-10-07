@@ -14,7 +14,8 @@ import {
   StyledWelcomeMsg,
   StyledSpan,
   StyledCategory,
-  StyledContentDiv
+  StyledContentDiv,
+  StyledDjRoomsWrapper
 } from "./StyledHomePage"
 import HomeDjRoomItem from "../../components/homeDjRoomItem/HomeDjRoomItem";
 
@@ -73,7 +74,7 @@ const HomePage: React.FC = () => {
     <StyledWrapper>
       <StyledImgDiv>
         <StyledLogoImg src={logo} />
-        {user.username && <StyledWelcomeMsg>Welcome back <StyledSpan>{user.username.toUpperCase()}</StyledSpan></StyledWelcomeMsg>}
+        {user.username && <StyledWelcomeMsg>Welcome back {user.username}</StyledWelcomeMsg>}
       </StyledImgDiv>
 
         <SearchField handleArtistSearch={handleArtistSearch} handleYoutubeSearch={handleSearch} />
@@ -95,9 +96,9 @@ const HomePage: React.FC = () => {
 
        <StyledCategory>Recommended Dj Rooms:</StyledCategory>
       {activeDjRooms && activeDjRooms.map((room: any, index: number) =>
-        <div key={index}>
+        <StyledDjRoomsWrapper key={index}>
           {index <= nrOfRooms && <DjRoomRowItem key={room._id} data={[room, handleJoinDjRoom]} />}
-        </div>
+        </StyledDjRoomsWrapper>
         )}
         </StyledContentDiv>
     </StyledWrapper>

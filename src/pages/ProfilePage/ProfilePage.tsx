@@ -12,7 +12,8 @@ import {
   StyledNameSpan,
   StyledNameInput,
   StyledEditDiv,
-  StyledBtn
+  StyledExitIcon,
+  StyleEditIcon
 } from "./StyledProfilePage";
 
 
@@ -59,14 +60,14 @@ const ProfilePage: React.FC = () => {
   return (
     <StyledWrapper>
       <StyledTitleDiv>
-        <AccountCircleIcon color="secondary" fontSize="large" /><StyledNameSpan>My Profile</StyledNameSpan>
+        <AccountCircleIcon color="secondary" fontSize="large" />
+        <StyledNameSpan>My Profile</StyledNameSpan>
+        <StyledExitIcon onClick={logoutHandler} style={{alignSelf: 'center', fontSize: '2rem'}}/>
       </StyledTitleDiv>
       {!editName ? <StyledNameDiv>
-        <CreateIcon onClick={editHandler} fontSize="small" /><StyledName>{user?.username}</StyledName>
+        <StyleEditIcon onClick={editHandler} fontSize="small" /><StyledName>{user?.username}</StyledName>
        
       </StyledNameDiv> : <StyledEditDiv><CheckIcon onClick={() => saveEditName(newName, setEditName)} fontSize="small" /><StyledNameInput ref={newName} placeholder={user?.username} type="text" /></StyledEditDiv>}
-
-              <StyledBtn onClick={logoutHandler}>Logout</StyledBtn>
     </StyledWrapper>
 
   );

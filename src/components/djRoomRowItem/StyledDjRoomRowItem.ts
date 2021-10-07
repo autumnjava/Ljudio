@@ -13,7 +13,7 @@ export const StyledItemRow = styled.div`
         
       margin: 0 auto;
       grid-template-columns: 5% 1fr 5% 5%;
-      width: 80%;
+      width: 100%;
       display: grid;
     &:hover{
     background: #141414;

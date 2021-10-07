@@ -8,7 +8,7 @@ export const StyledItemDiv = styled.div`
   margin: 0;
   cursor: pointer;
   &:hover{
-    color: #D96CFB;
+    color: #f50057;
   }
 `;
 

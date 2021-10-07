@@ -1,19 +1,21 @@
 import styled from "styled-components";
 
-export const StyledTitle = styled.h2`
+export const StyledTitle = styled.p`
   font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: 0.2rem;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 `
 
 export const StyledAddItem = styled.div`
-  border: 1px solid #D96CFB;
+  border: 1px solid #f50057;
   width: 7rem;
   height: 6rem;
   margin: 0.5rem;
   cursor: pointer;
   border-radius: 0.3rem;
    &:hover{
-    color: #D96CFB;
+    color: #f50057;
   }
 `;
 

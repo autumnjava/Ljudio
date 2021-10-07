@@ -24,5 +24,6 @@ export const StyledNavWrapper = styled.div<NavProps>`
 export const StyledLabel = styled.span`
   color: white;
   z-index: -1;
-  font-size: 11px;
+  font-size: 10px;
+  text-transform: uppercase;
 `;
