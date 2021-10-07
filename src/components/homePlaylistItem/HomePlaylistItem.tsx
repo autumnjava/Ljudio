@@ -8,7 +8,6 @@ import {
   StyledListTitle,
   StyledIconWrapper
 } from "./StyledHomePlaylistItem";
-import logo from "../../pages/landingPage/videos/playlist-logo.png"
 
 
 
@@ -26,7 +25,7 @@ const HomePlaylistItem = ({ data }: any) => {
       <StyledPlaylistWrapper>
         <StyledItemDiv onClick={() => history.push("/playlist/" + data[0]._id)}>
         <div>
-          <StyledImg src={logo} alt="" />
+          <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
         </div>
         <StyledListTitle>{data[0].name}</StyledListTitle>
         </StyledItemDiv>

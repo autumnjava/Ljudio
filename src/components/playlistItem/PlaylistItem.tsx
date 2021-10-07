@@ -11,7 +11,6 @@ import {
   StyledIconWrapper
 } from "./StyledPlaylistItem";
 
-import logo from "../../pages/landingPage/videos/playlist-logo.png"
 
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -32,7 +31,7 @@ const PlaylistItem = ({ data }: any) => {
         </StyledIconWrapper>
         <StyledItemDiv onClick={() => history.push("/playlist/" + data[0]._id)}>
         <div>
-          <StyledImg src={logo} alt="" />
+          <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
         </div>
         <StyledListTitle>{data[0].name}</StyledListTitle>
         </StyledItemDiv>
