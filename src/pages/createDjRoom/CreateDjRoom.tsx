@@ -21,7 +21,7 @@ import {
 } from "./StyledCreateDjRoom";
 import { useParams } from 'react-router';
 
-const CreateDjRoom = () => {
+const CreateDjRoom:React.FC = () => {
   const { createDjRoom, setOpenSnackbar } = useContext(DjRoomContext)
   
   const [status, setStatus] = useState(true);
@@ -33,9 +33,10 @@ const CreateDjRoom = () => {
   const { id }: any = useParams();
   const history = useHistory();
   
-  const createnewDjRoom = async (e: any) => {
+  const createnewDjRoom = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     await setOpenSnackbar(true);
-    e.preventDefault();
+    let response;
+    event.preventDefault();
     const input = {
       name: name,
       description: description,
@@ -43,11 +44,17 @@ const CreateDjRoom = () => {
       isOnline: status
     }
     if (id) {
-      await createDjRoom(userId, input, id);
+      response = await createDjRoom(userId, input, id);
+      if (status) {
+        history.push("/djroom/" + response)
+      } else {
+        history.push('/myPlaylist')
+      }
     } else {
       await createDjRoom(userId, input);
+      history.push('/myPlaylist')
     }
-    history.push('/myPlaylist')
+    
   }
 
   useEffect(() => {
