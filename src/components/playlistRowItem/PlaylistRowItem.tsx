@@ -11,6 +11,7 @@ import { useContext } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
 import { useParams } from "react-router-dom";
 
+import logo from "../../pages/landingPage/videos/playlist-logo.png"
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 // const PlaylistRowItem = ({ song }: any) => {
@@ -25,7 +26,7 @@ import { useParams } from "react-router-dom";
       return minutes + ":" + (+seconds < 10 ? '0' : '') + seconds;
     }
 
-      const imgSrc = song.image ? song.image : "https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png";
+      const imgSrc = song.image ? song.image : logo;
       
       const handleDeleteSong = async (index: number) => {
         const response = await removeSongFromPlaylist(index, playlistId);
