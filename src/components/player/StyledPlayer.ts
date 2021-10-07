@@ -1,4 +1,8 @@
 import styled from 'styled-components'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 
 interface PlayerProps {
   expanded: boolean
@@ -16,6 +20,10 @@ interface WrapperProps {
   expand: boolean,
   inDjRoom: boolean,
   iAm: boolean | null
+}
+
+interface IconProps {
+  expandPlayer: boolean
 }
 
 export const StyledPlayer = styled.div<ExpandPlayer>`
@@ -97,4 +105,36 @@ export const StyledControllerWrapper = styled.div<ExpandPlayer>`
 
 export const StyledSliderWrapper = styled.div`
   justify-self: center;
+`
+
+export const StyledPlayIcon = styled(PlayArrowIcon)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: center;
+  font-size: ${props => !props.expandPlayer ? '3.5rem' : '4.5rem'} !important;
+  color: white;
+  cursor: pointer;
+`
+
+export const StyledPausIcon = styled(PauseIcon)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: center;
+  font-size: ${props => !props.expandPlayer ? '3.5rem' : '4.5rem'} !important;
+  color: 'white';
+  cursor: pointer;
+`
+
+export const StyledNextIcon = styled(SkipNextIcon)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: start;
+  font-size: ${props => !props.expandPlayer ? '2.5rem' : '4.5rem'} !important;
+  color: white;
+  cursor: pointer;
+`
+
+export const StyledPreviousIcon = styled(SkipPreviousIcon)<IconProps>`
+  align-self: ${props => !props.expandPlayer ? 'center' : 'start'};
+  justify-self: end;
+  font-size: ${props => !props.expandPlayer ? '2.5rem' : '4.5rem'} !important;
+  color: white;
+  cursor: pointer;
 `

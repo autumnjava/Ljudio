@@ -1,4 +1,4 @@
-import { StyledPLTitle,StyledHeadWrapper,StyledButton } from "./StyledPlaylistPage";
+import { StyledPLTitle,StyledHeadWrapper,StyledButton, StyledWrapper } from "./StyledPlaylistPage";
 import PlaylistRowItem from "../../components/playlistRowItem/PlaylistRowItem";
 import { useContext, useEffect, useState } from 'react';
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
@@ -51,13 +51,13 @@ const PlaylistPage = () => {
 
   return (
     <>
-      <div>
+      <StyledWrapper>
         {playlist ? <StyledHeadWrapper>
           <StyledPLTitle>{playlist.name}</StyledPLTitle>
           <StyledButton onClick={handlePlayAll}>PLAY ALL</StyledButton>
         </StyledHeadWrapper> : <p style={{marginTop: "55px"}}>NAME NOT FOUND...</p>}
         {handlePrintOutSongs()}
-      </div>
+      </StyledWrapper>
     </>
   )
 }

@@ -1,12 +1,12 @@
 import {
   StyledSongTitle,
   StyledTitleWrapper,
-  StyledPlayerWrapper
+  StyledPlayerWrapper,
+  StyledPlayIcon,
+  StyledPausIcon,
+  StyledNextIcon,
+  StyledPreviousIcon
 } from './StyledPlayer'
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
@@ -155,33 +155,11 @@ export const renderAllIcons = (props: IconProps) => {
   return (
     <StyledPlayerWrapper expanded={props.expandPlayer ? true : false}>
       {props.expandPlayer && renderExpanedPlayerIcons()}
-      <SkipPreviousIcon style={{
-        alignSelf: !props.expandPlayer ? 'center' : 'start',
-        justifySelf: 'end',
-        fontSize: !props.expandPlayer ? '2.5rem' : '4.5rem',
-        color: 'white'
-      }} onClick={props.handlePreviousSong}/>
-     {props.play ? <PlayArrowIcon style={{
-        alignSelf: !props.expandPlayer ? 'center' : 'start',
-        justifySelf: 'center',
-        fontSize: !props.expandPlayer ? '3.5rem' : '4.5rem',
-        color: 'white'
-      }}
-      onClick={props.handlePlay}/>
+      <StyledPreviousIcon expandPlayer={props.expandPlayer} onClick={props.handlePreviousSong}/>
+      {props.play ? <StyledPlayIcon expandPlayer={props.expandPlayer} onClick={props.handlePlay}/>
       :
-        <PauseIcon style={{
-          alignSelf: !props.expandPlayer ? 'center' : 'start',
-          justifySelf: 'center',
-          fontSize: !props.expandPlayer ? '3.5rem' : '4.5rem',
-          color: 'white'
-        }}
-          onClick={props.handlePaus}/>}
-      <SkipNextIcon style={{
-        alignSelf: !props.expandPlayer ? 'center' : 'start',
-        justifySelf: 'start',
-        fontSize: !props.expandPlayer ? '2.5rem' : '4.5rem',
-        color: 'white'
-      }} onClick={props.handleNextSong} />
+        <StyledPausIcon expandPlayer={props.expandPlayer} onClick={props.handlePaus}/>}
+      <StyledNextIcon expandPlayer={props.expandPlayer} onClick={props.handleNextSong} />
     </StyledPlayerWrapper>
   )
 }  

@@ -5,9 +5,9 @@ import CreateIcon from '@material-ui/icons/Create';
 export const StyledWrapper = styled.div`
   margin-top: 10vh;
   @media (min-width: 769px) {
-      width: 80%;
+      width: 70%;
       margin: 0 auto;
-      margin-top: 10vh;
+      margin-top: 6rem;
    }
 `;
 

@@ -1,13 +1,23 @@
 import styled from "styled-components";
 
+export const StyledWrapper = styled.div`
+    @media (min-width: 769px) {
+    width: 80%;
+    margin: 1rem auto;
+  }
+`
+
 export const StyledPLTitle = styled.p`
+  align-self: center;
   font-size: 1.5rem;
-  font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
   width: 100%;
   @media (min-width: 769px) {
     margin-top: 4rem;
-    padding: 0 0 10px 20px;
+    margin-bottom: 0;
+    padding: 0 0 0 20px;
   }
 `;
 
@@ -31,4 +41,5 @@ export const StyledHeadWrapper = styled.div`
   padding: 5px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-bottom: 1rem;
 `
