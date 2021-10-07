@@ -47,7 +47,7 @@ const ForgotPasswordModal = (props: ModalProps): JSX.Element => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography align='center' id="modal-modal-title" variant="h6" component="h2">
+          <Typography style={{color: 'black'}} align='center' id="modal-modal-title" variant="h6" component="h2">
             Forgot your password?
           </Typography>
         <Typography style={{color: 'black'}} align='center' id="modal-modal-description" sx={{ mt: 2 }}>
