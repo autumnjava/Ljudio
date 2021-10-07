@@ -4,7 +4,6 @@ import InsertPhotoRoundedIcon from '@material-ui/icons/InsertPhotoRounded';
 import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
-import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
 import Switch from '@mui/material/Switch';
 import { useHistory } from 'react-router';
 import Snackbar from '../../components/snackBar/SnackBar'
@@ -24,7 +23,6 @@ import { useParams } from 'react-router';
 
 const CreateDjRoom = () => {
   const { createDjRoom, setOpenSnackbar } = useContext(DjRoomContext)
-  const { getSongsFromPlaylist, playlist } = useContext(PlaylistContext)
   
   const [status, setStatus] = useState(false);
   const [checked, setChecked] = useState<boolean>(false);
@@ -55,28 +53,11 @@ const CreateDjRoom = () => {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     setUserId(userId);
-    if (id) {
-      getSongsFromPlaylist(id);
-    }
   }, []);
 
-  useEffect(() => {
-    if (id) {
-      console.log(Object.keys(playlist.songs).length)
-      Object.keys(playlist.songs).length == 0 ? setChecked(false) : setChecked(true);
-      checked ? setStatus(false) : setStatus(true);
-    }
-  }, [!playlist]);
-
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (id) {
-      Object.keys(playlist.songs).length == 0 ? setChecked(false) : setChecked(event.target.checked)
-      event.target.checked ? setStatus(true) : setStatus(false);
-    } else {
-      setChecked(false);
-      setStatus(false);
-    }
+      setChecked(event.target.checked);
+      setStatus(!status);
   };
   
   return (
