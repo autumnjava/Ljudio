@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
 import fetcher from '../fetcher';
-import { useSubscription, gql } from '@apollo/client';
 
 
 type Props = {
@@ -244,28 +243,7 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
     }
   }
 
-    const newUserSubscription = () => {
-      console.log('we get in here')
-      const USER_JOINED_SUBSCRIPTION = gql`
-      subscription {
-        userJoinedDjRoom {
-          _id
-          email
-          username
-        }
-      }
-    `;
-      const { data, loading } = useSubscription(
-        USER_JOINED_SUBSCRIPTION,
-      );
-    
-      if(data) {
-        console.log(data.userJoinedDjRoom, 'user joined to dj room');
-        // djRoom && getDjRoom(djRoom._id);
-      }
-    }
 
-    newUserSubscription();
 
   
   const values = {

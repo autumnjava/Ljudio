@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { UserContext } from '../../contexts/usersContext/UserContextProvider';
 import { useHistory } from 'react-router';
 import DjRoomOwnersPlaylistModal from '../../components/djRoomOwnersPlaylistModal/DjRoomOwnersPlaylistModal'
+import { useSubscription, gql } from '@apollo/client';
 
 
 const DjRoomPage = () => {
@@ -28,6 +29,16 @@ const DjRoomPage = () => {
   const history = useHistory();
 
   const [ playListId, setPlaylistId ] = useState('');
+  
+  const USER_JOINED_SUBSCRIPTION = gql`
+  subscription {
+    userJoinedDjRoom {
+      _id
+      email
+      username
+    }
+  }
+`;
   
   useEffect(() => {
     console.log('use effect1')
@@ -62,7 +73,18 @@ const DjRoomPage = () => {
     history.push('/myPlaylist');
   }
 
-console.log('outside useeffects djroompage')
+
+    const { data, loading } = useSubscription(
+      USER_JOINED_SUBSCRIPTION,
+    );
+  
+    useEffect( () => {
+      if(!loading && data){
+      console.log(data.userJoinedDjRoom, 'user joined to dj room');
+      console.log(djRoom, 'what do we get here?');
+    }
+    }, [data, loading]) 
+
 
   const renderIcons = () => (
     <StyledHeaderWrapper>
@@ -74,7 +96,7 @@ console.log('outside useeffects djroompage')
     </StyledHeaderWrapper>
   )
 
-  return (
+  return  (
     <StyledWrapper>
     <StyledSettingsWrapper>{renderIcons()}</StyledSettingsWrapper>
     {Object.prototype.toString.call(djRoom) === '[object Object]' && <Bubbels data={djRoom} />}
