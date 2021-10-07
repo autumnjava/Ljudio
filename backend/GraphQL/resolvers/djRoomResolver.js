@@ -174,8 +174,8 @@ const djRoomResolver = {
       const djRoom = await DjRoom.findOne({ _id: args.djRoomId });
 
       user.password = null;
-      pubsub.publish("USER_JOINED_DJROOM", {
-        userJoinedDjRoom: user
+      pubsub.publish("USER_CHANGE_DJROOM", {
+        userChangeDjRoom: user
       });
 
       return djRoom;
@@ -185,11 +185,16 @@ const djRoomResolver = {
   },
   disjoinDjRoom: async (_parent, args, __, ___) => {
     try {
-      await User.findOneAndUpdate({ _id: args._id }, {
+      const user = User.findOneAndUpdate({ _id: args._id }, {
         $set: {
           inRoomId: null
         }
       });
+
+      pubsub.publish("USER_CHANGE_DJROOM", {
+        userChangeDjRoom: user
+      });
+
       return true;
     } catch (error) {
       return error;
@@ -259,8 +264,8 @@ const djRoomResolver = {
     songTitleChanged: {
       subscribe: () => pubsub.asyncIterator(["SONG_TITLE_CHANGED"])
     },
-    userJoinedDjRoom: {
-      subscribe: () => pubsub.asyncIterator(["USER_JOINED_DJROOM"])
+    userChangeDjRoom: {
+      subscribe: () => pubsub.asyncIterator(["USER_CHANGE_DJROOM"])
     }
   }
 }

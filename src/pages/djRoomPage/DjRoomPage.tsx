@@ -32,9 +32,9 @@ const DjRoomPage = () => {
 
   const [ playListId, setPlaylistId ] = useState('');
   
-  const USER_JOINED_SUBSCRIPTION = gql`
+  const USER_CHANGE_SUBSCRIPTION = gql`
   subscription {
-    userJoinedDjRoom {
+    userChangeDjRoom {
       _id
       email
       username
@@ -43,7 +43,6 @@ const DjRoomPage = () => {
 `;
   
   useEffect(() => {
-    console.log('use effect1')
     const userId = localStorage.getItem('userId');
     setUserId(userId);
     getCurrentDjRoom();
@@ -55,7 +54,6 @@ const DjRoomPage = () => {
 
 
   const getCurrentDjRoom = async () => {
-    console.log('get current djroom')
     await getDjRoom(id);
   }
 
@@ -78,18 +76,20 @@ const DjRoomPage = () => {
     // history.push('/myPlaylist');
   }
 
-
     const { data, loading } = useSubscription(
-      USER_JOINED_SUBSCRIPTION,
+      USER_CHANGE_SUBSCRIPTION,
     );
   
     useEffect( () => {
       if(!loading && data){
-      console.log(data.userJoinedDjRoom, 'user joined to dj room');
-      console.log(djRoom, 'what do we get here?');
-    }
-    }, [data, loading]) 
+        getCurrentDjRoom();
 
+        if(iAm) {
+          console.log('only for dj room owner')
+          console.log(data.userChangeDjRoom, 'user left/joined to dj room');
+        }
+      }
+    }, [data, loading]) 
 
   const renderIcons = () => (
     <StyledHeaderWrapper>

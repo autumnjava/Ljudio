@@ -67,7 +67,6 @@ export const DjRoomProvider: React.FC<Props> = ({ children }: Props) => {
   }
 
   const getDjRoom = async (djRoomId: string) => {
-    console.log('inside here also?')
     const requestBody = {
       query: `query {
         getDjRoom(_id: "${djRoomId}"){
