@@ -10,6 +10,7 @@ import {
   StyledDeleteBtn,
   StyledIconWrapper
 } from "./StyledPlaylistItem";
+import playlistLogo from "../../pages/landingPage/videos/logo-playlist.png"
 
 
 
@@ -31,7 +32,7 @@ const PlaylistItem = ({ data }: any) => {
         </StyledIconWrapper>
         <StyledItemDiv onClick={() => history.push("/playlist/" + data[0]._id)}>
         <div>
-          <StyledImg src="https://i.postimg.cc/nVmnQDCz/analyze-sound-wave-music-512-362.png" alt="" />
+          <StyledImg src={playlistLogo} alt="" />
         </div>
         <StyledListTitle>{data[0].name}</StyledListTitle>
         </StyledItemDiv>
