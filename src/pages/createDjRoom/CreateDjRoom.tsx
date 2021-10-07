@@ -60,22 +60,9 @@ const CreateDjRoom = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (id) {
-      Object.keys(playlist.songs).length == 0 ? setChecked(false) : setChecked(true);
-      checked ? setStatus(false) : setStatus(true);
-    }
-  }, [!playlist]);
-
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (id) {
-      Object.keys(playlist.songs).length == 0 ? setChecked(false) : setChecked(event.target.checked)
-      event.target.checked ? setStatus(true) : setStatus(false);
-    } else {
-      setChecked(false);
-      setStatus(false);
-    }
+    setChecked(event.target.checked);
+    setStatus(!status)
   };
   
   return (
