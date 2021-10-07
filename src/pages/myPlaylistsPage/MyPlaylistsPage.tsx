@@ -7,7 +7,7 @@ import PlaylistItem from "../../components/playlistItem/PlaylistItem";
 import MyDjRoomItem from "../../components/myDjRoomItem/MyDjRoomItem";
 import { PlaylistContext } from '../../contexts/playlistsContext/PlaylistContextProvider';
 import { DjRoomContext } from '../../contexts/djRoomContext/djRoomContextProvider';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect } from 'react';
 import Snackbar from '../../components/snackBar/SnackBar'
 import { useHistory } from "react-router";
 import {

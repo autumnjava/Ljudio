@@ -1,5 +1,4 @@
 import React,{ useState, useRef, useContext, useEffect } from "react";
-import CreateIcon from '@material-ui/icons/Create';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CheckIcon from '@material-ui/icons/Check';
 import { UserContext } from '../../contexts/usersContext/UserContextProvider';
