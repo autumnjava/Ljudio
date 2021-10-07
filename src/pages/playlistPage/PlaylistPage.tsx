@@ -15,29 +15,6 @@ interface SongProps {
 }
 
 const PlaylistPage = () => {
-
-    const nameData = [
-    {
-      id: 1,
-      name: 'Ali'
-    },
-    {
-      id: 2,
-      name: 'Oscar'
-    },
-    {
-      id: 3,
-      name: 'Isabella'
-    },
-    {
-      id: 4,
-      name: 'Rebecca'
-    },
-     {
-      id: 5,
-      name: 'Alex'
-    }
-  ];
   
   const { id }: any = useParams();
   const { playlist, getSongsFromPlaylist, setCurrentSong, updatePlaylist } = useContext(PlaylistContext);
@@ -94,12 +71,12 @@ const PlaylistPage = () => {
   return (
     <>
       <DragDropContext onDragEnd={HandleOnDragEnd}>
-          {/* {playlist ? <StyledHeadWrapper>
+          {playlist ? <StyledHeadWrapper>
           <StyledPLTitle>{playlist.name}</StyledPLTitle>
           <StyledButton onClick={handlePlayAll}>PLAY ALL</StyledButton>
           </StyledHeadWrapper> : <p style={{ marginTop: "55px" }}>NAME NOT FOUND...</p>}
           
-         */}
+        
         
         {/* <div>
            <Droppable>
@@ -115,20 +92,18 @@ const PlaylistPage = () => {
         
 
 
-      <div style={{ marginTop: '15%' }}>
+      <div style={{ marginBottom: '3rem' }}>
        
           <Droppable droppableId="songs">
             {(provided: any, snapshot: any) => (
-              <ul {...provided.droppableProps} ref={provided.innerRef} style={{padding: '4px',userSelect: 'none', background: 'grey'}}>
+              <ul {...provided.droppableProps} ref={provided.innerRef} style={{padding: '4px',userSelect: 'none'}}>
           {songs && songs.map((song: SongProps, index: number) => {
             return (
               <Draggable key={song._id} draggableId={song._id + ''} index={index}>
                 {(provided: any, snapshot: any) => (
                   <div index={index} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} style={{
                       userSelect: 'none',
-                      padding: '16px',
-                      margin: '0 0 8px 0',
-                      backgroundColor: snapshot.isDragging ? 'green' : 'red',
+                      backgroundColor: snapshot.isDragging ? '#141414' : 'black',
                       color: 'White',
                       ...provided.draggableProps.style
                     }}>
@@ -140,7 +115,7 @@ const PlaylistPage = () => {
             );
           })}
                 {provided.placeholder}
-            </ul>           
+            </ul>    
             )}
             </Droppable>
           
