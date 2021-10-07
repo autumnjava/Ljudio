@@ -31,7 +31,7 @@ const DjRoomRowItem = ({ data }: any) => {
           <p>{data[0].name}</p>
           <p><StyledDJSpan>DJ: </StyledDJSpan>{data[0].dj}</p>
         </StyledInfoDiv>
-        <StyledAudienceIcon><PersonRoundedIcon color="secondary" /><StyledAudience>{data.userCount}</StyledAudience></StyledAudienceIcon>
+        <StyledAudienceIcon><PersonRoundedIcon color="secondary" /><StyledAudience>{data[0].userCount}</StyledAudience></StyledAudienceIcon>
         <StyledEnterRoom><ExitToAppRoundedIcon/></StyledEnterRoom>
       </StyledItemRow>
     </StyledItemWrapper>
